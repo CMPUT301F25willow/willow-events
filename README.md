@@ -1,0 +1,2 @@
+# willow-events
+This is the repository for our class project.
