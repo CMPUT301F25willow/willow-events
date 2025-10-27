@@ -29,9 +29,10 @@ public class OrganizerHome extends AppCompatActivity {
         events.add(new Event("eventFour"));
         events.add(new Event("eventFive"));
 
-        eventView = findViewById(R.id.eventList);
-        eventAdapter = new EventArrayAdapter(this, events);
-        eventView.setAdapter(eventAdapter);
+
+        eventView = findViewById(R.id.eventList);   //find event ListView
+        eventAdapter = new EventArrayAdapter(this, events); //set array adapter
+        eventView.setAdapter(eventAdapter);     //link array adapter to ListView
 
     }
 }
