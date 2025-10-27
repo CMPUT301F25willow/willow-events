@@ -43,4 +43,10 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="login_icon">Login icon</string>
+    <string name="user_name">USER</string>
+    <string name="notification_icon">notification icon</string>
+    <string name="filter_icon">filter icon</string>
+    <string name="all_events">All Events</string>
+    <string name="available_events">Available Events</string>
+    <string name="my_events">My Events</string>
 </resources>

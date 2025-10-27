@@ -33,7 +33,7 @@
         android:layout_marginTop="25dp"
 
 
-        android:text="USER"
+        android:text="@string/user_name"
 
         android:textColor="@color/blue_dark"
         android:textSize="34sp"
@@ -51,7 +51,7 @@
         android:layout_marginTop="20dp"
 
         android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_base"
+        android:backgroundTint="@color/blue_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
 
@@ -60,22 +60,118 @@
         app:layout_constraintTop_toBottomOf="@+id/MainBar" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="15dp"
+        android:id="@+id/accountIcon"
+        android:layout_width="37dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
         android:contentDescription="@string/login_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/account4_edited" />
+        app:srcCompat="@drawable/account4" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="43dp"
-        android:layout_height="52dp"
-        app:srcCompat="@drawable/account4"
-        tools:layout_editor_absoluteX="340dp"
-        tools:layout_editor_absoluteY="20dp" />
+        android:id="@+id/filterIcon"
+        android:layout_width="42dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+
+        android:contentDescription="@string/filter_icon"
+        app:layout_constraintEnd_toEndOf="@+id/SecondaryBar"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar"
+        app:srcCompat="@drawable/filter2" />
+
+    <ImageView
+        android:id="@+id/notificationIcon"
+        android:layout_width="53dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/notification_icon"
+        app:layout_constraintEnd_toStartOf="@+id/accountIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notifications" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/MyEvents"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toStartOf="@+id/filterIcon"
+        app:layout_constraintStart_toEndOf="@+id/AvailableEvents"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AvailableEvents"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
+        app:layout_constraintStart_toStartOf="@+id/AllEvents"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AllEvents"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toStartOf="@+id/AvailableEvents"
+        app:layout_constraintStart_toStartOf="@+id/SecondaryBar"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar" />
+
+    <TextView
+        android:id="@+id/allEventsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_events"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/AllEvents"
+        app:layout_constraintEnd_toEndOf="@+id/AllEvents"
+        app:layout_constraintStart_toStartOf="@+id/AllEvents"
+        app:layout_constraintTop_toTopOf="@+id/AllEvents" />
+
+    <TextView
+        android:id="@+id/availableEventsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/available_events"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/AvailableEvents"
+        app:layout_constraintEnd_toEndOf="@+id/AvailableEvents"
+        app:layout_constraintStart_toStartOf="@+id/AvailableEvents"
+        app:layout_constraintTop_toTopOf="@+id/AvailableEvents" />
+
+    <TextView
+        android:id="@+id/myEventsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_events"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/MyEvents"
+        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
+        app:layout_constraintStart_toStartOf="@+id/MyEvents"
+        app:layout_constraintTop_toTopOf="@+id/MyEvents" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
