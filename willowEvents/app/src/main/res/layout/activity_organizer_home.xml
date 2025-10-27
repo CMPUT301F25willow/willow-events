@@ -8,7 +8,7 @@
     tools:context=".OrganizerHome">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/profileBar"
         android:layout_width="386dp"
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
@@ -21,17 +21,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+        app:layout_constraintBottom_toBottomOf="@+id/profileBar"
+        app:layout_constraintStart_toStartOf="@+id/profileBar"
+        app:layout_constraintTop_toTopOf="@+id/profileBar" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createNewEvent"
         android:layout_width="386dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -41,13 +41,14 @@
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toBottomOf="@+id/profileBar" />
 
     <ListView
+        android:id="@+id/eventList"
         android:layout_width="386dp"
         android:layout_height="594dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/createNewEvent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
