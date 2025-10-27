@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EntrantHome">
+
+
+    <!--    FIRST BAR ELEMENTS-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/MainBar"
+
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/UserNameText"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+
+
+        android:text="@string/user_name"
+
+        android:textColor="@color/blue_dark"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/MainBar"
+        app:layout_constraintStart_toStartOf="@+id/MainBar"
+        app:layout_constraintTop_toTopOf="@+id/MainBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/accountIcon"
+        android:layout_width="37dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/login_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/account4" />
+
+    <ImageView
+        android:id="@+id/notificationIcon"
+        android:layout_width="53dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/notification_icon"
+        app:layout_constraintEnd_toStartOf="@+id/accountIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notifications" />
+
+    <!--    SECOND BAR ELEMENTS-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/SecondaryBar"
+
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MainBar" />
+
+    <ImageView
+        android:id="@+id/filterIcon"
+        android:layout_width="42dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+
+        android:contentDescription="@string/filter_icon"
+        app:layout_constraintEnd_toEndOf="@+id/SecondaryBar"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar"
+        app:srcCompat="@drawable/filter2" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/MyEvents"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toStartOf="@+id/filterIcon"
+        app:layout_constraintStart_toEndOf="@+id/AvailableEvents"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar" />
+
+    <TextView
+        android:id="@+id/myEventsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_events"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/MyEvents"
+        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
+        app:layout_constraintStart_toStartOf="@+id/MyEvents"
+        app:layout_constraintTop_toTopOf="@+id/MyEvents" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AvailableEvents"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
+        app:layout_constraintStart_toStartOf="@+id/AllEvents"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar" />
+
+    <TextView
+        android:id="@+id/availableEventsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/available_events"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/AvailableEvents"
+        app:layout_constraintEnd_toEndOf="@+id/AvailableEvents"
+        app:layout_constraintStart_toStartOf="@+id/AvailableEvents"
+        app:layout_constraintTop_toTopOf="@+id/AvailableEvents" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AllEvents"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toStartOf="@+id/AvailableEvents"
+        app:layout_constraintStart_toStartOf="@+id/SecondaryBar"
+        app:layout_constraintTop_toTopOf="@+id/SecondaryBar" />
+
+    <TextView
+        android:id="@+id/allEventsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_events"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/AllEvents"
+        app:layout_constraintEnd_toEndOf="@+id/AllEvents"
+        app:layout_constraintStart_toStartOf="@+id/AllEvents"
+        app:layout_constraintTop_toTopOf="@+id/AllEvents" />
+
+    <!--    EVENT ONE ELEMENTS-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventOneBase"
+
+        android:layout_width="386dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SecondaryBar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventOneTextBase"
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EventOneBase" />
+
+    <TextView
+        android:id="@+id/EventOneName"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="EVENT ONE NAME"
+
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EventOneTextBase" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventOneTag"
+
+        android:layout_width="60dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintStart_toStartOf="@+id/EventOneTextBase"
+        app:layout_constraintTop_toTopOf="@+id/EventOneTextBase" />
+
+    <TextView
+        android:id="@+id/EventOneDateTime"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Date Time"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventOneName" />
+
+    <TextView
+        android:id="@+id/EventOneTagText"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Available"
+
+        android:textColor="@color/black"
+        android:textSize="10sp"
+
+        app:layout_constraintEnd_toEndOf="@+id/EventOneTag"
+        app:layout_constraintStart_toStartOf="@+id/EventOneTag"
+        app:layout_constraintTop_toTopOf="@+id/EventOneTag" />
+
+    <!--    EVENT TWO ELEMENTS-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventTwoBase"
+
+        android:layout_width="386dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventOneBase" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventTwoTextBase"
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EventTwoBase" />
+
+    <TextView
+        android:id="@+id/EventTwoName"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="EVENT TWO NAME"
+
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EventTwoTextBase" />
+
+    <TextView
+        android:id="@+id/EventTwoDateTime"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Date Time"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventTwoName" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventTwoTag"
+
+        android:layout_width="60dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintStart_toStartOf="@+id/EventTwoTextBase"
+        app:layout_constraintTop_toTopOf="@+id/EventTwoTextBase" />
+
+    <TextView
+        android:id="@+id/EventTwoTagText"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Available"
+
+        android:textColor="@color/black"
+        android:textSize="10sp"
+
+        app:layout_constraintEnd_toEndOf="@+id/EventTwoTag"
+        app:layout_constraintStart_toStartOf="@+id/EventTwoTag"
+        app:layout_constraintTop_toTopOf="@+id/EventTwoTag" />
+
+    <!--    EVENT THREE ELEMENTS-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventThreeBase"
+
+        android:layout_width="386dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventTwoBase" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventThreeTextBase"
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EventThreeBase" />
+
+    <TextView
+        android:id="@+id/EventThreeName"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="EVENT THREE NAME"
+
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EventThreeTextBase" />
+
+    <TextView
+        android:id="@+id/EventThreeDateTime"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Date Time"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventThreeName" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/EventThreeTag"
+
+        android:layout_width="60dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintStart_toStartOf="@+id/EventOneTextBase"
+        app:layout_constraintTop_toTopOf="@+id/EventThreeTextBase" />
+
+    <TextView
+        android:id="@+id/EventThreeTagText"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Available"
+
+        android:textColor="@color/black"
+        android:textSize="10sp"
+
+        app:layout_constraintEnd_toEndOf="@+id/EventThreeTag"
+        app:layout_constraintStart_toStartOf="@+id/EventThreeTag"
+        app:layout_constraintTop_toTopOf="@+id/EventThreeTag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

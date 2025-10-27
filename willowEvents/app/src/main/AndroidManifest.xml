@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
+            android:name=".EntrantHome"
+            android:exported="false"
+            android:theme="@style/Theme.WillowEvents" />
+        <activity
             android:name=".OrganizerHome"
             android:exported="false" />
         <activity
