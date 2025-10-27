@@ -57,15 +57,16 @@
         android:layout_width="60dp"
         android:layout_height="15dp"
 
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
+
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
 
         app:layout_constraintStart_toStartOf="@+id/eventTextBase"
-        app:layout_constraintTop_toTopOf="@+id/eventTextBase"
-
-        />
+        app:layout_constraintTop_toTopOf="@+id/eventTextBase" />
 
     <TextView
         android:id="@+id/eventDateTime"
@@ -91,10 +92,9 @@
 
 
         android:text="Available"
-
         android:textColor="@color/black"
-        android:textSize="10sp"
 
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/eventTag"
         app:layout_constraintStart_toStartOf="@+id/eventTag"
         app:layout_constraintTop_toTopOf="@+id/eventTag" />

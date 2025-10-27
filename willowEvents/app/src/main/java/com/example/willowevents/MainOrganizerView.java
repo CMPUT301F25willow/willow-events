@@ -3,15 +3,11 @@ package com.example.willowevents;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class OrganizerHome extends AppCompatActivity {
+public class MainOrganizerView extends AppCompatActivity {
     ListView eventView;
     EventArrayAdapter eventAdapter;
     ArrayList<Event> events;
@@ -19,7 +15,7 @@ public class OrganizerHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organizer_home);
+        setContentView(R.layout.activity_main_organizer_view);
 
         events = new ArrayList<Event>();
 //      REPLACE WITH FIRESTORE SHIT:
@@ -29,9 +25,10 @@ public class OrganizerHome extends AppCompatActivity {
         events.add(new Event("eventFour"));
         events.add(new Event("eventFive"));
 
-        eventView = findViewById(R.id.eventList);
-        eventAdapter = new EventArrayAdapter(this, events);
-        eventView.setAdapter(eventAdapter);
+
+        eventView = findViewById(R.id.eventList);   //find event ListView
+        eventAdapter = new EventArrayAdapter(this, events); //set array adapter
+        eventView.setAdapter(eventAdapter);     //link array adapter to ListView
 
     }
 }

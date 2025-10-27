@@ -23,14 +23,16 @@ public class EventArrayAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
         View view;
         if (convertView == null) {
+            // Use layout blueprint, event_content.xml
             view = LayoutInflater.from(getContext()).inflate(R.layout.event_content, parent, false);
         } else {
             view = convertView;
         }
-
+        //get event to grab info from
         Event event = (Event) getItem(position);
-        TextView eventName = view.findViewById(R.id.eventName);
 
+        //get event name and display it in the view
+        TextView eventName = view.findViewById(R.id.eventName);
         eventName.setText(event.getName());
 
         return view;
