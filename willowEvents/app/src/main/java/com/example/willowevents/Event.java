@@ -1,5 +1,7 @@
 package com.example.willowevents;
 
+import java.util.ArrayList;
+
 public class Event {
 
     // TODO (probably for me Jeanard!): Find a way to uniquely identify an event ID (and should follow the same ID as the waitlist)
@@ -15,9 +17,9 @@ public class Event {
 
     // private Time deadline; soemthing
 
-    private List waitlist;
-    private List cancellist;
-    private List aprovelist;
+    private ArrayList<Entrant> waitlist;
+    private ArrayList<Entrant> cancellist;
+    private ArrayList<Entrant> aprovelist;
 
 
 
@@ -38,9 +40,9 @@ public class Event {
 
     public String getLotteryDetails(){ return lotteryDetails;};
 
-    public List getWaitlist(){ return waitlist;};
+    public ArrayList<Entrant> getWaitlist(){ return waitlist;};
 
-    public List getAprovelist() { return aprovelist;}
+    public ArrayList<Entrant> getAprovelist() { return aprovelist;}
 
-    public List getCancellist() { return cancellist;}
+    public ArrayList<Entrant> getCancellist() { return cancellist;}
 }
