@@ -6,7 +6,7 @@ public class Event {
     private String name;
     private String details;
     private String lotteryDetails = "This is lottery details which is seen in a scrollable form";
-    private Boolean location;   // figure soemthing out
+    // private Boolean location;   // figure soemthing out
 
     //private Organizer prganizer;
 
@@ -29,7 +29,6 @@ public class Event {
     public String getName() {
         return name;
     }
-
 
     public String getDetails(){ return details;};
 
