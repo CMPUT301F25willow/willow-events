@@ -8,11 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class OrganizerHome extends AppCompatActivity {
+public class EventCreationView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_organizer_home);
+        setContentView(R.layout.activity_event_creation_view);
     }
 }

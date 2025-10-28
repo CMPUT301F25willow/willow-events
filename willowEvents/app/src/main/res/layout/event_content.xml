@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="210dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/eventBase"
+
+        android:layout_width="386dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/eventTextBase"
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventBase" />
+
+    <TextView
+        android:id="@+id/eventName"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="EVENT ONE NAME"
+
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventTextBase" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/eventTag"
+
+        android:layout_width="60dp"
+        android:layout_height="15dp"
+
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:layout_constraintStart_toStartOf="@+id/eventTextBase"
+        app:layout_constraintTop_toTopOf="@+id/eventTextBase" />
+
+    <TextView
+        android:id="@+id/eventDateTime"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Date Time"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventName" />
+
+    <TextView
+        android:id="@+id/eventTagText"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:text="Available"
+        android:textColor="@color/black"
+
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/eventTag"
+        app:layout_constraintStart_toStartOf="@+id/eventTag"
+        app:layout_constraintTop_toTopOf="@+id/eventTag" />
+</androidx.constraintlayout.widget.ConstraintLayout>
