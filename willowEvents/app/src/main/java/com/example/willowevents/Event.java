@@ -3,6 +3,11 @@ package com.example.willowevents;
 import java.util.ArrayList;
 
 public class Event {
+
+    // TODO (probably for me Jeanard!): Find a way to uniquely identify an event ID (and should follow the same ID as the waitlist)
+    // my idea is to have device ID +    and Organizer has a soft aggregation
+    // since organizer can join events too I suggest moving to USER as abstract class and by inheritance split to organizer and user
+
     private String name;
     private String details;
     private String lotteryDetails = "This is lottery details which is seen in a scrollable form";
