@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="12dp"
     tools:context=".MainOrganizerView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profileBar"
-        android:layout_width="386dp"
+        android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:minHeight="?attr/actionBarSize"
@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/createNewEvent"
-        android:layout_width="386dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@drawable/rounded_corner_background"
@@ -44,15 +44,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileBar" />
-
-    <ListView
-        android:id="@+id/eventList"
-        android:layout_width="386dp"
-        android:layout_height="594dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createNewEvent" />
 
     <Button
         android:id="@+id/button3"
@@ -65,5 +56,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/profileBar"
         app:layout_constraintEnd_toEndOf="@+id/profileBar"
         app:layout_constraintTop_toTopOf="@+id/profileBar" />
+
+    <ListView
+        android:id="@+id/eventList"
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
