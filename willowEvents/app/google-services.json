@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "434321606266",
+    "project_id": "willow-events-e0cdf",
+    "storage_bucket": "willow-events-e0cdf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434321606266:android:c221fe8aa7df37f340ddc3",
+        "android_client_info": {
+          "package_name": "com.example.willowevents"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDESIfPeS2Snch55vifFxlQHCYDCiw7rQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
