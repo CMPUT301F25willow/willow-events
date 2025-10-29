@@ -13,7 +13,7 @@ public class Event {
     private String lotteryDetails = "This is lottery details which is seen in a scrollable form";
     // private Boolean location;   // figure soemthing out
 
-    //private Organizer prganizer;
+    //private Organizer prganizer;  //
 
     // private Time deadline; soemthing
 
