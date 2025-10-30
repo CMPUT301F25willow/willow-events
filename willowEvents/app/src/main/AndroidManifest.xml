@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".EventOrganizerView"
+            android:name=".EventOrganizerEntrantView"
             android:exported="false" />
         <activity
             android:name=".EventCreationView"

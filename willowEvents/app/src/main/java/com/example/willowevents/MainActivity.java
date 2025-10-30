@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //      FOR TESTING:
-        Intent myIntent = new Intent(MainActivity.this, EventOrganizerView.class);
+        Intent myIntent = new Intent(MainActivity.this, EventOrganizerEntrantView.class);
         startActivity(myIntent);
 
     }
