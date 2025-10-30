@@ -9,13 +9,26 @@ public abstract class User {
     private String email;
     private String phoneNumber;
 
-    private ArrayList<Event> joinList;
+    // MUST be a string because we must query from live DB model
+    private ArrayList<String> joinList;
     // private ArrayList<Notifications> notificationsList;
     // implement based on how notification will be implemented
 
     // Names can be the same but IDs should be unique to each User
 
-    public User() {  }
+    public User(
+            String ID,
+            String name,
+            String Email,
+            String phoneNumber,
+            ArrayList<> joinList
+    ) {
+        this.userID = ID;
+        this.name = name;
+        this.email = Email;
+        this.phoneNumber = phoneNumber;
+        this.joinList = joinList;
+    }
 
     public void setID(String ID) {this.userID = ID;}
 
@@ -33,7 +46,8 @@ public abstract class User {
 
     public String getPhoneNumber() { return phoneNumber;}
 
-    public ArrayList<Event> getJoinList() { return joinList;}
+
+    public ArrayList<String> getJoinList() { return joinList;}
 
 
 }

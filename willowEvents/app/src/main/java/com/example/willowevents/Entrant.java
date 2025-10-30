@@ -4,7 +4,13 @@ import java.util.ArrayList;
 
 public class Entrant extends User {
 
-    public Entrant() {  };
+    public Entrant(String ID,
+                   String name,
+                   String Email,
+                   String phoneNumber,
+                   ArrayList<String> joinList) {
+        super(ID, name, Email, phoneNumber, joinList);
+    };
 
 
 }
