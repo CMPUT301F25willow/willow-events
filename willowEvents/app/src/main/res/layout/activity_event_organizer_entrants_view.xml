@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventOrganizerView">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profile_bar"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="12dp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Organizer"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
+        app:layout_constraintStart_toStartOf="@+id/profile_bar"
+        app:layout_constraintTop_toTopOf="@+id/profile_bar" />
+
+    <ImageButton
+        android:id="@+id/profile_button"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_background"
+        android:padding="12dp"
+        android:text="Profile"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
+        app:layout_constraintEnd_toEndOf="@+id/profile_bar"
+        app:layout_constraintTop_toTopOf="@+id/profile_bar" />
+
+    <Button
+        android:id="@+id/info_button"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:text="Info"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_bar" />
+
+    <TextView
+        android:id="@+id/entrants_button"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="12dp"
+        android:text="Entrants"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_active"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_bar"/>
+
+    <Button
+        android:id="@+id/see_entrant_location_button"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="See where entrants joined from"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entrants_button" />
+
+    <TextView
+        android:id="@+id/waitlist_background"
+        android:layout_width="180dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/see_entrant_location_button" />
+
+    <TextView
+        android:id="@+id/enrolled_background"
+        android:layout_width="180dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_background" />
+
+    <TextView
+        android:id="@+id/cancelled_background"
+        android:layout_width="180dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_background" />
+
+    <TextView
+        android:id="@+id/invited_background"
+        android:layout_width="180dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/see_entrant_location_button" />
+
+    <TextView
+        android:id="@+id/waitlist_textview"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_active"
+        android:gravity="center"
+        android:text="Waitlist"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/waitlist_background"
+        app:layout_constraintStart_toStartOf="@+id/waitlist_background"
+        app:layout_constraintTop_toTopOf="@+id/waitlist_background" />
+
+    <TextView
+        android:id="@+id/invited_textview"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_active"
+        android:gravity="center"
+        android:text="Invited"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/invited_background"
+        app:layout_constraintTop_toTopOf="@+id/waitlist_background" />
+
+    <TextView
+        android:id="@+id/enrolled_textview"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_active"
+        android:gravity="center"
+        android:text="Enrolled"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/waitlist_background"
+        app:layout_constraintStart_toStartOf="@+id/waitlist_background"
+        app:layout_constraintTop_toTopOf="@+id/enrolled_background" />
+
+    <TextView
+        android:id="@+id/cancelled_textview"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_active"
+        android:gravity="center"
+        android:text="Cancelled"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/cancelled_background"
+        app:layout_constraintStart_toStartOf="@+id/cancelled_background"
+        app:layout_constraintTop_toTopOf="@+id/enrolled_background" />
+
+    <Button
+        android:id="@+id/waitlist_see_entrants_button"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="See List"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/waitlist_background"
+        app:layout_constraintStart_toStartOf="@+id/waitlist_background"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_textview" />
+
+    <Button
+        android:id="@+id/invited_see_entrants_button"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="See List"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/invited_background"
+        app:layout_constraintStart_toStartOf="@+id/invited_background"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_textview" />
+
+    <Button
+        android:id="@+id/enrolled_see_entrants_button"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="See List"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/enrolled_background"
+        app:layout_constraintStart_toStartOf="@+id/enrolled_background"
+        app:layout_constraintTop_toBottomOf="@+id/enrolled_textview" />
+
+    <Button
+        android:id="@+id/cancelled_see_entrants_button"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="See List"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/cancelled_background"
+        app:layout_constraintStart_toStartOf="@+id/cancelled_background"
+        app:layout_constraintTop_toBottomOf="@+id/enrolled_textview" />
+
+    <Button
+        android:id="@+id/waitlist_send_notification_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="Send Notification"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/waitlist_background"
+        app:layout_constraintStart_toStartOf="@+id/waitlist_background"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_see_entrants_button" />
+
+    <Button
+        android:id="@+id/invited_send_notification_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="Send Notification"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/invited_background"
+        app:layout_constraintStart_toStartOf="@+id/invited_background"
+        app:layout_constraintTop_toBottomOf="@+id/invited_see_entrants_button" />
+
+    <Button
+        android:id="@+id/enrolled_send_notification_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="Send Notification"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/enrolled_background"
+        app:layout_constraintStart_toStartOf="@+id/enrolled_background"
+        app:layout_constraintTop_toBottomOf="@+id/enrolled_see_entrants_button" />
+
+    <Button
+        android:id="@+id/cancelled_send_notification_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="Send Notification"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/cancelled_background"
+        app:layout_constraintStart_toStartOf="@+id/cancelled_background"
+        app:layout_constraintTop_toBottomOf="@+id/enrolled_see_entrants_button" />
+
+    <Button
+        android:id="@+id/waitlist_send_invitation_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:text="Send Invitation"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/waitlist_background"
+        app:layout_constraintStart_toStartOf="@+id/waitlist_background"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_send_notification_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

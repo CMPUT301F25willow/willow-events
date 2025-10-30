@@ -9,7 +9,7 @@
     tools:context=".MainOrganizerView">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/profileBar"
+        android:id="@+id/main_organizer_profile_bar"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@drawable/rounded_corner_background"
@@ -21,15 +21,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/main_organizer_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textSize="34sp"
         android:text="Organizer"
-        app:layout_constraintBottom_toBottomOf="@+id/profileBar"
-        app:layout_constraintStart_toStartOf="@+id/profileBar"
-        app:layout_constraintTop_toTopOf="@+id/profileBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/main_organizer_profile_bar"
+        app:layout_constraintStart_toStartOf="@+id/main_organizer_profile_bar"
+        app:layout_constraintTop_toTopOf="@+id/main_organizer_profile_bar" />
 
     <Button
         android:id="@+id/createNewEvent"
@@ -43,19 +43,19 @@
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileBar" />
+        app:layout_constraintTop_toBottomOf="@+id/main_organizer_profile_bar" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="2dp"
         android:text="Profile"
-        app:layout_constraintBottom_toBottomOf="@+id/profileBar"
-        app:layout_constraintEnd_toEndOf="@+id/profileBar"
-        app:layout_constraintTop_toTopOf="@+id/profileBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/main_organizer_profile_bar"
+        app:layout_constraintEnd_toEndOf="@+id/main_organizer_profile_bar"
+        app:layout_constraintTop_toTopOf="@+id/main_organizer_profile_bar" />
 
     <ListView
         android:id="@+id/eventList"
