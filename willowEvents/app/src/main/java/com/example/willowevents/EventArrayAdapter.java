@@ -24,7 +24,7 @@ public class EventArrayAdapter extends ArrayAdapter {
         View view;
         if (convertView == null) {
             // Use layout blueprint, event_content.xml
-            view = LayoutInflater.from(getContext()).inflate(R.layout.event_content, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.event_list_content, parent, false);
         } else {
             view = convertView;
         }
