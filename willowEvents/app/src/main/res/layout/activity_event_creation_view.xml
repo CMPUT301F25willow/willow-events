@@ -9,7 +9,7 @@
     tools:context=".EventCreationView">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/event_creation_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_corner_background"
@@ -18,92 +18,265 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/enter_name"
+        android:id="@+id/event_name_entry"
         android:layout_width="200dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:hint="Name"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/enter_location"
+        android:id="@+id/event_location_entry"
         android:layout_width="200dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:hint="Location"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/event_name_entry" />
 
     <TextView
-        android:id="@+id/name_prompt"
+        android:id="@+id/event_name_textview"
         android:layout_width="130dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center"
-        android:text="Enter Location:"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        android:text="Event Name:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
 
     <TextView
-        android:id="@+id/location_prompt"
+        android:id="@+id/event_location_textview"
         android:layout_width="130dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center"
-        android:text="Enter Location:"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/name_prompt" />
-
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="155dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/location_prompt" />
+        android:text="Event Location:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/event_name_textview" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/create_event_cancel_button"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_corner_background"
         android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/upload_image_button"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Upload Image"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_time_entry" />
+
+    <Button
+        android:id="@+id/create_event_create_button"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_corner_background"
         android:text="Create"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/event_date_entry"
+        android:layout_width="155dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="DD/MM/YYYY"
+        android:inputType="date"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_textview" />
+
+    <EditText
+        android:id="@+id/event_time_entry"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="hh:mm"
+        android:inputType="time"
+        android:padding="12dp"
+        app:layout_constraintStart_toEndOf="@+id/event_date_entry"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
+
+    <Switch
+        android:id="@+id/am_pm_switch"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/event_time_entry"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
+
+    <TextView
+        android:id="@+id/am_pm_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="AM | PM"
+        app:layout_constraintStart_toEndOf="@+id/event_time_entry"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
+
+    <TextView
+        android:id="@+id/geolocation_textview"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:text="Geolocation required:      "
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_scrollview" />
+
+    <TextView
+        android:id="@+id/limit_waitlist_textview"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="              | Size:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/geolocation_textview" />
+
+    <CheckBox
+        android:id="@+id/geolocation_checkbox"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/geolocation_textview"
+        app:layout_constraintEnd_toEndOf="@+id/geolocation_textview"
+        app:layout_constraintTop_toTopOf="@+id/geolocation_textview" />
+
+    <CheckBox
+        android:id="@+id/limit_waitlist_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Limit Waitlist"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/limit_waitlist_textview"
+        app:layout_constraintStart_toStartOf="@+id/limit_waitlist_textview"
+        app:layout_constraintTop_toTopOf="@+id/limit_waitlist_textview" />
+
+    <EditText
+        android:id="@+id/waitlist_size_limit_entry"
+        android:layout_width="70dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="50"
+        android:inputType="number"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/limit_waitlist_textview"
+        app:layout_constraintEnd_toEndOf="@+id/limit_waitlist_textview"
+        app:layout_constraintTop_toTopOf="@+id/limit_waitlist_textview" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="364dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="12dp"
+        android:text="Additional Details:"
+        android:textSize="16sp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limit_waitlist_textview" />
+
+    <EditText
+        android:id="@+id/additional_details_entry"
+        android:layout_width="340dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limit_waitlist_textview" />
+
+    <ScrollView
+        android:id="@+id/image_scrollview"
+        android:layout_width="356dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/upload_image_button">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/uploaded_image"
+                android:layout_width="match_parent"
+                android:layout_height="328dp"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
