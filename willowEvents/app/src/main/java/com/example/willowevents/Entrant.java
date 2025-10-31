@@ -12,5 +12,9 @@ public class Entrant extends User {
         super(ID, name, Email, phoneNumber, joinList);
     };
 
+    public Entrant(String name) {
+        super(name);
+    }
+
 
 }

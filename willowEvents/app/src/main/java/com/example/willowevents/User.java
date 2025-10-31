@@ -30,6 +30,10 @@ public abstract class User {
         this.joinList = joinList;
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public void setID(String ID) {this.userID = ID;}
 
     public void setEmail(String email) {this.email = email;}

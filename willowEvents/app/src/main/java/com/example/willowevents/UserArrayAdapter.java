@@ -1,6 +1,5 @@
 package com.example.willowevents;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class EventArrayAdapter extends ArrayAdapter {
-    public EventArrayAdapter(@NonNull Context context, ArrayList<Event> events){
-        super(context, 0, events);
+public class UserArrayAdapter extends ArrayAdapter {
+
+    public UserArrayAdapter(@NonNull Context context, ArrayList<User> users){
+        super(context, 0, users);
     }
 
     @NonNull
@@ -24,18 +24,19 @@ public class EventArrayAdapter extends ArrayAdapter {
         View view;
         if (convertView == null) {
             // Use layout blueprint, event_content.xml
-            view = LayoutInflater.from(getContext()).inflate(R.layout.event_list_content, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.user_list_content, parent, false);
         } else {
             view = convertView;
         }
         //get event to grab info from
-        Event event = (Event) getItem(position);
+        User user = (User) getItem(position);
 
         //get event name and display it in the view
-        TextView eventName = view.findViewById(R.id.eventName);
-        eventName.setText(event.getName());
+        TextView userName = view.findViewById(R.id.eventName);
+        userName.setText(user.getName());
 
         return view;
     }
-}
 
+
+}
