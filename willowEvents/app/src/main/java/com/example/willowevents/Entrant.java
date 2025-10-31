@@ -6,5 +6,9 @@ public class Entrant extends User {
 
     public Entrant() {  };
 
+    public Entrant(String name) {
+        super(name);
+    }
+
 
 }
