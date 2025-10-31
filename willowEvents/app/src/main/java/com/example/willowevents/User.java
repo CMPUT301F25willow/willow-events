@@ -21,7 +21,7 @@ public abstract class User {
             String name,
             String Email,
             String phoneNumber,
-            ArrayList<> joinList
+            ArrayList<String> joinList
     ) {
         this.userID = ID;
         this.name = name;

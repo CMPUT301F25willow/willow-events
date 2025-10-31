@@ -26,6 +26,16 @@ public class UserListView extends AppCompatActivity {
 
         users = new ArrayList<User>();
 
+//      REPLACE WITH FIRESTORE SHIT:
+        users.add(new Entrant("eventOne"));
+        users.add(new Entrant("eventTwo"));
+        users.add(new Entrant("eventThree"));
+        users.add(new Entrant("eventFour"));
+        users.add(new Entrant("eventFive"));
+        users.add(new Entrant("eventSix"));
+        users.add(new Entrant("eventSeven"));
+        users.add(new Entrant("eventEight"));
+
 
         userView = findViewById(R.id.user_list);   //find event ListView
         userAdapter = new UserArrayAdapter(this, users); //set array adapter

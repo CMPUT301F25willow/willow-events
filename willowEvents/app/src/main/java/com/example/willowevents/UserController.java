@@ -49,33 +49,36 @@ public class UserController {
 
         https://firebase.google.com/docs/firestore/query-data/get-data?hl=fr#java
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-        @Override
-        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    String userType = document.getString("userType");
-                    String name = document.getString("name");
-                    String email = document.getString("email");
-                    String phoneNumber = document.getString("phoneNumber");
-                    ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String userType = document.getString("userType");
+                        String name = document.getString("name");
+                        String email = document.getString("email");
+                        String phoneNumber = document.getString("phoneNumber");
+                        ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
 
-                    if (userType == "organizer") {
-                        Organizer organizer = new Organizer();
-                    }
-                    else {
-                        Entrant entrant = new Entrant(userID,
+                        if (userType == "organizer") {
+                            Organizer organizer = new Organizer();
+                        }
+                        else {
+                            Entrant entrant = new Entrant(userID,
                                 name,
                                 email,
                                 phoneNumber,
                                 joinList);
-                    }
+                        }
 
-            } else {
-                Log.e("Firestore", "get failed with ", task.getException());
+                    } else {
+                        Log.e("Firestore", "get failed with ", task.getException());
+                    }
+                }
             }
-        }
-    });
+        });
+        return null;
+    }
 
 
     /**
