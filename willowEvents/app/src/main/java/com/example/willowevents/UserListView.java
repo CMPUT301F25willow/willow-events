@@ -27,14 +27,13 @@ public class UserListView extends AppCompatActivity {
         users = new ArrayList<User>();
 
 //      REPLACE WITH FIRESTORE SHIT:
-        users.add(new Entrant("eventOne"));
-        users.add(new Entrant("eventTwo"));
-        users.add(new Entrant("eventThree"));
-        users.add(new Entrant("eventFour"));
-        users.add(new Entrant("eventFive"));
-        users.add(new Entrant("eventSix"));
-        users.add(new Entrant("eventSeven"));
-        users.add(new Entrant("eventEight"));
+        users.add(new Entrant("userOne"));
+        users.add(new Entrant("userTwo"));
+        users.add(new Entrant("userThree"));
+        users.add(new Entrant("userFour"));
+        users.add(new Entrant("userFive"));
+        users.add(new Entrant("userSix"));
+        users.add(new Entrant("userSeven"));
 
 
         userView = findViewById(R.id.user_list);   //find event ListView

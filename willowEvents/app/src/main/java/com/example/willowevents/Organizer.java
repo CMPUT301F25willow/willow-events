@@ -8,7 +8,14 @@ public class Organizer extends User {
 
     private ArrayList<Event> createdList;
     // List of events created by organizer
-    public Organizer() {  };
+    public Organizer(String ID,
+                     String name,
+                     String Email,
+                     String phoneNumber,
+                     ArrayList<String> joinList) {
+        super(ID, name, Email, phoneNumber, joinList);
+    };
+    public Organizer (){}
 
     public ArrayList<Event> getCreatedList() { return this.createdList; };
 

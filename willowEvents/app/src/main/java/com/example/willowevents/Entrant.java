@@ -11,6 +11,7 @@ public class Entrant extends User {
                    ArrayList<String> joinList) {
         super(ID, name, Email, phoneNumber, joinList);
     };
+    public Entrant(){}
 
     public Entrant(String name) {
         super(name);
