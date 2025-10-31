@@ -7,7 +7,8 @@
     <color name="blue_base">#FFA4D2FC</color>
     <color name="blue_background">#FFDEEFFF</color>
     <color name="blue_active">#FF25B7FF</color>
-    <color name="blue_dark">#FF0E3960</color>
+    <color name="blue_dark">#FF4586D9</color>
+    <color name="blue_navy">#FF0E3960</color>
     <color name="green_base">#FFC8FFAE</color>
     <color name="green_background">#FFF4FFEF</color>
     <color name="green_active">#FF7ED957</color>

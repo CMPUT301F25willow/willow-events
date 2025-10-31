@@ -83,9 +83,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/rounded_corner_background"
         android:text="Cancel"
         android:textSize="18sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/blue_base"
+        app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background" />
 
@@ -94,10 +96,11 @@
         android:layout_width="240dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_dark"
         android:text="Upload Image"
         android:textSize="18sp"
+        android:textColor="@color/black"
+        app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_time_entry" />
@@ -108,9 +111,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_dark"
         android:text="Create"
+        android:textColor="@color/black"
         android:textSize="18sp"
+        app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="parent" />
 

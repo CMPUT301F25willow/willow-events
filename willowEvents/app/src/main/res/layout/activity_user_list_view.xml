@@ -21,7 +21,7 @@
     <ListView
         android:id="@+id/user_list"
         android:layout_width="370dp"
-        android:layout_height="640dp"
+        android:layout_height="630dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:backgroundTint="@color/blue_base"
         android:text="Close"
         android:textColor="@color/black"
-        app:cornerRadius="10dp"
+        app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
