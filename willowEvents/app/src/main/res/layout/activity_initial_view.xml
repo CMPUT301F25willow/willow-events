@@ -5,6 +5,62 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="40dp"
+    android:background="@color/blue_base"
     tools:context=".InitialView">
 
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:text="APP NAME"
+        android:textAlignment="center"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="LOG IN"
+        app:flow_verticalBias="200"
+        app:layout_constraintEnd_toStartOf="@+id/signupButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="SIGN UP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/loginButton"
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
+
+    <Button
+        android:id="@+id/loginDeviceButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="LOG IN    WITH DEVICE ID"
+        app:layout_constraintEnd_toStartOf="@+id/signupDeviceButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <Button
+        android:id="@+id/signupDeviceButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="SIGN UP WITH DEVICE ID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/loginDeviceButton"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
