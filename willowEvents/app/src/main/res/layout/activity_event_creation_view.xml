@@ -80,13 +80,13 @@
     <Button
         android:id="@+id/create_event_cancel_button"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
-        android:text="Cancel"
-        android:textSize="18sp"
-        android:textColor="@color/black"
         android:backgroundTint="@color/blue_base"
+        android:text="Cancel"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background" />
@@ -108,7 +108,7 @@
     <Button
         android:id="@+id/create_event_create_button"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:backgroundTint="@color/blue_dark"
@@ -172,31 +172,31 @@
         android:id="@+id/geolocation_textview"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center_vertical"
         android:padding="12dp"
         android:text="Geolocation required:      "
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/limit_waitlist_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_scrollview" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/limit_waitlist_textview"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center"
         android:padding="12dp"
         android:text="              | Size:"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geolocation_textview" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/geolocation_checkbox"
@@ -236,14 +236,14 @@
         android:id="@+id/textView"
         android:layout_width="364dp"
         android:layout_height="92dp"
-        android:layout_marginTop="12dp"
-        android:text="Additional Details:"
-        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
+        android:text="Additional Details:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/create_event_cancel_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/limit_waitlist_textview" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/additional_details_entry"
@@ -263,11 +263,13 @@
     <ScrollView
         android:id="@+id/image_scrollview"
         android:layout_width="356dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="277dp"
+        android:layout_marginBottom="302dp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
-        app:layout_constraintTop_toBottomOf="@+id/upload_image_button">
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background">
 
         <LinearLayout
             android:layout_width="match_parent"
