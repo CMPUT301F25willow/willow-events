@@ -20,14 +20,14 @@ public abstract class User {
             String ID,
             String name,
             String Email,
-            String phoneNumber,
-            ArrayList<> joinList
+            String phoneNumber
+//            ArrayList<> joinList
     ) {
         this.userID = ID;
         this.name = name;
         this.email = Email;
         this.phoneNumber = phoneNumber;
-        this.joinList = joinList;
+//        this.joinList = joinList;
     }
 
     public User(String name) {
