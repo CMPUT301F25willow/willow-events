@@ -27,55 +27,65 @@
         android:id="@+id/event_name_entry"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:hint="Name"
         android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
-        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
+        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.018" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/event_location_entry"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:hint="Location"
         android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
-        app:layout_constraintTop_toBottomOf="@+id/event_name_entry" />
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.11" />
 
     <TextView
         android:id="@+id/event_name_textview"
         android:layout_width="130dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center"
         android:text="Event Name:"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
+        app:layout_constraintEnd_toStartOf="@+id/event_name_entry"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background"
-        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.018" />
 
     <TextView
         android:id="@+id/event_location_textview"
         android:layout_width="130dp"
         android:layout_height="48dp"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center"
         android:text="Event Location:"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background"
-        app:layout_constraintTop_toBottomOf="@+id/event_name_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/event_name_textview"
+        app:layout_constraintVertical_bias="0.001" />
 
     <Button
         android:id="@+id/create_event_cancel_button"
@@ -89,18 +99,64 @@
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background" />
 
+
     <Button
         android:id="@+id/upload_image_button"
         android:layout_width="240dp"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_dark"
         android:text="Upload Image"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_time_entry" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
+
+    <Button
+        android:id="@+id/event_start_date_button"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Event Date"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/registration_deadline_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235" />
+
+    <Button
+        android:id="@+id/registration_open_button"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Open Date"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/registration_deadline_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235" />
+
+    <Button
+        android:id="@+id/registration_deadline_button"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Deadline Date"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235" />
 
     <Button
         android:id="@+id/create_event_create_button"
@@ -113,55 +169,6 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/event_date_entry"
-        android:layout_width="155dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="DD/MM/YYYY"
-        android:inputType="date"
-        android:paddingHorizontal="8dp"
-        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
-        app:layout_constraintTop_toBottomOf="@+id/event_location_textview" />
-
-    <EditText
-        android:id="@+id/event_time_entry"
-        android:layout_width="120dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="hh:mm"
-        android:inputType="time"
-        android:padding="12dp"
-        app:layout_constraintStart_toEndOf="@+id/event_date_entry"
-        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
-
-    <Switch
-        android:id="@+id/am_pm_switch"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toEndOf="@+id/event_time_entry"
-        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
-
-    <TextView
-        android:id="@+id/am_pm_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="AM | PM"
-        app:layout_constraintStart_toEndOf="@+id/event_time_entry"
-        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
 
     <TextView
         android:id="@+id/geolocation_textview"
@@ -277,6 +284,44 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/event_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/1/25|12:00"
+        app:layout_constraintBottom_toTopOf="@+id/event_start_date_button"
+        app:layout_constraintEnd_toStartOf="@+id/registration_deadline_date"
+        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.985" />
+
+    <TextView
+        android:id="@+id/registration_deadline_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/1/25|12:00"
+        app:layout_constraintBottom_toTopOf="@+id/registration_deadline_button"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.992" />
+
+    <TextView
+        android:id="@+id/registration_open_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/1/25|12:00"
+        app:layout_constraintBottom_toTopOf="@+id/registration_open_button"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.654"
+        app:layout_constraintStart_toEndOf="@+id/registration_deadline_date"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="1.0" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

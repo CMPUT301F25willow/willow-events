@@ -13,8 +13,12 @@ public class Event {
 
     private String eventID; // Can be changed to int it needed
     private String name;
-    private String details; // description for event
+    private String details = " ";
     private String lotteryDetails = "This is lottery details which is seen in a scrollable form";
+
+    private String eventDate = "1/1/25|12:00PM";
+    private String registrationDeadline = "1/1/25|12:00PM";
+    private String registrationOpen ="1/1/25|12:00PM";
 
     // private Boolean location;   // figure something out
 
@@ -34,10 +38,14 @@ public class Event {
     public void setName(String name) {
         this.name = name;
     }
-
     public void setDetails(String details) {this.details = details;}
     public void setLotteryDetails(String lotteryDetails){ this.lotteryDetails = lotteryDetails;}
 
+    public void setEventDate(String eventDate) {this.eventDate = eventDate;}
+
+    public void setRegistrationDeadline(String registrationDeadline) {this.registrationDeadline = registrationDeadline;}
+
+    public void setRegistrationOpen(String registrationOpen) {this.registrationOpen = registrationOpen;}
 
     public String getName() {
         return name;
@@ -52,4 +60,16 @@ public class Event {
     public ArrayList<User> getAproveList() { return aproveList;}
 
     public ArrayList<User> getCancelList() { return cancelList;}
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public String getRegistrationDeadline() {
+        return registrationDeadline;
+    }
+    public String getRegistrationOpen(){
+        return registrationOpen;
+    }
+
 }
