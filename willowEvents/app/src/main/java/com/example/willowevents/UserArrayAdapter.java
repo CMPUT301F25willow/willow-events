@@ -32,7 +32,7 @@ public class UserArrayAdapter extends ArrayAdapter {
         User user = (User) getItem(position);
 
         //get event name and display it in the view
-        TextView userName = view.findViewById(R.id.user_name);
+        TextView userName = view.findViewById(R.id.title_text);
         userName.setText(user.getName());
 
         return view;
