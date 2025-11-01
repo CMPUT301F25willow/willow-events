@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="480dp"
+    android:padding="12dp"
+    tools:context=".EventCreationView">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/event_creation_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/event_name_entry"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:hint="Name"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/event_location_entry"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:hint="Location"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_name_entry" />
+
+    <TextView
+        android:id="@+id/event_name_textview"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:gravity="center"
+        android:text="Event Name:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
+
+    <TextView
+        android:id="@+id/event_location_textview"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:gravity="center"
+        android:text="Event Location:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/event_name_textview" />
+
+    <Button
+        android:id="@+id/create_event_cancel_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/blue_base"
+        android:text="Cancel"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background" />
+
+
+    <Button
+        android:id="@+id/event_start_date_button"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Event Date"
+        android:textSize="10sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toStartOf="@+id/registration_deadline_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_start_date" />
+
+    <Button
+        android:id="@+id/registration_open_button"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Open Date"
+        android:textSize="10sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/registration_deadline_button"
+        app:layout_constraintTop_toBottomOf="@+id/registration_open_date" />
+
+    <Button
+        android:id="@+id/registration_deadline_button"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Deadline Date"
+        android:textSize="10sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registration_deadline_date" />
+
+    <Button
+        android:id="@+id/create_event_create_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/blue_active"
+        android:text="Update"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/limit_waitlist_textview"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="              | Size:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/limit_waitlist_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Limit Waitlist"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/limit_waitlist_textview"
+        app:layout_constraintStart_toStartOf="@+id/limit_waitlist_textview"
+        app:layout_constraintTop_toTopOf="@+id/limit_waitlist_textview" />
+
+    <EditText
+        android:id="@+id/waitlist_size_limit_entry"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="50"
+        android:inputType="number"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/limit_waitlist_textview"
+        app:layout_constraintEnd_toEndOf="@+id/limit_waitlist_textview"
+        app:layout_constraintTop_toTopOf="@+id/limit_waitlist_textview" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
+        android:paddingHorizontal="12dp"
+        android:text="Additional Details:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/create_event_create_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/additional_details_entry"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/event_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="1/1/25|12:00"
+        app:layout_constraintEnd_toStartOf="@+id/registration_deadline_date"
+        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_textview" />
+
+    <TextView
+        android:id="@+id/registration_deadline_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="1/1/25|12:00"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
+
+    <TextView
+        android:id="@+id/registration_open_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="1/1/25|12:00"
+        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.654"
+        app:layout_constraintStart_toEndOf="@+id/registration_deadline_date"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
