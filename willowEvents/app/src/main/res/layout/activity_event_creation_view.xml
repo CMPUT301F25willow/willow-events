@@ -214,7 +214,7 @@
 
     <EditText
         android:id="@+id/waitlist_size_limit_entry"
-        android:layout_width="70dp"
+        android:layout_width="66dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_corner_background"
@@ -269,7 +269,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="310dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

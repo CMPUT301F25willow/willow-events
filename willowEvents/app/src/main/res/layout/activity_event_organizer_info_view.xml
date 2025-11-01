@@ -8,6 +8,48 @@
     android:layout_height="match_parent"
     tools:context=".EventOrganizerEntrantView">
 
+    <TextView
+        android:id="@+id/selection_info2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="266dp"
+        android:layout_marginBottom="132dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/image_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="322dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="146dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/uploaded_image"
+                android:layout_width="match_parent"
+                android:layout_height="328dp"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+    </ScrollView>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profile_bar"
         android:layout_width="match_parent"
@@ -21,6 +63,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/event_info_banner"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="12dp"
+        android:textSize="18sp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
@@ -31,6 +90,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
         app:layout_constraintStart_toStartOf="@+id/profile_bar"
         app:layout_constraintTop_toTopOf="@+id/profile_bar" />
+
+    <TextView
+        android:id="@+id/event_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Event | Date | Time"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_info_banner"
+        app:layout_constraintStart_toStartOf="@+id/event_info_banner"
+        app:layout_constraintTop_toTopOf="@+id/event_info_banner" />
 
     <ImageButton
         android:id="@+id/profile_button"
@@ -53,12 +123,12 @@
         android:layout_height="48dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="12dp"
-        android:text="Info"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:textColor="@color/black"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_active"
+        android:gravity="center"
+        android:text="Info"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_bar" />
 
@@ -75,5 +145,100 @@
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_bar"/>
+
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/green_active"
+        android:text="edit"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toEndOf="@+id/event_info_banner"
+        app:layout_constraintTop_toTopOf="@+id/event_info_banner" />
+
+    <Button
+        android:id="@+id/qr_code_button"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/green_base"
+        android:text="Show QR Code"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
+
+    <Button
+        android:id="@+id/location_req_button"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/green_base"
+        android:text="Location req"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
+
+    <Button
+        android:id="@+id/upload_image_button"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/green_base"
+        android:text="upload new Image"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
+
+    <TextView
+        android:id="@+id/selection_info"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_background"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="34dp"
+        android:text="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="180dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="Selectoon Process"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/selection_info" />
+
+    <TextView
+        android:id="@+id/poster_heading"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/green_base"
+        android:gravity="center"
+        android:text="Event Poster"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/selection_info2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
