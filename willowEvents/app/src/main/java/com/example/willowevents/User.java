@@ -28,31 +28,47 @@ public abstract class User {
         this.name = name;
         this.email = Email;
         this.phoneNumber = phoneNumber;
-        this.joinList = joinList;
+//        this.joinList = joinList;
     }
 
     public User(String name) {
         this.name = name;
     }
 
-    public void setID(String ID) {this.userID = ID;}
+    public void setID(String ID) {
+        this.userID = ID;
+    }
 
-    public void setEmail(String email) {this.email = email;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getName(){ return name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getID() { return userID;}
+    public String getID() {
+        return userID;
+    }
 
-    public String getEmail() { return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public String getPhoneNumber() { return phoneNumber;}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-
-    public ArrayList<String> getJoinList() { return joinList;}
-
+    public ArrayList<String> getJoinList() {
+        return joinList;
+    }
 
 }

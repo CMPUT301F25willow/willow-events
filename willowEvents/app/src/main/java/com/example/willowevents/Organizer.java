@@ -6,18 +6,16 @@ import java.util.ArrayList;
 
 public class Organizer extends User {
 
-    private ArrayList<Event> createdList;
+    private ArrayList<String> createdList;
     // List of events created by organizer
-    public Organizer(String ID,
-                     String name,
-                     String Email,
-                     String phoneNumber,
-                     ArrayList<String> joinList) {
+    public Organizer(String ID, String name,
+String Email,
+String phoneNumber,
+ArrayList<String> joinList) {
         super(ID, name, Email, phoneNumber, joinList);
     };
-    public Organizer (){}
 
-    public ArrayList<Event> getCreatedList() { return this.createdList; };
+    public ArrayList<String> getCreatedList() { return this.createdList; };
 
 
 

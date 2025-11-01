@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
+            android:name=".NotificationView"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileView"
+            android:exported="false" />
+        <activity
+            android:name=".InitialView"
+            android:exported="false" />
+        <activity
             android:name=".UserListView"
             android:exported="false" />
         <activity
@@ -21,7 +30,7 @@
             android:name=".EventCreationView"
             android:exported="false" />
         <activity
-            android:name=".EntrantHome"
+            android:name=".EntrantHomeView"
             android:exported="false"
             android:theme="@style/Theme.WillowEvents" />
         <activity
