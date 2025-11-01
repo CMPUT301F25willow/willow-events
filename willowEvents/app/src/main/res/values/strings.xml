@@ -50,4 +50,5 @@
     <string name="available_events">Available Events</string>
     <string name="my_events">My Events</string>
     <string name="error_message">ERROR</string>
+    <string name="profile_data">Profile Data</string>
 </resources>
