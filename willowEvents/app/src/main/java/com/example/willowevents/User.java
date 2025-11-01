@@ -20,8 +20,8 @@ public abstract class User {
             String ID,
             String name,
             String Email,
-            String phoneNumber
-//            ArrayList<> joinList
+            String phoneNumber,
+            ArrayList<String> joinList
     ) {
         this.userID = ID;
         this.name = name;
@@ -34,24 +34,40 @@ public abstract class User {
         this.name = name;
     }
 
-    public void setID(String ID) {this.userID = ID;}
+    public void setID(String ID) {
+        this.userID = ID;
+    }
 
-    public void setEmail(String email) {this.email = email;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getName(){ return name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getID() { return userID;}
+    public String getID() {
+        return userID;
+    }
 
-    public String getEmail() { return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public String getPhoneNumber() { return phoneNumber;}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-
-    public ArrayList<String> getJoinList() { return joinList;}
-
+    public ArrayList<String> getJoinList() {
+        return joinList;
+    }
 
 }
