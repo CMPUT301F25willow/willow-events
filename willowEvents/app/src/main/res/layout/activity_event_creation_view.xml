@@ -25,35 +25,33 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/event_name_entry"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:hint="Name"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background"
-        app:layout_constraintTop_toTopOf="@+id/event_creation_background" />
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.018" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/event_location_entry"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:hint="Location"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
+        app:layout_constraintHorizontal_bias="0.935"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background"
-        app:layout_constraintTop_toBottomOf="@+id/event_name_entry" />
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.11" />
 
     <TextView
         android:id="@+id/event_name_textview"
@@ -92,30 +90,25 @@
     <Button
         android:id="@+id/create_event_cancel_button"
         android:layout_width="160dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/blue_base"
+        android:background="@drawable/rounded_corner_background"
         android:text="Cancel"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintStart_toStartOf="@+id/event_creation_background" />
 
 
     <Button
         android:id="@+id/upload_image_button"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="48dp"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="78dp"
+        android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_dark"
         android:text="Upload Image"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -168,14 +161,12 @@
     <Button
         android:id="@+id/create_event_create_button"
         android:layout_width="160dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/blue_dark"
+        android:background="@drawable/rounded_corner_background"
         android:text="Create"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -183,31 +174,31 @@
         android:id="@+id/geolocation_textview"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center_vertical"
         android:padding="12dp"
         android:text="Geolocation required:      "
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/limit_waitlist_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_scrollview" />
 
     <TextView
         android:id="@+id/limit_waitlist_textview"
         android:layout_width="280dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
         android:gravity="center"
         android:padding="12dp"
         android:text="              | Size:"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/geolocation_textview" />
 
     <CheckBox
         android:id="@+id/geolocation_checkbox"
@@ -247,14 +238,14 @@
         android:id="@+id/textView"
         android:layout_width="364dp"
         android:layout_height="92dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_base"
+        android:layout_marginTop="12dp"
         android:text="Additional Details:"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/create_event_cancel_button"
+        android:background="@drawable/rounded_corner_background"
+        android:backgroundTint="@color/blue_base"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limit_waitlist_textview" />
 
     <EditText
         android:id="@+id/additional_details_entry"
@@ -273,16 +264,12 @@
 
     <ScrollView
         android:id="@+id/image_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="277dp"
+        android:layout_width="356dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="302dp"
-        app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="@+id/event_creation_background"
-        app:layout_constraintStart_toStartOf="@+id/event_creation_background"
-        app:layout_constraintTop_toTopOf="@+id/event_creation_background">
+        app:layout_constraintTop_toBottomOf="@+id/upload_image_button">
 
         <LinearLayout
             android:layout_width="match_parent"
