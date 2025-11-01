@@ -92,7 +92,6 @@
         android:minHeight="?attr/actionBarSize"
         android:padding="12dp"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toStartOf="edit_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MainBar" />
 
@@ -103,7 +102,7 @@
         android:layout_margin="30dp"
         android:backgroundTint="@color/green_base"
         android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/profile_background"
         app:layout_constraintTop_toBottomOf="@id/MainBar" />
 
     <ImageView
