@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="480dp"
     android:padding="12dp"
     tools:context=".EventCreationView">
 
@@ -99,20 +99,6 @@
 
 
     <Button
-        android:id="@+id/upload_image_button"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/blue_dark"
-        android:text="Upload Image"
-        android:textSize="18sp"
-        app:cornerRadius="@dimen/corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_deadline_button" />
-
-    <Button
         android:id="@+id/event_start_date_button"
         android:layout_width="114dp"
         android:layout_height="40dp"
@@ -156,27 +142,12 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:backgroundTint="@color/blue_active"
-        android:text="Create"
+        android:text="Update"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/event_creation_background"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/geolocation_textview"
-        android:layout_width="280dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_base"
-        android:gravity="center_vertical"
-        android:padding="12dp"
-        android:text="Geolocation required:      "
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/limit_waitlist_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/limit_waitlist_textview"
@@ -192,15 +163,6 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <CheckBox
-        android:id="@+id/geolocation_checkbox"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/geolocation_textview"
-        app:layout_constraintEnd_toEndOf="@+id/geolocation_textview"
-        app:layout_constraintTop_toTopOf="@+id/geolocation_textview" />
 
     <CheckBox
         android:id="@+id/limit_waitlist_checkbox"
@@ -260,33 +222,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
-    <ScrollView
-        android:id="@+id/image_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="284dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="310dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/uploaded_image"
-                android:layout_width="match_parent"
-                android:layout_height="328dp"
-                app:srcCompat="@mipmap/ic_launcher" />
-
-        </LinearLayout>
-    </ScrollView>
-
     <TextView
         android:id="@+id/event_start_date"
         android:layout_width="wrap_content"
@@ -319,8 +254,6 @@
         app:layout_constraintHorizontal_bias="0.654"
         app:layout_constraintStart_toEndOf="@+id/registration_deadline_date"
         app:layout_constraintTop_toBottomOf="@+id/event_location_entry" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ public abstract class User {
 
     // Names can be the same but IDs should be unique to each User
 
+    public User() {}
     public User(
             String ID,
             String name,

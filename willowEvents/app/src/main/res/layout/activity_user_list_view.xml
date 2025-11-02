@@ -9,7 +9,7 @@
     tools:context=".UserListView">
 
     <TextView
-        android:id="@+id/background"
+        android:id="@+id/send_notification_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_corner_background"
@@ -20,21 +20,25 @@
 
     <ListView
         android:id="@+id/user_list"
-        android:layout_width="370dp"
-        android:layout_height="640dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/close_button" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/close_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:backgroundTint="@color/blue_base"
         android:text="Close"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toTopOf="@+id/background" />
+        android:textColor="@color/black"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintEnd_toEndOf="@+id/send_notification_background"
+        app:layout_constraintStart_toStartOf="@+id/send_notification_background"
+        app:layout_constraintTop_toTopOf="@+id/send_notification_background" />
 </androidx.constraintlayout.widget.ConstraintLayout>

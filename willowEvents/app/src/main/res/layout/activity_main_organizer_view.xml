@@ -34,24 +34,24 @@
     <Button
         android:id="@+id/createNewEvent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rounded_corner_background"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="@color/green_base"
         android:text="Create New Event"
-        android:textColor="@color/white"
+        android:textColor="@color/grey_dark"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_organizer_profile_bar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/profile_button"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="2dp"
+        android:backgroundTint="@color/blue_dark"
         android:text="Profile"
         app:layout_constraintBottom_toBottomOf="@+id/main_organizer_profile_bar"
         app:layout_constraintEnd_toEndOf="@+id/main_organizer_profile_bar"
@@ -60,11 +60,12 @@
     <ListView
         android:id="@+id/eventList"
         android:layout_width="match_parent"
-        android:layout_height="580dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createNewEvent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
