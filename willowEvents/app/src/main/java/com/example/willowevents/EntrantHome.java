@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class EntrantHome extends AppCompatActivity {
+public class InitialView extends AppCompatActivity {
     String currentEntrantID;
     User currentEntrant ;
 
