@@ -40,11 +40,13 @@ public class UserListView extends AppCompatActivity {
         //FIRESTORE STUFF HERE
         users = new ArrayList<User>();
 
+        ArrayList<String> tempList = new ArrayList<>();
+
 //      REPLACE WITH FIRESTORE SHIT:
-        users.add(new Entrant("userOne"));
-        users.add(new Entrant("userTwo"));
-        users.add(new Entrant("userThree"));
-        users.add(new Entrant("userFour"));
+        users.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
+        users.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
+        users.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
+        users.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
         users.add(new Entrant("userFive"));
         users.add(new Entrant("userSix"));
         users.add(new Entrant("userSeven"));

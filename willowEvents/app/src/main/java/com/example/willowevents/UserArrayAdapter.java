@@ -30,10 +30,14 @@ public class UserArrayAdapter extends ArrayAdapter {
         }
         //get event to grab info from
         User user = (User) getItem(position);
-
-        //get event name and display it in the view
+        //get text items
         TextView userName = view.findViewById(R.id.title_text);
+        TextView userPhoneNumber = view.findViewById(R.id.user_phone_number);
+        TextView userEmail = view.findViewById(R.id.user_email);
+        //set text items
         userName.setText(user.getName());
+        userPhoneNumber.setText(user.getPhoneNumber());
+        userEmail.setText(user.getEmail());
 
         return view;
     }
