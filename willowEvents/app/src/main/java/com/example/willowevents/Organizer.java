@@ -14,6 +14,9 @@ String phoneNumber,
 ArrayList<String> joinList) {
         super(ID, name, Email, phoneNumber, joinList);
     };
+    Organizer(String name){
+        super(name);
+    }
 
     public ArrayList<String> getCreatedList() { return this.createdList; };
 

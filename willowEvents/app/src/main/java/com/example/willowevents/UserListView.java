@@ -27,8 +27,8 @@ public class UserListView extends AppCompatActivity {
         users = new ArrayList<User>();
 
 //      REPLACE WITH FIRESTORE SHIT:
-        users.add(new Entrant("userOne"));
-        users.add(new Entrant("userTwo"));
+        users.add((User) new Entrant("userOne"));
+        users.add((User) new Organizer("userTwo"));
         users.add(new Entrant("userThree"));
         users.add(new Entrant("userFour"));
         users.add(new Entrant("userFive"));
