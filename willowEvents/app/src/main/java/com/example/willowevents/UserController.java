@@ -60,7 +60,12 @@ public class UserController {
                 String phoneNumber = snapshot.getString("phoneNumber");
                 ArrayList<String> joinList = (ArrayList<String>) snapshot.get("joinList");
                 if (userType == "organizer") {
-                    user = new Organizer(userID,
+//                    user = new Organizer(userID,
+//                            name,
+//                            email,
+//                            phoneNumber,
+//                            joinList);
+                    user = new Entrant(userID,
                             name,
                             email,
                             phoneNumber,

@@ -8,10 +8,9 @@
     <color name="blue_background">#FFDEEFFF</color>
     <color name="blue_active">#FF25B7FF</color>
     <color name="blue_dark">#FF0E3960</color>
-    <color name="green_base">#FFC8FFAE</color>
-    <color name="green_background">#FFF4FFEF</color>
+    <color name="green_base">#FF9DE67C</color>
+    <color name="green_background">#FFC8FFAE</color>
     <color name="green_active">#FF7ED957</color>
-    <color name="green_dark">#FF227100</color>
     <color name="red_base">#FFEE8888</color>
     <color name="red_dark">#FF820000</color>
     <color name="purple_base">#FFC29BF2</color>
