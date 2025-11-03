@@ -25,9 +25,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+/*
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+*/
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -68,7 +70,7 @@ public class EventCreationView extends AppCompatActivity {
     private String bannerImageUrl = null; // set after upload
 
     private FirebaseFirestore db;
-    private FirebaseStorage storage; //for banner images EDIT: FIREBASE STORAGE ISNT FREE FIND ALTERNATIVE
+    //private FirebaseStorage storage; //for banner images EDIT: FIREBASE STORAGE ISNT FREE FIND ALTERNATIVE
     private final DateFormat displayFmt = new SimpleDateFormat("MMM d, h:mm a", Locale.getDefault());
 
     private final ActivityResultLauncher<String> imagePicker =
@@ -123,7 +125,7 @@ public class EventCreationView extends AppCompatActivity {
         // Firebase
         FirebaseApp.initializeApp(this);
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
+        //storage = FirebaseStorage.getInstance();
 
 
         bindViews();
@@ -132,11 +134,6 @@ public class EventCreationView extends AppCompatActivity {
     }
     private void bindViews() {
         // Bind views
-        etTitle     = findViewById(R.id.enter_name);
-        etBannerUrl = findViewById(R.id.enter_banner_url);
-        etStart     = findViewById(R.id.enter_start_time);
-        etEnd       = findViewById(R.id.enter_end_time);
-        etDetails   = findViewById(R.id.enter_event_details);
         nameEt         = findViewById(R.id.event_name_entry);
         locationEt     = findViewById(R.id.event_location_entry);
         eventStartTv   = findViewById(R.id.event_start_date);
@@ -226,7 +223,7 @@ public class EventCreationView extends AppCompatActivity {
     }
 
     private void uploadBannerToStorage(@Nullable Uri uri) {//DOESNT WORK, REALIZED THAT FIREBASE STORAGE IS SUBSCRIPTION BASED
-        if (uri == null) {
+        /*if (uri == null) {
             Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -238,10 +235,10 @@ public class EventCreationView extends AppCompatActivity {
         StorageReference ref = rootRef.child("event_banners").child(fileName);
 
         // (Optional) set content type based on selected Uri
-       /* String mime = getContentResolver().getType(uri);
+       *//* String mime = getContentResolver().getType(uri);
         StorageMetadata metadata = new StorageMetadata.Builder()
                 .setContentType(mime != null ? mime : "image/jpeg")
-                .build();*/
+                .build();*//*
 
         // Start upload, then fetch the download URL for the EXACT same ref
         ref.putFile(uri)
@@ -257,7 +254,7 @@ public class EventCreationView extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Upload failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                });
+                });*/
 
     }
     private void createEvent() {
@@ -283,7 +280,7 @@ public class EventCreationView extends AppCompatActivity {
         Date regOpen  = regOpenCal.getTime();
         Date regEnd   = regDeadlineCal.getTime();
 
-        if (!regEnd.before(regOpen)) {
+        if (!regEnd.after(regOpen)) {
             Toast.makeText(this, "Registration deadline must be after open date", Toast.LENGTH_LONG).show();
             return;
         }

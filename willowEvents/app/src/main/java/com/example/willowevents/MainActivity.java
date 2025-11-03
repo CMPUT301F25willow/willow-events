@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.eventList);
         adapter = new EventArrayAdapter(this, data);
         list.setAdapter(adapter);
-        createSampleEvent();
+        //createSampleEvent();
 
         // Real-time updates
         db.collection("events").addSnapshotListener((snap, e) -> {
@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //      FOR TESTING:
-        Intent myIntent = new Intent(MainActivity.this, EventOrganizerEntrantView.class);
-        startActivity(myIntent);
+        //Intent myIntent = new Intent(MainActivity.this, EventOrganizerEntrantView.class);
+        //startActivity(myIntent);
 
     }
-}
