@@ -19,11 +19,9 @@ public class Event {
     private String lotteryDetails = "This is lottery details which is seen in a scrollable form";
     private String id;          //combine this with firestore doc id
     private String bannerURL;    //banner
-    /* @Nullable
-     private Date startsAt;      //optional user-provided start time
-     @Nullable
-     private Date endsAt;        //optional end time
- */
+
+    private  Integer waitlistlimit;
+
     private Date eventDate;
     private Date registrationDeadline;
     private Date registrationOpen;
@@ -45,7 +43,7 @@ public class Event {
     ;
 
     //-----------------------------------------------------------
-    public Event(String name, String details, String lotteryDetails, String id, String bannerURL, Date registrationDeadline, Date registrationOpen, Date eventDate) {
+    public Event(String name, String details, String lotteryDetails, String id, String bannerURL, Date registrationOpen, Date registrationDeadline, Date eventDate) {
         this.name = name;
         this.details = details;
         this.lotteryDetails = lotteryDetails;
@@ -54,6 +52,7 @@ public class Event {
         this.registrationOpen = registrationOpen;
         this.registrationDeadline = registrationDeadline;
         this.eventDate = eventDate;
+        this.waitlistlimit = null;
         //eventID = "Random non duplicate ID"; <-I dont think we need this as firebase creates its own id, stored above as id - adrian
 
 
@@ -71,15 +70,6 @@ public class Event {
         return id;
     }
 
-    /*@Nullable
-    public Date getEndsAt() {
-        return endsAt;
-    }
-
-    @Nullable
-    public Date getStartsAt() {
-        return startsAt;
-    }*/
 
     public String getDetails() {
         return details;
@@ -118,6 +108,8 @@ public class Event {
     public Date getRegistrationOpen() {
         return registrationOpen;
     }
+
+    public String getBannerURL(){ return bannerURL;}
 
 
     //--------------Setters--------------------------------
@@ -159,5 +151,12 @@ public class Event {
 
     public void setRegistrationOpen(Date registrationOpen) {
         this.registrationOpen = registrationOpen;
+    }
+
+    public void setBannerURL(String bannerURL) {
+        this.bannerURL = bannerURL;
+    }
+
+    public void setWaitlistLimit(Integer waitlistLimit) {
     }
 }
