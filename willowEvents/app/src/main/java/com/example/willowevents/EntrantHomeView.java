@@ -30,9 +30,6 @@ public class EntrantHomeView extends AppCompatActivity {
     EditText FilterOne;
     EditText FilterTwo;
     EditText FilterThree;
-    androidx.appcompat.widget.Toolbar FilterOneBase;
-    androidx.appcompat.widget.Toolbar FilterTwoBase;
-    androidx.appcompat.widget.Toolbar FilterThreeBase;
     androidx.appcompat.widget.Toolbar FilterBase;
     androidx.appcompat.widget.Toolbar InviteBase;
     Boolean isFilterVisible;
@@ -56,20 +53,14 @@ public class EntrantHomeView extends AppCompatActivity {
         InviteButton.findViewById(R.id.invite_button);
         InviteBase.findViewById(R.id.invite_bar);
         //filter elements
-        FilterOne.findViewById(R.id.filter_option_one_text);
-        FilterTwo.findViewById(R.id.filter_option_two_text);
-        FilterThree.findViewById(R.id.filter_option_three_text);
-        FilterOneBase.findViewById(R.id.filter_option_one);
-        FilterTwoBase.findViewById(R.id.filter_option_two);
-        FilterThreeBase.findViewById(R.id.filter_option_three);
+        FilterOne.findViewById(R.id.filter_option_one);
+        FilterTwo.findViewById(R.id.filter_option_two);
+        FilterThree.findViewById(R.id.filter_option_three);
         FilterBase.findViewById(R.id.filter_bar);
         //Make filter bar disappear
         FilterOne.setVisibility(View.GONE);
         FilterTwo.setVisibility(View.GONE);
         FilterThree.setVisibility(View.GONE);
-        FilterOneBase.setVisibility(View.GONE);
-        FilterTwoBase.setVisibility(View.GONE);
-        FilterThreeBase.setVisibility(View.GONE);
         FilterBase.setVisibility(View.GONE);
         //Make invite bar disappear
         InviteButton.setVisibility(View.GONE);
@@ -102,9 +93,6 @@ public class EntrantHomeView extends AppCompatActivity {
                 FilterOne.setVisibility(View.GONE);
                 FilterTwo.setVisibility(View.GONE);
                 FilterThree.setVisibility(View.GONE);
-                FilterOneBase.setVisibility(View.GONE);
-                FilterTwoBase.setVisibility(View.GONE);
-                FilterThreeBase.setVisibility(View.GONE);
                 FilterBase.setVisibility(View.GONE);
                 isFilterVisible = false;
             }
@@ -112,9 +100,6 @@ public class EntrantHomeView extends AppCompatActivity {
                 FilterOne.setVisibility(View.VISIBLE);
                 FilterTwo.setVisibility(View.VISIBLE);
                 FilterThree.setVisibility(View.VISIBLE);
-                FilterOneBase.setVisibility(View.VISIBLE);
-                FilterTwoBase.setVisibility(View.VISIBLE);
-                FilterThreeBase.setVisibility(View.VISIBLE);
                 FilterBase.setVisibility(View.VISIBLE);
                 isFilterVisible = true;
             }
