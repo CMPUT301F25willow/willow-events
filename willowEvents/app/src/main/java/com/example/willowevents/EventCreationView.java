@@ -68,6 +68,10 @@ public class EventCreationView extends AppCompatActivity {
             }
         });
 
+        // Create a "blank"e event and use this at start.
+        // If creation is cancelled the event "disappears" since it hasn't been stored into
+        // a database yet
+
         Event event = new Event("Name");
 
         Button create = findViewById(R.id.create_event_create_button);
@@ -84,6 +88,9 @@ public class EventCreationView extends AppCompatActivity {
 
         int hr =0 ;
         int min =0;
+
+
+        
 
 
         eventStartButton.setOnClickListener(new View.OnClickListener() {
