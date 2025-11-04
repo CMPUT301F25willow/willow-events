@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
+            android:name=".ViewInvitations"
+            android:exported="false" />
+        <activity
             android:name=".NotificationView"
             android:exported="false" />
         <activity

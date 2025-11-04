@@ -37,26 +37,20 @@ public class EntrantHomeView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_entrant_home);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        //buttons
-        MyEventsButton.findViewById(R.id.my_events_button);
-        AvailableEventsButton.findViewById(R.id.available_events_button);
-        AllEventsButton.findViewById(R.id.all_events_button);
-        ClearFilterButton.findViewById(R.id.clear_filter_button);
+//        //buttons
+        MyEventsButton = findViewById(R.id.my_events_button);
+        AvailableEventsButton = findViewById(R.id.available_events_button);
+        AllEventsButton = findViewById(R.id.all_events_button);
+        ClearFilterButton = findViewById(R.id.clear_filter_button);
         //invite elements
-        InviteButton.findViewById(R.id.invite_button);
-        InviteBase.findViewById(R.id.invite_bar);
+        InviteButton = findViewById(R.id.invite_button);
+        InviteBase = findViewById(R.id.invite_bar);
         //filter elements
-        FilterOne.findViewById(R.id.filter_option_one);
-        FilterTwo.findViewById(R.id.filter_option_two);
-        FilterThree.findViewById(R.id.filter_option_three);
-        FilterBase.findViewById(R.id.filter_bar);
+        FilterOne = findViewById(R.id.filter_option_one);
+        FilterTwo = findViewById(R.id.filter_option_two);
+        FilterThree = findViewById(R.id.filter_option_three);
+        FilterBase = findViewById(R.id.filter_bar);
         //Make filter bar disappear
         FilterOne.setVisibility(View.GONE);
         FilterTwo.setVisibility(View.GONE);
