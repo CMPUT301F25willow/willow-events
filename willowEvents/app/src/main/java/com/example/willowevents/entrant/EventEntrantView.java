@@ -1,14 +1,14 @@
-package com.example.willowevents;
+package com.example.willowevents.entrant;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.willowevents.R;
 
 public class EventEntrantView extends AppCompatActivity {
 

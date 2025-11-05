@@ -1,9 +1,13 @@
-package com.example.willowevents;
+package com.example.willowevents.organizer;
 
 import android.os.Bundle;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.R;
+import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
 

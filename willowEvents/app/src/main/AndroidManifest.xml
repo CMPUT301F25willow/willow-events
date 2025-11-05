@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".ViewInvitations"
+            android:name=".entrant.ViewInvitations"
             android:exported="false" />
         <activity
-            android:name=".NotificationView"
+            android:name=".entrant.NotificationView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
@@ -24,20 +24,20 @@
             android:name=".InitialView"
             android:exported="false" />
         <activity
-            android:name=".UserListView"
+            android:name=".organizer.UserListView"
             android:exported="false" />
         <activity
-            android:name=".EventOrganizerEntrantView"
+            android:name=".organizer.EventOrganizerEntrantView"
             android:exported="false" />
         <activity
-            android:name=".EventCreationView"
+            android:name=".organizer.EventCreationView"
             android:exported="false" />
         <activity
-            android:name=".EntrantHomeView"
+            android:name=".entrant.EntrantHomeView"
             android:exported="false"
             android:theme="@style/Theme.WillowEvents" />
         <activity
-            android:name=".MainOrganizerView"
+            android:name=".organizer.MainOrganizerView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

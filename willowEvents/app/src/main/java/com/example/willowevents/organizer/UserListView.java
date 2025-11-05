@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.organizer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,11 +6,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.willowevents.R;
+import com.example.willowevents.UserArrayAdapter;
+import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
