@@ -6,8 +6,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
-import com.example.willowevents.organizer.EventOrganizerInfoView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //      FOR TESTING:
-        Intent myIntent = new Intent(MainActivity.this, EventOrganizerInfoView.class);
+        Intent myIntent = new Intent(MainActivity.this, EventEntrantView.class);
         startActivity(myIntent);
 
         FirebaseApp.initializeApp(this);

@@ -12,12 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".entrant.ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".entrant.NotificationView"
-            android:exported="false" />
-        <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
@@ -33,11 +27,26 @@
             android:name=".organizer.EventCreationView"
             android:exported="false" />
         <activity
+            android:name=".organizer.EventModifyView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.EventOrganizerInfoView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.MainOrganizerView"
+            android:exported="false" />
+        <activity
             android:name=".entrant.EntrantHomeView"
             android:exported="false"
             android:theme="@style/Theme.WillowEvents" />
         <activity
-            android:name=".organizer.MainOrganizerView"
+            android:name=".entrant.EventEntrantView"
+            android:exported="false" />
+        <activity
+            android:name=".entrant.ViewInvitations"
+            android:exported="false" />
+        <activity
+            android:name=".entrant.NotificationView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
