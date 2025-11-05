@@ -30,6 +30,20 @@ public class EventCreationView extends AppCompatActivity {
     private boolean limiting = false;
     private String waitListLimit;
 
+    private Button create;
+
+    private Button eventStartButton;
+    private Button registerDeadlineButton;
+    private Button registerOpenButton;
+    private Button cancelButton;
+
+    private TextView eventStart;
+    private TextView registerDeadline;
+    private TextView registerOpen;
+    private EditText eventName;
+    private EditText locationText;
+
+
     private String dateTime;
 
     @Override
@@ -74,84 +88,99 @@ public class EventCreationView extends AppCompatActivity {
 
         Event event = new Event("Name");
 
-        Button create = findViewById(R.id.create_event_create_button);
+        create = findViewById(R.id.create_event_create_button);
 
-        Button eventStartButton = findViewById(R.id.event_start_date_button);
-        Button registerDeadlineButton = findViewById(R.id.registration_open_button);
-        Button registerOpenButton = findViewById(R.id.registration_deadline_button);
-        Button cancelButton = findViewById(R.id.create_event_cancel_button);
+        eventStartButton = findViewById(R.id.event_start_date_button);
+        registerDeadlineButton = findViewById(R.id.registration_open_button);
+        registerOpenButton = findViewById(R.id.registration_deadline_button);
+        cancelButton = findViewById(R.id.create_event_cancel_button);
 
 
-        TextView eventStart = findViewById(R.id.event_start_date);
-        TextView registerDeadline = findViewById(R.id.registration_deadline_date);
-        TextView registerOpen = findViewById(R.id.registration_open_date);
+        eventStart = findViewById(R.id.event_start_date);
+        registerDeadline = findViewById(R.id.registration_deadline_date);
+        registerOpen = findViewById(R.id.registration_open_date);
 
-        int hr =0 ;
-        int min =0;
+        eventName = findViewById(R.id.event_name_entry);
+        locationText = findViewById(R.id.event_location_entry);
+
 
 
 
         eventStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dateDialog(hr, min);
+                dateDialog(1, 1, eventStart);
                 event.setEventDate(dateTime);
-                eventStart.setText(dateTime);
+
             }
         });
 
         registerDeadlineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dateDialog(hr, min);
+                dateDialog(1, 1, registerDeadline);
                 event.setRegistrationDeadline(dateTime);
-                registerDeadline.setText(dateTime);
             }
         });
 
         registerOpenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dateDialog(hr, min);
+                dateDialog(1, 1,registerOpen);
                 event.setRegistrationOpen(dateTime);
-                registerOpen.setText(dateTime);
             }
         });
+
 
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                event.setEventDate(eventStart.getText().toString());
+                event.setRegistrationOpen(registerOpen.getText().toString());
+                event.setRegistrationDeadline(registerDeadline.getText().toString());
+                //event.setWaitListLimit(1);
 
-                // add to organizer createdList
+                // add to organizer createdList in data base
 
             }
         });
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Go back to organizerView
+            }
+        });
+
+
     }
 
-    private void dateDialog(int hr, int min){
+    private void dateDialog(int hr, int min, TextView text){
 
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
-                dateTime = new DateFormatSymbols().getMonths()[month-1] + "/" + day + "/"+ year + "|";
-                timeDialog(hr, min);
+                dateTime = (month+1) + "/" + day + "/"+ year + " | ";
+                // new DateFormatSymbols().getMonths()[month]
+                timeDialog(hr, min, text);
             }
         }, 2025, 11, 1);
         dialog.show();
     }
 
-    private void timeDialog(int hr, int min) {
+    private void timeDialog(int hr, int min, TextView text) {
 
         TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourofDay, int minute) {
                 dateTime = dateTime + hourofDay + ":" + minute;
+                text.setText(dateTime);
             }
 
         }, hr, min, false);
         dialog.show();
     }
+
 
 }
