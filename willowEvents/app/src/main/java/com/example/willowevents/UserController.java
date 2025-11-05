@@ -1,13 +1,12 @@
 package com.example.willowevents;
 
-import android.util.Log;
-
+import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class UserController {

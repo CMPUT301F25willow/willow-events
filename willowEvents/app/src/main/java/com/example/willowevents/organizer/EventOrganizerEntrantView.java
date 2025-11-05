@@ -1,13 +1,12 @@
-package com.example.willowevents;
+package com.example.willowevents.organizer;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import com.example.willowevents.R;
 
 public class EventOrganizerEntrantView extends AppCompatActivity {
 

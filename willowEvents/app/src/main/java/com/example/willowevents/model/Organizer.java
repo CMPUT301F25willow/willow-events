@@ -1,6 +1,4 @@
-package com.example.willowevents;
-
-import android.provider.CalendarContract;
+package com.example.willowevents.model;
 
 import java.util.ArrayList;
 

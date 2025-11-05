@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.organizer;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 import android.widget.CheckBox;
 
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -22,6 +21,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.willowevents.model.Event;
+import com.example.willowevents.R;
+import com.example.willowevents.ValidateData;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.UUID;
 
 public class EventCreationView extends AppCompatActivity {
     private EditText nameEt;                  // @id/event_name_entry
