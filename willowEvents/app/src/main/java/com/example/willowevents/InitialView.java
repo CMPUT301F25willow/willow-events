@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.willowevents.entrant.EntrantHomeView;
+import com.example.willowevents.model.User;
+
 public class InitialView extends AppCompatActivity {
     String currentEntrantID;
     User currentEntrant ;

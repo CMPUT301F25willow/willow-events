@@ -1,9 +1,7 @@
-package com.example.willowevents;
+package com.example.willowevents.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.annotation.Nullable;
 
 public class Event {
 

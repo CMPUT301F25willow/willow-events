@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
-    tools:context=".EventCreationView">
+    tools:context=".organizer.EventCreationView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_creation_background"
@@ -189,7 +189,7 @@
         android:padding="12dp"
         android:text="              | Size:"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/additional_details_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -228,7 +228,7 @@
         app:layout_constraintTop_toTopOf="@+id/limit_waitlist_textview" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/additional_details_textview"
         android:layout_width="match_parent"
         android:layout_height="92dp"
         android:layout_marginStart="12dp"
@@ -258,7 +258,7 @@
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/additional_details_textview" />
 
     <ScrollView
         android:id="@+id/image_scrollview"

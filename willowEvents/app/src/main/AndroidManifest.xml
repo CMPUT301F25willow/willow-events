@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -42,14 +42,20 @@
             android:name=".EventOrganizerEntrantView"
             android:exported="false" />
         <activity
-            android:name=".EventCreationView"
+            android:name=".organizer.MainOrganizerView"
             android:exported="false" />
         <activity
-            android:name=".EntrantHomeView"
+            android:name=".entrant.EntrantHomeView"
             android:exported="false"
             android:theme="@style/Theme.WillowEvents" />
         <activity
-            android:name=".MainOrganizerView"
+            android:name=".entrant.EventEntrantView"
+            android:exported="false" />
+        <activity
+            android:name=".entrant.ViewInvitations"
+            android:exported="false" />
+        <activity
+            android:name=".entrant.NotificationView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

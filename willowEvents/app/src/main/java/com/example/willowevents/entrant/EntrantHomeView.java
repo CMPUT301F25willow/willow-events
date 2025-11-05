@@ -1,17 +1,16 @@
-package com.example.willowevents;
+package com.example.willowevents.entrant;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.R;
+import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
 
