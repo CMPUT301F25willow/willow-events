@@ -11,6 +11,11 @@ import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
 
+/**
+ * This View displays a list of events that the organizer who is logged in
+ * has made, as well as an option to make another. Clicking on an event should
+ * take the user to a screen with more options regarding the event.
+ */
 public class MainOrganizerView extends AppCompatActivity {
     ListView eventView;
     EventArrayAdapter eventAdapter;

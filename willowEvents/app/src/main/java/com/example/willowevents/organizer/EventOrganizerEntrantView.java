@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
 
+/**
+ * This View shows the organizer options regarding the waitlist and
+ * other lists of users in the event.
+ */
 public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private Button seeWaitlist;

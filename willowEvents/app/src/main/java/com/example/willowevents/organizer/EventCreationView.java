@@ -41,6 +41,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This View is where an organizer enters info for an event they are creating.
+ */
 public class EventCreationView extends AppCompatActivity {
     private EditText nameEt;                  // @id/event_name_entry
     private EditText locationEt;              // @id/event_location_entry (kept; optional)

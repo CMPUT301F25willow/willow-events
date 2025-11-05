@@ -10,6 +10,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.R;
 
+/**
+ * This View shows event information from the organizer's perspective,
+ * with options to update information or change settings.
+ */
 public class EventOrganizerInfoView extends AppCompatActivity {
 
     @Override
