@@ -8,8 +8,7 @@ public class Event {
     // my idea is to have device ID +    and Organizer has a soft aggregation
     // since organizer can join events too I suggest moving to USER as abstract class and by inheritance split to organizer and user
 
-    // Question: How does a user choose to be an organizer? From the login screen or is a specific email is required?
-    // - Michelle
+
 
     private String eventID; // Can be changed to int it needed
     private String name;
@@ -20,9 +19,11 @@ public class Event {
     private String registrationDeadline = "1/1/25|12:00PM";
     private String registrationOpen ="1/1/25|12:00PM";
 
+    private String location;
+
     // private Boolean location;   // figure something out
 
-    // private Time deadline; soemthing
+
 
     private ArrayList<User> waitList;
     private ArrayList<User> cancelList;
@@ -48,7 +49,8 @@ public class Event {
     public void setRegistrationDeadline(String registrationDeadline) {this.registrationDeadline = registrationDeadline;}
 
     public void setRegistrationOpen(String registrationOpen) {this.registrationOpen = registrationOpen;}
-    public void setWaitListLimit(int limit) { this.waitListLimit = limit;}
+    public void setWaitListLimit(int waitListLimit) { this.waitListLimit = waitListLimit;}
+    public void setLocation(String location) {this.location = location; }
 
     public String getName() {
         return name;
@@ -64,6 +66,7 @@ public class Event {
 
     public ArrayList<User> getCancelList() { return cancelList;}
     public int getWaitListLimit() { return waitListLimit;}
+    public String getLocation() {return location;}
 
     public String getEventDate() {
         return eventDate;
