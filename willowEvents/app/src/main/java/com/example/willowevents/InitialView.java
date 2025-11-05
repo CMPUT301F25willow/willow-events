@@ -53,6 +53,17 @@ public class InitialView extends AppCompatActivity {
         });
 
         deviceLoginButton.setOnClickListener(view -> {
+            // get current entrant from database
+            userController.getUser("REPLACE WITH USER ID HERE", new UserController.OnUserLoaded() {
+                @Override
+                public void onUserLoaded(User user) {
+                    currentEntrant = user;
+                    if (user == null) {
+                        // perhaps raise exception here
+                        throw new IllegalArgumentException("Invalid ID provided");
+                    }
+                }
+            });
             Intent myIntent = new Intent(InitialView.this, EntrantHomeView.class);
             startActivity(myIntent);
         });
@@ -60,18 +71,6 @@ public class InitialView extends AppCompatActivity {
         deviceSignupButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(InitialView.this, SelectRoleView.class);
             startActivity(myIntent);
-        });
-
-        // get current entrant from database
-        userController.getUser("REPLACE WITH USER ID HERE", new UserController.OnUserLoaded() {
-            @Override
-            public void onUserLoaded(User user) {
-                currentEntrant = user;
-                if (user == null) {
-                    // perhaps raise exception here
-                    throw new IllegalArgumentException("Invalid ID provided");
-                }
-            }
         });
     }
 }

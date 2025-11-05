@@ -125,5 +125,10 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
+
+        InviteButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            startActivity(myIntent);
+        });
     }
 }
