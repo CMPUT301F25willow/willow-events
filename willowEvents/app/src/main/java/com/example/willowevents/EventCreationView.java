@@ -90,8 +90,6 @@ public class EventCreationView extends AppCompatActivity {
         int min =0;
 
 
-        
-
 
         eventStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
