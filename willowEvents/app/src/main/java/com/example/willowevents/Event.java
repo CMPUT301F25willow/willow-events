@@ -28,6 +28,8 @@ public class Event {
     private ArrayList<User> cancelList;
     private ArrayList<User> aproveList;
 
+    private int waitListLimit;
+
 
 
     public Event(String name){
@@ -46,6 +48,7 @@ public class Event {
     public void setRegistrationDeadline(String registrationDeadline) {this.registrationDeadline = registrationDeadline;}
 
     public void setRegistrationOpen(String registrationOpen) {this.registrationOpen = registrationOpen;}
+    public void setWaitListLimit(int limit) { this.waitListLimit = limit;}
 
     public String getName() {
         return name;
@@ -60,6 +63,7 @@ public class Event {
     public ArrayList<User> getAproveList() { return aproveList;}
 
     public ArrayList<User> getCancelList() { return cancelList;}
+    public int getWaitListLimit() { return waitListLimit;}
 
     public String getEventDate() {
         return eventDate;
