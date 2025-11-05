@@ -249,7 +249,7 @@
         android:backgroundTint="@color/blue_dark"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="<"
+        android:text="back"
         android:textSize="24sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
