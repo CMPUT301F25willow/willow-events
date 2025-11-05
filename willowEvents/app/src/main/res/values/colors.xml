@@ -17,5 +17,6 @@
     <color name="red_dark">#FF820000</color>
     <color name="purple_base">#FFC29BF2</color>
     <color name="purple_background">#FFECDCFF</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

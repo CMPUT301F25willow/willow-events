@@ -60,8 +60,8 @@
     <ImageView
         android:id="@+id/notificationIcon"
         android:layout_width="53dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/notification_icon"
         app:layout_constraintEnd_toStartOf="@+id/accountIcon"
@@ -98,86 +98,53 @@
         app:layout_constraintTop_toTopOf="@+id/select_bar"
         app:srcCompat="@drawable/filter2" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/MyEvents"
-
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-
-        android:background="@drawable/rounded_corner_background"
+    <Button
+        android:id="@+id/my_events_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="My Events"
+        android:textSize="12sp"
         android:backgroundTint="@color/blue_base"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-
         app:layout_constraintEnd_toStartOf="@+id/filterIcon"
-        app:layout_constraintStart_toEndOf="@+id/AvailableEvents"
-        app:layout_constraintTop_toTopOf="@+id/select_bar" />
+        app:layout_constraintStart_toEndOf="@+id/available_events_button"
+        app:layout_constraintTop_toTopOf="@+id/select_bar"/>
 
-    <TextView
-        android:id="@+id/myEventsText"
+    <Button
+        android:id="@+id/available_events_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/my_events"
+        android:padding="10dp"
+        android:text="Available Events"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/MyEvents"
-        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
-        app:layout_constraintStart_toStartOf="@+id/MyEvents"
-        app:layout_constraintTop_toTopOf="@+id/MyEvents" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/AvailableEvents"
-
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-
-        android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-
-        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
-        app:layout_constraintStart_toStartOf="@+id/AllEvents"
+        app:layout_constraintEnd_toEndOf="@+id/my_events_button"
+        app:layout_constraintStart_toStartOf="@+id/all_events_button"
         app:layout_constraintTop_toTopOf="@+id/select_bar" />
 
-    <TextView
-        android:id="@+id/availableEventsText"
+    <Button
+        android:id="@+id/all_events_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/available_events"
+        android:padding="10dp"
+        android:text="All Events"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/AvailableEvents"
-        app:layout_constraintEnd_toEndOf="@+id/AvailableEvents"
-        app:layout_constraintStart_toStartOf="@+id/AvailableEvents"
-        app:layout_constraintTop_toTopOf="@+id/AvailableEvents" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/AllEvents"
-
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-
-        android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/blue_base"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-
-        app:layout_constraintEnd_toStartOf="@+id/AvailableEvents"
+        app:layout_constraintEnd_toStartOf="@+id/available_events_button"
         app:layout_constraintStart_toStartOf="@+id/select_bar"
-        app:layout_constraintTop_toTopOf="@+id/select_bar" />
+        app:layout_constraintTop_toTopOf="@+id/select_bar"/>
 
-    <TextView
-        android:id="@+id/allEventsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/all_events"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/AllEvents"
-        app:layout_constraintEnd_toEndOf="@+id/AllEvents"
-        app:layout_constraintStart_toStartOf="@+id/AllEvents"
-        app:layout_constraintTop_toTopOf="@+id/AllEvents" />
+    <Button
+        android:id="@+id/clear_filter_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/filterIcon"
+        app:layout_constraintEnd_toStartOf="@+id/filter_bar"
+        app:layout_constraintStart_toStartOf="@+id/filterIcon"
+        app:layout_constraintTop_toTopOf="@+id/filterIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/filterIcon" />
 
     <!--    THIRD BAR ELEMENTS-->
 
@@ -197,86 +164,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_bar" />
 
-    <androidx.appcompat.widget.Toolbar
+    <EditText
         android:id="@+id/filter_option_one"
-
-        android:layout_width="100dp"
+        android:layout_width="122dp"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
+        android:autofillHints="filter 1"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@id/filter_bar"
+        app:layout_constraintTop_toTopOf="@id/filter_bar"/>
 
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_base"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-
-        app:layout_constraintEnd_toStartOf="@+id/filterIcon"
-        app:layout_constraintStart_toEndOf="@+id/AvailableEvents"
-        app:layout_constraintTop_toTopOf="@+id/select_bar" />
-
-    <TextView
+    <EditText
         android:id="@+id/filter_option_two"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/my_events"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/MyEvents"
-        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
-        app:layout_constraintStart_toStartOf="@+id/MyEvents"
-        app:layout_constraintTop_toTopOf="@+id/MyEvents" />
+        android:layout_width="122dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:autofillHints="filter 2"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@id/filter_option_one"
+        app:layout_constraintTop_toTopOf="@id/filter_bar"/>
 
-    <androidx.appcompat.widget.Toolbar
+    <EditText
         android:id="@+id/filter_option_three"
-
-        android:layout_width="100dp"
+        android:layout_width="122dp"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
+        android:autofillHints="filter 3"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@id/filter_option_two"
+        app:layout_constraintTop_toTopOf="@id/filter_bar"/>
 
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_base"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-
-        app:layout_constraintEnd_toEndOf="@+id/MyEvents"
-        app:layout_constraintStart_toStartOf="@+id/AllEvents"
-        app:layout_constraintTop_toTopOf="@+id/select_bar" />
-
-    <TextView
-        android:id="@+id/filter_option_one_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/available_events"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/AvailableEvents"
-        app:layout_constraintEnd_toEndOf="@+id/AvailableEvents"
-        app:layout_constraintStart_toStartOf="@+id/AvailableEvents"
-        app:layout_constraintTop_toTopOf="@+id/AvailableEvents" />
+    <!--    FOURTH BAR ELEMENTS-->
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/filter_option_two_text"
+        android:id="@+id/invite_bar"
 
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="386dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
 
         android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_base"
+        android:backgroundTint="@color/blue_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
 
-        app:layout_constraintEnd_toStartOf="@+id/AvailableEvents"
-        app:layout_constraintStart_toStartOf="@+id/select_bar"
-        app:layout_constraintTop_toTopOf="@+id/select_bar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_bar" />
 
-    <TextView
-        android:id="@+id/filter_option_three_text"
+    <Button
+        android:id="@+id/invite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/all_events"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/AllEvents"
-        app:layout_constraintEnd_toEndOf="@+id/AllEvents"
-        app:layout_constraintStart_toStartOf="@+id/AllEvents"
-        app:layout_constraintTop_toTopOf="@+id/AllEvents" />
+        android:text="View my invitations"
+        android:textSize="10sp"
+        android:backgroundTint="@color/blue_base"
+        app:layout_constraintEnd_toEndOf="@+id/invite_bar"
+        app:layout_constraintStart_toStartOf="@+id/invite_bar"
+        app:layout_constraintTop_toTopOf="@+id/invite_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/invite_bar"/>
 
     <!--    EVENT ONE ELEMENTS-->
 
@@ -286,9 +232,9 @@
         android:layout_height="580dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/filter_bar" >
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
