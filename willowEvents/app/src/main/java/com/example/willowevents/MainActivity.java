@@ -24,10 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //      FOR TESTING:
-        Intent myIntent = new Intent(MainActivity.this, EventEntrantView.class);
-        startActivity(myIntent);
-
         FirebaseApp.initializeApp(this);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         ListView list = findViewById(R.id.eventList);

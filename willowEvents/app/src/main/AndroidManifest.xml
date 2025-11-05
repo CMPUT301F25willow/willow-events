@@ -15,12 +15,6 @@
             android:name=".SelectRoleView"
             android:exported="false" />
         <activity
-            android:name=".LoginInfoView"
-            android:exported="false" />
-        <activity
-            android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
