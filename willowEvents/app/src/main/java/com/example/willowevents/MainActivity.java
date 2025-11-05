@@ -45,13 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
         });
+        Intent myIntent = new Intent(MainActivity.this, InitialView.class);
+        startActivity(myIntent);
     }
-
-
-
-
-//      FOR TESTING:
-        //Intent myIntent = new Intent(MainActivity.this, EventOrganizerEntrantView.class);
-        //startActivity(myIntent);
-
-    }
+}
