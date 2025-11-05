@@ -61,6 +61,10 @@ public class Event {
         this.cancellist = new ArrayList<>();
     }
 
+    public Event(String eventTitle) {
+        this.name = eventTitle;
+    }
+
     //---------------------Getters----------------------------
     public String getName() {
         return name;
