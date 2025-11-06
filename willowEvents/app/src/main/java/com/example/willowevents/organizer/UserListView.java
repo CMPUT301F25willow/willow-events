@@ -39,7 +39,7 @@ public class UserListView extends AppCompatActivity {
             type = extras.getString("Type");
         }
 
-        /**
+
         //REPLACE WITH FIRESTORE STUFF
         waitlistUsers = new ArrayList<User>();
         invitedUsers = new ArrayList<User>();
@@ -68,7 +68,6 @@ public class UserListView extends AppCompatActivity {
         cancelledUsers.add(new Entrant("2", "Cinderella", "email@gmail.com", "306 123 456", tempList));
         cancelledUsers.add(new Entrant("3", "Diana", "email@gmail.com", "306 123 456", tempList));
 
-         */
 
         //Get elements
         close = findViewById(R.id.close_button);
