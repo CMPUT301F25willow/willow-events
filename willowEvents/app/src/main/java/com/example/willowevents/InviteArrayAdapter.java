@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import com.example.willowevents.model.Event;
+
 public class InviteArrayAdapter extends ArrayAdapter {
     Button acceptButton;
     Button declineWithdrawButton;

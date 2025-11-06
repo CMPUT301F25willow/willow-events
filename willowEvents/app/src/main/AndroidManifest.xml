@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".Invite"
+            android:name=".model.Invite"
             android:exported="false" />
         <activity
             android:name=".SelectRoleView"

@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.example.willowevents.entrant.EntrantHomeView;
+import com.example.willowevents.organizer.MainOrganizerView;
 
 public class SelectRoleView extends AppCompatActivity {
 

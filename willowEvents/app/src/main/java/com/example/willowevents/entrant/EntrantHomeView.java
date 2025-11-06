@@ -1,5 +1,6 @@
 package com.example.willowevents.entrant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -81,6 +82,11 @@ public class EntrantHomeView extends AppCompatActivity {
         availableEvents.add(new Event("avEventFour"));
         availableEvents.add(new Event("avEventFive"));
 
+        InviteButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            startActivity(myIntent);
+        });
+
         ClearFilterButton.setOnClickListener(view -> {
             if(isFilterVisible){
                 FilterOne.setVisibility(View.GONE);
@@ -123,11 +129,6 @@ public class EntrantHomeView extends AppCompatActivity {
             //Make invite bar disappear
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
-        });
-
-        InviteButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
-            startActivity(myIntent);
         });
     }
 }
