@@ -16,6 +16,10 @@ import com.example.willowevents.model.User;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This View shows the organizer a specific list of users from their event
+ * (for example, the waitlist or invited list)
+ */
 public class UserListView extends AppCompatActivity {
 
     private ListView userView;
@@ -38,6 +42,7 @@ public class UserListView extends AppCompatActivity {
             //get value from extras using the key
             type = extras.getString("Type");
         }
+
 
         //REPLACE WITH FIRESTORE STUFF
         waitlistUsers = new ArrayList<User>();
@@ -66,6 +71,7 @@ public class UserListView extends AppCompatActivity {
 //        cancelledUsers.add(new Entrant("1", "Belle", "email@gmail.com", "306 123 456", tempList));
 //        cancelledUsers.add(new Entrant("2", "Cinderella", "email@gmail.com", "306 123 456", tempList));
 //        cancelledUsers.add(new Entrant("3", "Diana", "email@gmail.com", "306 123 456", tempList));
+
 
         //Get elements
         close = findViewById(R.id.close_button);

@@ -41,6 +41,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This View is where an organizer enters info for an event they are creating.
+ */
 public class EventCreationView extends AppCompatActivity {
     private EditText nameEt;                  // @id/event_name_entry
     private EditText locationEt;              // @id/event_location_entry (kept; optional)
@@ -307,7 +310,6 @@ public class EventCreationView extends AppCompatActivity {
         Event e = new Event(
                 title,
                 details,
-                "This is lottery details which is seen in a scrollable form",
                 null,                              // firebase id
                 bannerImageUrl,                    //null for now
                 regOpen,
@@ -318,7 +320,7 @@ public class EventCreationView extends AppCompatActivity {
 
 
         // e.setLocation(location); IMPLEMENT THIS LATER
-        e.setWaitlistLimit(waitlistLimit);
+        e.setWaitlistlimit(waitlistLimit);
 
         // Initialize lists to avoid nulls (adjust generics based on your Event.java)
         e.setWaitlist(new ArrayList<>());

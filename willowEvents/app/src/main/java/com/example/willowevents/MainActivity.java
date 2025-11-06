@@ -6,8 +6,10 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.organizer.MainOrganizerView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
