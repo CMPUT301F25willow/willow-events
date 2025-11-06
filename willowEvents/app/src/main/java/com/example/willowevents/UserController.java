@@ -6,6 +6,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.security.KeyStore;
 import java.util.ArrayList;
 
 
@@ -19,7 +20,6 @@ public class UserController {
     public UserController() {
         // get pointer to database
         userDB= FirebaseFirestore.getInstance();
-
         // get all users
         usersRef = userDB.collection("users");
     }
@@ -38,9 +38,13 @@ public class UserController {
     }
 
     /**
+     * Adds a user to the database given an ADMIN
+     */
+
+    /**
      * Given a userID in the form of a String, return the user details from the database
      * User can only be retrieved via a callback function
-     * @param userID is the ID of the user
+     * @param userID is the Device-ID as a STRING of the user
      *
      */
     public void getUser(String userID , OnUserLoaded callback) {
@@ -77,7 +81,6 @@ public class UserController {
                             joinList);
                 }
                 callback.onUserLoaded(user);
-
             }
             else{
                 callback.onUserLoaded(null);
@@ -90,6 +93,45 @@ public class UserController {
         });
     }
 
+    /***
+     * Checks if a given user exists in the database queried by the String of its device ID
+     * @param deviceID String of the device ID
+     * @return True if the user is registered in the database. Else return False.
+     */
+    public void userExists(String deviceID, OnExistsUser callback) {
+        usersRef.document(deviceID).get().addOnSuccessListener( document -> {
+            callback.onExistsUser(document.exists());
+        });
+    }
+
+
+    /**
+     * Updates the user info given
+     * @param user The most recently updated object of the user to store in the database
+     */
+    public void updateUserInfo(User user ) {
+        tempDeleteUser(user);
+        reAddUser(user);
+
+    }
+
+    /**
+     * Private method meant to re-add a user after deleting. To be used only with updateUserInfo
+     */
+    private void reAddUser(User user) {
+        DocumentReference docRef = usersRef.document(user.getID());
+        docRef.set(user);
+    }
+
+    /**
+     * Private method meant to TEMPORARILY delete an existing user after updating. to be used onlw with updateUserInfo
+     */
+    private void tempDeleteUser(User user) {
+        DocumentReference docRef = usersRef.document(user.getID());
+        docRef.delete();
+
+
+    }
 
 
     /**
@@ -114,6 +156,10 @@ public class UserController {
         // any function that calls getUser must implement the following callback functions
         void onUserLoaded(User user);
 
+    }
+
+    public interface OnExistsUser {
+        boolean onExistsUser(boolean userExists);
     }
 
 }

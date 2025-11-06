@@ -37,6 +37,15 @@ public class EntrantHomeView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrant_home);
+
+        // get current user from DB
+
+
+
+        //
+
+
+
 //        //buttons
         MyEventsButton = findViewById(R.id.my_events_button);
         AvailableEventsButton = findViewById(R.id.available_events_button);
