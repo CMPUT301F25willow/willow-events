@@ -307,7 +307,6 @@ public class EventCreationView extends AppCompatActivity {
         Event e = new Event(
                 title,
                 details,
-                "This is lottery details which is seen in a scrollable form",
                 null,                              // firebase id
                 bannerImageUrl,                    //null for now
                 regOpen,

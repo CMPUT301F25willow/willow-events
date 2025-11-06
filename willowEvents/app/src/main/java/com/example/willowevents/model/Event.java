@@ -11,10 +11,14 @@ public class Event {
 
     private String name;        //title
     private String details;     //details/long text
-    // Question: How does a user choose to be an organizer? From the login screen or is a specific email is required?
-    // - Michelle
 
-    private String lotteryDetails = "This is lottery details which is seen in a scrollable form";
+    private String lotteryDetails =
+            "\n\nLottery System:" +
+                    "\nAfter the deadline has ended a specified number of entrants will be randomly selected from the waiting list." +
+                    "\nIf you have been invited to an event, you will be notified immediately."+
+                    "\nIf you have not been invited, it is possible to be invited again if an entrant declines their invitation, " +
+                    "in which case a new entrant will be randomly selected again from the waiting list.";
+
     private String id;          //combine this with firestore doc id
     private String bannerURL;    //banner
 
@@ -42,10 +46,9 @@ public class Event {
     ;
 
     //-----------------------------------------------------------
-    public Event(String name, String details, String lotteryDetails, String id, String bannerURL, Date registrationOpen, Date registrationDeadline, Date eventDate) {
+    public Event(String name, String details, String id, String bannerURL, Date registrationOpen, Date registrationDeadline, Date eventDate) {
         this.name = name;
-        this.details = details;
-        this.lotteryDetails = lotteryDetails;
+        this.details = details + lotteryDetails;
         this.id = id;
         this.bannerURL = bannerURL;
         this.registrationOpen = registrationOpen;
