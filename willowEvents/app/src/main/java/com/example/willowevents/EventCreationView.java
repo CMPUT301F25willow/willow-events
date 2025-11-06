@@ -25,6 +25,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
 /*
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
@@ -235,10 +238,10 @@ public class EventCreationView extends AppCompatActivity {
         StorageReference ref = rootRef.child("event_banners").child(fileName);
 
         // (Optional) set content type based on selected Uri
-       *//* String mime = getContentResolver().getType(uri);
+        String mime = getContentResolver().getType(uri);
         StorageMetadata metadata = new StorageMetadata.Builder()
                 .setContentType(mime != null ? mime : "image/jpeg")
-                .build();*//*
+                .build();
 
         // Start upload, then fetch the download URL for the EXACT same ref
         ref.putFile(uri)
