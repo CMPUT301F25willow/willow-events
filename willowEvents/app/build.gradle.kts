@@ -2,7 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
 }
+configurations.all {
+    // Force the modern protobuf runtime everywhere
+    resolutionStrategy.force("com.google.protobuf:protobuf-javalite:3.25.5")
 
+    // Also rewrite any old protobuf-lite requests to javalite 3.25.5
+    resolutionStrategy.eachDependency {
+        if (requested.group == "com.google.protobuf" && requested.name == "protobuf-lite") {
+            useTarget("com.google.protobuf:protobuf-javalite:3.25.5")
+            because("Unify protobuf runtime to javalite to avoid duplicate classes.")
+        }
+    }
+}
 android {
     namespace = "com.example.willowevents"
     compileSdk = 36
@@ -16,6 +27,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -43,10 +55,19 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.firebase.auth)
+    implementation(libs.espresso.contrib)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.contrib)
+    implementation(libs.espresso.contrib) // move to implementation only if needed by app code
+
 }

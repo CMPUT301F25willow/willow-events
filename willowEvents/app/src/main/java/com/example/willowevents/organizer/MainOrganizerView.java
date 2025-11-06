@@ -23,11 +23,11 @@ public class MainOrganizerView extends AppCompatActivity {
 
         events = new ArrayList<Event>();
 //      REPLACE WITH FIRESTORE SHIT:
-        events.add(new Event("eventOne"));
+        /*events.add(new Event("eventOne"));
         events.add(new Event("eventTwo"));
         events.add(new Event("eventThree"));
         events.add(new Event("eventFour"));
-        events.add(new Event("eventFive"));
+        events.add(new Event("eventFive"));*/
 
 
         eventView = findViewById(R.id.eventList);   //find event ListView

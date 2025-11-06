@@ -15,6 +15,8 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button seeEnrolled;
     private Button seeCancelled;
 
+    private String eventID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
