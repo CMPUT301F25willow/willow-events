@@ -32,7 +32,6 @@ public class Event {
     private int waitListLimit;
 
 
-
     public Event(String name){
         this.name = name;
         eventID = "Random non duplicate ID";

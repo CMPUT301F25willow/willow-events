@@ -106,8 +106,6 @@ public class EventCreationView extends AppCompatActivity {
 
 
 
-
-
         eventStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,11 +133,14 @@ public class EventCreationView extends AppCompatActivity {
 
 
 
+
+
+
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 event.setName(eventName.getText().toString());
-                event.setLcoation(locationText.getText().toString());
+                event.setLocation(locationText.getText().toString());
                 event.setEventDate(eventStart.getText().toString());
                 event.setRegistrationOpen(registerOpen.getText().toString());
                 event.setRegistrationDeadline(registerDeadline.getText().toString());
