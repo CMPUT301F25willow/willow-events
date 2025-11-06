@@ -23,6 +23,7 @@ public class Event {
     private String bannerURL;    //banner
 
     private Integer waitlistlimit;
+    private Integer invitelistlimit;
 
     private Date eventDate;
     private Date registrationDeadline;
@@ -55,7 +56,6 @@ public class Event {
         this.registrationDeadline = registrationDeadline;
         this.eventDate = eventDate;
         this.waitlistlimit = null;
-        //eventID = "Random non duplicate ID"; <-I dont think we need this as firebase creates its own id, stored above as id - adrian
 
 
         this.waitlist = new ArrayList<>();
@@ -82,20 +82,17 @@ public class Event {
         return details;
     }
 
-    ;
 
-    public String getLotteryDetails() {
-        return lotteryDetails;
-    }
 
-    ;
+    public Integer getInvitelistlimit() { return invitelistlimit;}
+    public Integer getWaitlistlimit() { return waitlistlimit;}
+
 
     public ArrayList<Entrant> getWaitlist() {
         return waitlist;
     }
 
 
-    ;
 
     public ArrayList<Entrant> getAprovelist() {
         return approvelist;
@@ -133,10 +130,9 @@ public class Event {
     public void setDetails(String details) {
         this.details = details;
     }
+    public void setWaitlistlimit(Integer limit) { this.waitlistlimit = limit;}
 
-    public void setLotteryDetails(String lotteryDetails) {
-        this.lotteryDetails = lotteryDetails;
-    }
+    public void setInvitelistlimit(Integer limit) { this.invitelistlimit = limit;}
 
     public void setWaitlist(ArrayList<Entrant> waitlist) {
         this.waitlist = waitlist;

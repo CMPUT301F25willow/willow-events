@@ -28,6 +28,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button seeCancelled;
     private Button backButton;
     private Button sendInvite;
+    private boolean redraw = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +85,18 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
 
 
-        // For inviting entrants
+        /** For inviting entrants and redrawing
+        // I believe for redrawing, we need to change the button depending on whether entrants have been redrawn or not
+        // I've created the redraw boolean for that case.
+        // The button for redrawing could be enabled depending on the following:
+           The size of invitelist + acceptedlist DOES NOT equal the invitelistlimit
+           In this case, that would mean some people have cancelled and the invitelistlimit is not reached.
+           I've already set up doLottery for this case. - Michelle
+        **/
 
         Dialog dialog = new Dialog(this);
 
+        // click on invite button
         sendInvite.setOnClickListener(new View.OnClickListener() {
             // open up fragment to send invite
 
@@ -100,6 +109,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                 Button invite = dialog.findViewById(R.id.invite_button);
                 EditText amount = dialog.findViewById(R.id.editTextNumber);
 
+                // click on cancel button to leave fragment
                 cancelInvite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -108,10 +118,10 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                     }
                 });
 
+                // invite entrants as long as there is an int
                 invite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
 
                         if (TextUtils.isEmpty(amount.getText().toString())) {
                             amount.setError("Number required");
@@ -119,11 +129,10 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                             return;
                         }
 
+                        // get invitelistlimit, set and use
                         int value = Integer.parseInt(amount.getText().toString());
-
-
-                        ArrayList<Entrant> selected = doLottery(event.getWaitlist(), value);
-                        event.setInvitelist(selected);
+                        event.setInvitelistlimit(value);
+                        doLottery(event);
 
                         dialog.dismiss();
                     }
@@ -136,29 +145,38 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
         });
 
-
     }
 
-    public ArrayList<Entrant> doLottery(ArrayList<Entrant> waitlist, int max){
+    /**
+     * Usage:
+     * Given a max value, the loop will pick a random entrant and add them to the invitelist.
+     * Then remove them from the waitlist.
+     * This will continue until max reaches zero
+     * This can also be used for redrawing entrants
+     * On first invite:
+     * invitelist abnd approvelist are zero, so the max = invitelistlimit
+     * On the next iterations:
+     * draw the missing amount of invites
+     */
+    public void doLottery(Event event){
 
-        ArrayList<Entrant> selected = new ArrayList<Entrant>();
+        int max = event.getInvitelistlimit() - event.getInvitelist().size() - event.getAprovelist().size();
 
         while ( max > 0){
-
             max-=1;
-            int size = waitlist.size();
+            int size = event.getWaitlist().size();
             int random = new Random().nextInt(size);
-            selected.add(waitlist.get(random));
-            waitlist.remove(random);
-
+            event.getInvitelist().add(event.getWaitlist().get(random));
+            event.getInvitelist().remove(random);
         }
-
-
-        return selected;
     }
 
 
 
+
+
+
+    // tis is for testing only
     public Event addMockEvent(){
 
         Event event = new Event("EventOne");
