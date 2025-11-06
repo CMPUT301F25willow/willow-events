@@ -13,7 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.entrant.EntrantHomeView;
-import com.example.willowevents.model.Entrant;
 import com.example.willowevents.organizer.MainOrganizerView;
 
 public class SelectRoleView extends AppCompatActivity {
@@ -42,7 +41,7 @@ public class SelectRoleView extends AppCompatActivity {
         // IF USER SELECTS ENTRANT
         chooseEntrant.setOnClickListener(view -> {
             // ADD NEW ENTRANT
-            userController.addEntrantUser(deviceID);
+            userController.addNewEntrantUser(deviceID);
             // GO TO ENTRANT HOME
             Intent myIntent = new Intent(SelectRoleView.this, EntrantHomeView.class);
             startActivity(myIntent);
@@ -52,7 +51,7 @@ public class SelectRoleView extends AppCompatActivity {
         // IF USER SELECTS ORGANIZER
         chooseOrganizer.setOnClickListener(view -> {
             // ADD NEW ORGANIZER
-            userController.addOrganizerUser(deviceID);
+            userController.addNewOrganizerUser(deviceID);
             // GO TO ORGANIZER HOME
             Intent myIntent = new Intent(SelectRoleView.this, MainOrganizerView.class);
             startActivity(myIntent);

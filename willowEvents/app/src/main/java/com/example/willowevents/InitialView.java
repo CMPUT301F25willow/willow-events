@@ -21,8 +21,6 @@ import com.example.willowevents.organizer.MainOrganizerView;
 import java.util.Objects;
 
 public class InitialView extends AppCompatActivity {
-    String currentEntrantID;
-    User currentEntrant ;
     Button loginButton;
     Button signupButton;
     Button deviceLoginButton;
