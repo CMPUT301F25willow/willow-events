@@ -52,25 +52,25 @@ public class UserListView extends AppCompatActivity {
 
         ArrayList<String> tempList = new ArrayList<>();
 
-        waitlistUsers.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
-        waitlistUsers.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
-        waitlistUsers.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
-        waitlistUsers.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
-
-        invitedUsers.add(new Entrant("0", "Alfredo", "email@gmail.com", "306 123 456", tempList));
-        invitedUsers.add(new Entrant("1", "Bernadice", "email@gmail.com", "306 123 456", tempList));
-        invitedUsers.add(new Entrant("2", "Claudelia", "email@gmail.com", "306 123 456", tempList));
-        invitedUsers.add(new Entrant("3", "Domingo", "email@gmail.com", "306 123 456", tempList));
-
-        enrolledUsers.add(new Entrant("0", "Albert", "email@gmail.com", "306 123 456", tempList));
-        enrolledUsers.add(new Entrant("1", "Bertrand", "email@gmail.com", "306 123 456", tempList));
-        enrolledUsers.add(new Entrant("2", "Cornelius", "email@gmail.com", "306 123 456", tempList));
-        enrolledUsers.add(new Entrant("3", "Daedalus", "email@gmail.com", "306 123 456", tempList));
-
-        cancelledUsers.add(new Entrant("0", "Aurora", "email@gmail.com", "306 123 456", tempList));
-        cancelledUsers.add(new Entrant("1", "Belle", "email@gmail.com", "306 123 456", tempList));
-        cancelledUsers.add(new Entrant("2", "Cinderella", "email@gmail.com", "306 123 456", tempList));
-        cancelledUsers.add(new Entrant("3", "Diana", "email@gmail.com", "306 123 456", tempList));
+//        waitlistUsers.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
+//        waitlistUsers.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
+//        waitlistUsers.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
+//        waitlistUsers.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
+//
+//        invitedUsers.add(new Entrant("0", "Alfredo", "email@gmail.com", "306 123 456", tempList));
+//        invitedUsers.add(new Entrant("1", "Bernadice", "email@gmail.com", "306 123 456", tempList));
+//        invitedUsers.add(new Entrant("2", "Claudelia", "email@gmail.com", "306 123 456", tempList));
+//        invitedUsers.add(new Entrant("3", "Domingo", "email@gmail.com", "306 123 456", tempList));
+//
+//        enrolledUsers.add(new Entrant("0", "Albert", "email@gmail.com", "306 123 456", tempList));
+//        enrolledUsers.add(new Entrant("1", "Bertrand", "email@gmail.com", "306 123 456", tempList));
+//        enrolledUsers.add(new Entrant("2", "Cornelius", "email@gmail.com", "306 123 456", tempList));
+//        enrolledUsers.add(new Entrant("3", "Daedalus", "email@gmail.com", "306 123 456", tempList));
+//
+//        cancelledUsers.add(new Entrant("0", "Aurora", "email@gmail.com", "306 123 456", tempList));
+//        cancelledUsers.add(new Entrant("1", "Belle", "email@gmail.com", "306 123 456", tempList));
+//        cancelledUsers.add(new Entrant("2", "Cinderella", "email@gmail.com", "306 123 456", tempList));
+//        cancelledUsers.add(new Entrant("3", "Diana", "email@gmail.com", "306 123 456", tempList));
 
 
         //Get elements

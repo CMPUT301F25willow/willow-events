@@ -6,11 +6,14 @@ public class Organizer extends User {
 
     private ArrayList<String> createdList;
     // List of events created by organizer
-    public Organizer(String ID, String name,
-String Email,
-String phoneNumber,
-ArrayList<String> joinList) {
-        super(ID, name, Email, phoneNumber, joinList);
+    public Organizer(
+            String ID,
+            String name,
+            String Email,
+            String phoneNumber,
+            String userType,
+            ArrayList<String> joinList) {
+        super(ID, name, Email, phoneNumber, userType, joinList);
     };
     Organizer(String name){
         super(name);
