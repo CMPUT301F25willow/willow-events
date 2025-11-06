@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.organizer.MainOrganizerView;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
         });
-        Intent myIntent = new Intent(MainActivity.this, MainOrganizerView.class);
+        Intent myIntent = new Intent(MainActivity.this, InitialView.class);
         startActivity(myIntent);
     }
 }
