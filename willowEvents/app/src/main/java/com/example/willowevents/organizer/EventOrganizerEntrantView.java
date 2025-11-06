@@ -28,6 +28,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button seeCancelled;
     private Button backButton;
     private Button sendInvite;
+    private Button updateEvent;
     private boolean redraw = false;
 
     @Override
@@ -42,11 +43,17 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
 
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
+        updateEvent = findViewById(R.id.info_button);
 
         Event event = addMockEvent();
 
 
-
+        updateEvent.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventModifyView.class);
+            myIntent.putExtra("Type", "EventModifyView");
+            startActivity(myIntent);
+        });
 
         backButton.setOnClickListener(view -> {
             //Switch views
