@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +21,19 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Random;
 
+/**
+ * This View shows the organizer options regarding the waitlist and
+ * other lists of users in the event.
+ */
 public class EventOrganizerEntrantView extends AppCompatActivity {
 
+    private String eventId;
+    private Event event;
     private Button seeWaitlist;
     private Button seeInvited;
     private Button seeEnrolled;
     private Button seeCancelled;
+    private Button seeInfo;
     private Button backButton;
     private Button sendInvite;
     private Button updateEvent;
@@ -36,6 +44,28 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_entrants_view);
 
+        Intent origIntent = new Intent(this, MainOrganizerView.class);
+        //check for any data sent along side activity change
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            eventId = extras.getString("Event ID");
+        } else {
+            origIntent = new Intent(this, EventOrganizerInfoView.class);
+            extras = getIntent().getExtras();
+            if (extras != null) {
+                eventId = extras.getString("Event ID");
+            }
+        }
+        if (eventId != null) {
+            //TODO: event = firestore find event via eventId (then uncomment else exception below)
+            TextView eventName = findViewById(R.id.eventName);
+            eventName.setText(event.getName());
+        } else {
+//            throw new IllegalArgumentException("event ID not acquired");
+        }
+
+        backButton = findViewById(R.id.back_button);
+        seeInfo = findViewById(R.id.info_button);
         seeWaitlist = findViewById(R.id.waitlist_see_entrants_button);
         seeInvited = findViewById(R.id.invited_see_entrants_button);
         seeEnrolled = findViewById(R.id.enrolled_see_entrants_button);
@@ -59,6 +89,17 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
             myIntent.putExtra("Type", "mainOrganizerPage");
+            startActivity(myIntent);
+        });
+
+        seeInfo.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventOrganizerInfoView.class);
+            myIntent.putExtra("event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        backButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
             startActivity(myIntent);
         });
 

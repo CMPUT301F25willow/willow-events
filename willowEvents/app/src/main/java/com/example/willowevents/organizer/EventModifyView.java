@@ -30,6 +30,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This class is where the organizer modifies the event info.
+ * It is largely the same as EventCreationView, but all the
+ * options should be auto filled with the current event info.
+ */
 public class EventModifyView extends AppCompatActivity {
     /***
     /**

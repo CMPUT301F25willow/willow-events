@@ -163,6 +163,4 @@ public class Event {
         this.bannerURL = bannerURL;
     }
 
-    public void setWaitlistLimit(Integer waitlistLimit) {
-    }
 }

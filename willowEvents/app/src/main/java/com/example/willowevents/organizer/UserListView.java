@@ -16,6 +16,10 @@ import com.example.willowevents.model.User;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This View shows the organizer a specific list of users from their event
+ * (for example, the waitlist or invited list)
+ */
 public class UserListView extends AppCompatActivity {
 
     private ListView userView;

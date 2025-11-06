@@ -14,6 +14,9 @@ import com.example.willowevents.model.User;
 
 import java.util.ArrayList;
 
+/**
+ * This ArrayAdapter manages how user info is displayed in lists
+ */
 public class UserArrayAdapter extends ArrayAdapter {
 
     public UserArrayAdapter(@NonNull Context context, ArrayList<User> users){
