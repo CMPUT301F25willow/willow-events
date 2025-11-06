@@ -23,7 +23,9 @@
         <activity
             android:name=".organizer.UserListView"
             android:exported="false" />
-
+        <activity
+            android:name=".organizer.EventOrganizerEntrantView"
+            android:exported="false" />
         <activity
             android:name=".organizer.EventCreationView"
             android:exported="false" />
@@ -50,7 +52,7 @@
             android:name=".entrant.NotificationView"
             android:exported="false" />
         <activity
-            android:name=".organizer.EventOrganizerEntrantView"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
