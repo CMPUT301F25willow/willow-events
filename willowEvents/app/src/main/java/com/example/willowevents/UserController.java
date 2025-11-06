@@ -1,6 +1,7 @@
 package com.example.willowevents;
 
 import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.Organizer;
 import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -8,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class UserController {
@@ -25,21 +27,44 @@ public class UserController {
     }
 
     /**
-     * Adds a user to the database given an entrnat. Gives it a unique tag "Entrant" in the databse
+     * Adds a user to the database given an entrnat. Gives it a unique tag "Entrant" in the database
+     * @param userID is the Device-ID as a STRING of the user
      */
-    public void addEntrantUser() {
+    public void addEntrantUser(String userID) {
+        Entrant user = new Entrant(userID,
+                "No name",
+                "No email",
+                "No phone number",
+                "entrant",
+                new ArrayList<>());
 
+        DocumentReference docRef = usersRef.document(userID);
+        docRef.set(user);
     }
 
     /**
-     * Adds the
+     * Adds a user to the database given an organizer. Gives it a unique tag "Entrant" in the database
+     * @param userID is the Device-ID as a STRING of the user
      */
-    public void addOrganizerUser() {
+    public void addOrganizerUser(String userID) {
+        Organizer user = new Organizer(userID,
+                "No name",
+                "No email",
+                "No phone number",
+                "organizer",
+                new ArrayList<>());
+
+        DocumentReference docRef = usersRef.document(userID);
+        docRef.set(user);
     }
 
     /**
      * Adds a user to the database given an ADMIN
      */
+    public void addAdminUser(String userID) {
+        // TO BE IMPLEMENTED IN FUTURE ITERATION
+
+    }
 
     /**
      * Given a userID in the form of a String, return the user details from the database
@@ -62,22 +87,19 @@ public class UserController {
                 String email = snapshot.getString("email");
                 String phoneNumber = snapshot.getString("phoneNumber");
                 ArrayList<String> joinList = (ArrayList<String>) snapshot.get("joinList");
-                if (userType == "organizer") {
-//                    user = new Organizer(userID,
-//                            name,
-//                            email,
-//                            phoneNumber,
-//                            joinList);
-                    user = new Entrant(userID,
+                if (Objects.equals(userType, "organizer")) {
+                    user = new Organizer(userID,
                             name,
                             email,
                             phoneNumber,
+                            userType,
                             joinList);
                 } else {
                     user = new Entrant(userID,
                             name,
                             email,
                             phoneNumber,
+                            userType,
                             joinList);
                 }
                 callback.onUserLoaded(user);
@@ -100,7 +122,33 @@ public class UserController {
      */
     public void userExists(String deviceID, OnExistsUser callback) {
         usersRef.document(deviceID).get().addOnSuccessListener( document -> {
-            callback.onExistsUser(document.exists());
+
+            User user = null;
+            if (document.exists()) {
+                String userType = document.getString("userType");
+                String name = document.getString("name");
+                String email = document.getString("email");
+                String phoneNumber = document.getString("phoneNumber");
+                ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
+                if (Objects.equals(userType, "organizer")) {
+                    user = new Organizer(deviceID,
+                            name,
+                            email,
+                            phoneNumber,
+                            userType,
+                            joinList);
+                } else {
+                    user = new Entrant(deviceID,
+                            name,
+                            email,
+                            phoneNumber,
+                            userType,
+                            joinList);
+                }
+
+            }
+            callback.onExistsUser(document.exists(), user);
+
         });
     }
 
@@ -159,7 +207,7 @@ public class UserController {
     }
 
     public interface OnExistsUser {
-        boolean onExistsUser(boolean userExists);
+        void onExistsUser(boolean userExists, User user);
     }
 
 }
