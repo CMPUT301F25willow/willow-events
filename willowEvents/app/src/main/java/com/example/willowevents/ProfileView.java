@@ -1,6 +1,7 @@
 package com.example.willowevents;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +21,10 @@ public class ProfileView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button editButton = findViewById(R.id.edit_button);
+
+//        editButton.on
+
     }
 }
