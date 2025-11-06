@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class EventModifyView extends AppCompatActivity {
-
+    /***
     /**
      * Effectively does the same thing as EventCreationView..
      */
@@ -79,39 +79,8 @@ public class EventModifyView extends AppCompatActivity {
         setContentView(R.layout.activity_event_edit_view);
 
         // Intent stuff
-
-        sizeLimit = findViewById(R.id.waitlist_size_limit_entry);
-        doLimit = findViewById(R.id.limit_waitlist_checkbox);
-        doLimit.setOnClickListener(view -> {
-            limiting = true;
-        });
-        sizeLimit.setOnClickListener(view -> {
-            if (limiting) {
-                //I will have to implement this somewhere else
-                //Need to fix this
-                sizeLimit.setFocusable(true);
-                sizeLimit.setFocusableInTouchMode(true);
-                waitListLimit = sizeLimit.getText().toString();
-                //Make sure user input is valid
-                if (!ValidateData.containsOnlyDigits(waitListLimit)) {
-                    //don't let them
-                    sizeLimit.setText("");
-                }
-            } else {
-                sizeLimit.setFocusable(false);
-                sizeLimit.setFocusableInTouchMode(false);
-            }
-        });
-
-
-        // Firebase
-        FirebaseApp.initializeApp(this);
-        db = FirebaseFirestore.getInstance();
-        //storage = FirebaseStorage.getInstance();
-
         bindViews();
-        hookUpInteractions();
-        seedDefaultTimestamps(); // show something sensible before user picks
+
 
     }
 
@@ -140,163 +109,7 @@ public class EventModifyView extends AppCompatActivity {
 
     }
 
-    private void hookUpInteractions() {
-        eventStartBtn.setOnClickListener(v -> pickDateTime(eventStartCal,  eventStartTv));
-        regDeadlineBtn.setOnClickListener(v -> pickDateTime(regDeadlineCal,  regDeadlineTv));
-        regOpenBtn.setOnClickListener(v -> pickDateTime(regOpenCal, regOpenTv));
 
-
-        limitWaitlistCb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            waitlistSizeEt.setEnabled(isChecked);
-            if (!isChecked) waitlistSizeEt.setText("");
-        });
-
-        cancelBtn.setOnClickListener(v -> finish());
-        createBtn.setOnClickListener(v -> updateEvent());
-    }
-
-    private void seedDefaultTimestamps() {
-        Date now = new Date();
-        eventStartCal.setTime(now);
-        regOpenCal.setTime(now);
-
-        regDeadlineCal.setTime(now);
-        regDeadlineCal.add(Calendar.HOUR_OF_DAY, 2);
-
-        eventStartTv.setText(displayFmt.format(eventStartCal.getTime()));
-        regOpenTv.setText(displayFmt.format(regOpenCal.getTime()));
-        regDeadlineTv.setText(displayFmt.format(regDeadlineCal.getTime()));
-    }
-
-    private void pickDateTime(Calendar cal, TextView target) {
-        //pick date
-        DatePickerDialog dp = new DatePickerDialog(
-                this,
-                (view, year, month, dayOfMonth) -> {
-                    cal.set(Calendar.YEAR, year);
-                    cal.set(Calendar.MONTH, month);
-                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                    //pick time
-                    int hour = cal.get(Calendar.HOUR_OF_DAY);
-                    int minute = cal.get(Calendar.MINUTE);
-                    TimePickerDialog tp = new TimePickerDialog(
-                            this,
-                            (timeView, h, m) -> {
-                                cal.set(Calendar.HOUR_OF_DAY, h);
-                                cal.set(Calendar.MINUTE, m);
-                                cal.set(Calendar.SECOND, 0);
-                                cal.set(Calendar.MILLISECOND, 0);
-                                target.setText(displayFmt.format(cal.getTime()));
-                            },
-                            hour, minute, true
-                    );
-                    tp.show();
-                },
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-        );
-        dp.show();
-    }
-
-    private void updateEvent() {
-        String title   = textOf(nameEt);
-        String details = textOf(extraDetailsEt);
-        // location is optional for now;
-        String location = textOf(locationEt);
-
-        //validation
-        if (TextUtils.isEmpty(title)) {
-            nameEt.setError("Title required");
-            nameEt.requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(details)) {
-            extraDetailsEt.setError("Details required");
-            extraDetailsEt.requestFocus();
-            return;
-        }
-
-        //validate times from the calendars
-        Date startsAt = eventStartCal.getTime();
-        Date regOpen  = regOpenCal.getTime();
-        Date regEnd   = regDeadlineCal.getTime();
-
-        if (!regEnd.after(regOpen)) {
-            Toast.makeText(this, "Registration deadline must be after open date", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (!regEnd.before(startsAt)) {
-            Toast.makeText(this, "Registration deadline must be before event start", Toast.LENGTH_LONG).show();
-            return;
-        }
-//validate waitListLimit
-        Integer waitlistLimit = null;
-        if (limitWaitlistCb.isChecked()) {
-            String n = textOf(waitlistSizeEt);
-            if (n.matches("\\d+")) {
-                waitlistLimit = Integer.parseInt(n);
-            } else {
-                waitlistSizeEt.setError("Digits only");
-                waitlistSizeEt.requestFocus();
-                return;
-            }
-        }
-
-
-        //Build Event
-        Event e = new Event(
-                title,
-                details,
-                null,                              // firebase id
-                bannerImageUrl,                    //null for now
-                regOpen,
-                regEnd,
-                startsAt
-        );
-
-
-
-        // e.setLocation(location); IMPLEMENT THIS LATER
-        e.setWaitlistLimit(waitlistLimit);
-
-        // Initialize lists to avoid nulls (adjust generics based on your Event.java)
-        e.setWaitlist(new ArrayList<>());
-        e.setAprovelist(new ArrayList<>());
-        e.setCancellist(new ArrayList<>());
-
-
-
-
-        // Write to Firestore
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference doc = db.collection("events").document();
-        e.setId(doc.getId());
-
-
-        doc.set(e)
-                .addOnSuccessListener(v -> {
-                    Toast.makeText(this, "Event created!", Toast.LENGTH_SHORT).show();
-                    finish();
-                })
-                .addOnFailureListener(err ->
-                        Toast.makeText(this, "Failed: " + err.getMessage(), Toast.LENGTH_LONG).show());
-    }
-
-    private static String textOf(EditText et) {
-        return et.getText() == null ? "" : et.getText().toString().trim();
-    }
-
-    // Helper if you ever need to parse from TextView text back to Date
-    private @Nullable Date parseDisplayTime(TextView tv) {
-        try {
-            return displayFmt.parse(tv.getText().toString().trim());
-        } catch (ParseException e) {
-            return null;
-        }
-
-    }
 
 
 }
