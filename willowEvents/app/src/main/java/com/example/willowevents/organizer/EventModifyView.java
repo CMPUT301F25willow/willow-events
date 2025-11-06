@@ -264,7 +264,7 @@ public class EventModifyView extends AppCompatActivity {
 
 
         // e.setLocation(location); IMPLEMENT THIS LATER
-        e.setWaitlistLimit(waitlistLimit);
+        e.setWaitlistlimit(waitlistLimit);
 
         // Initialize lists to avoid nulls (adjust generics based on your Event.java)
         e.setWaitlist(new ArrayList<>());

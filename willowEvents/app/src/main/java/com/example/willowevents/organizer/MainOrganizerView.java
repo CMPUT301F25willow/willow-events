@@ -53,6 +53,8 @@ public class MainOrganizerView extends AppCompatActivity {
         ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, events);
 
         eventView = findViewById(R.id.eventList);   //find event ListView
+        newEventButton = findViewById(R.id.create_new_event);
+
         eventAdapter = new EventArrayAdapter(this, events); //set array adapter
         eventView.setAdapter(eventAdapter);     //link array adapter to ListView
         
