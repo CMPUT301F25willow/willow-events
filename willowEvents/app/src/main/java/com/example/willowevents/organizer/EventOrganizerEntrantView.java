@@ -1,14 +1,25 @@
 package com.example.willowevents.organizer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.willowevents.Lottery;
 import com.example.willowevents.R;
+import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Random;
 
 /**
  * This View shows the organizer options regarding the waitlist and
@@ -24,6 +35,9 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button seeCancelled;
     private Button seeInfo;
     private Button backButton;
+    private Button sendInvite;
+    private Button updateEvent;
+    private boolean redraw = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +70,27 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         seeInvited = findViewById(R.id.invited_see_entrants_button);
         seeEnrolled = findViewById(R.id.enrolled_see_entrants_button);
         seeCancelled = findViewById(R.id.cancelled_see_entrants_button);
+        backButton = findViewById(R.id.back_button);
+
+        sendInvite = findViewById(R.id.waitlist_send_invitation_button);
+        updateEvent = findViewById(R.id.info_button);
+
+        Event event = addMockEvent();
+
+
+        updateEvent.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventModifyView.class);
+            myIntent.putExtra("Type", "EventModifyView");
+            startActivity(myIntent);
+        });
+
+        backButton.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
+            myIntent.putExtra("Type", "mainOrganizerPage");
+            startActivity(myIntent);
+        });
 
         seeInfo.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventOrganizerInfoView.class);
@@ -95,5 +130,114 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             myIntent.putExtra("Type", "cancelled");
             startActivity(myIntent);
         });
+
+
+
+        /** For inviting entrants and redrawing
+        // I believe for redrawing, we need to change the button depending on whether entrants have been redrawn or not
+        // I've created the redraw boolean for that case.
+        // The button for redrawing could be enabled depending on the following:
+           The size of invitelist + acceptedlist DOES NOT equal the invitelistlimit
+           In this case, that would mean some people have cancelled and the invitelistlimit is not reached.
+           I've already set up doLottery for this case. - Michelle
+        **/
+
+        Dialog dialog = new Dialog(this);
+
+        // click on invite button
+        sendInvite.setOnClickListener(new View.OnClickListener() {
+            // open up fragment to send invite
+
+            @Override
+            public void onClick(View view) {
+                dialog.setContentView(R.layout.select_batch_from_waitlist);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                Button cancelInvite = dialog.findViewById(R.id.cancel_button);
+                Button invite = dialog.findViewById(R.id.invite_button);
+                EditText amount = dialog.findViewById(R.id.editTextNumber);
+
+                // click on cancel button to leave fragment
+                cancelInvite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+
+                    }
+                });
+
+                // invite entrants as long as there is an int
+                invite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (TextUtils.isEmpty(amount.getText().toString())) {
+                            amount.setError("Number required");
+                            amount.requestFocus();
+                            return;
+                        }
+
+                        // get invitelistlimit, set and use
+                        int value = Integer.parseInt(amount.getText().toString());
+                        event.setInvitelistlimit(value);
+                        doLottery(event);
+
+                        dialog.dismiss();
+                    }
+                });
+
+
+                dialog.show();
+
+            }
+
+        });
+
     }
+
+    /**
+     * Usage:
+     * Given a max value, the loop will pick a random entrant and add them to the invitelist.
+     * Then remove them from the waitlist.
+     * This will continue until max reaches zero
+     * This can also be used for redrawing entrants
+     * On first invite:
+     * invitelist abnd approvelist are zero, so the max = invitelistlimit
+     * On the next iterations:
+     * draw the missing amount of invites
+     */
+    public void doLottery(Event event){
+
+        int max = event.getInvitelistlimit() - event.getInvitelist().size() - event.getAprovelist().size();
+
+        while ( max > 0){
+            max-=1;
+            int size = event.getWaitlist().size();
+            int random = new Random().nextInt(size);
+            event.getInvitelist().add(event.getWaitlist().get(random));
+            event.getInvitelist().remove(random);
+        }
+    }
+
+
+
+
+
+
+    // tis is for testing only
+    public Event addMockEvent(){
+
+        Event event = new Event("EventOne");
+        ArrayList<String> tempList = new ArrayList<>();
+        ArrayList<Entrant> entrantlist = new ArrayList<>();
+
+        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
+        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
+        entrantlist.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
+        entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
+
+        event.setWaitlist(entrantlist);
+        return event;
+    }
+
 }
