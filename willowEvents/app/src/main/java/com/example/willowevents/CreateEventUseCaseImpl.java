@@ -21,7 +21,7 @@ public final class CreateEventUseCaseImpl implements CreateEventUseCase {
         try {
             validate(r);
             Event e = Event.fromCreation(
-                    r.title, r.description,
+                    r.title, r.description, r.lotteryDetails,
                     r.eventDate, r.registrationOpenDate, r.registrationCloseDate,
                     r.capacity, r.waitlistLimit, r.organizerId,
                     /*posterUrl*/ null, /*requireGeo*/ r.requireGeo

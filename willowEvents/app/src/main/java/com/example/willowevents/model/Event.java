@@ -13,6 +13,12 @@ public class Event {
     private String title;
     private String description;
 
+    private String lotteryDetails =
+            "\n\nLottery System:" +
+                    "\nAfter the deadline has ended a specified number of entrants will be randomly selected from the waiting list." +
+                    "\nIf you have been invited to an event, you will be notified immediately."+
+                    "\nIf you have not been invited, it is possible to be invited again if an entrant declines their invitation, " +
+                    "in which case a new entrant will be randomly selected again from the waiting list.";
 
     private Date eventDate;
     private Date registrationOpenDate;
@@ -22,11 +28,11 @@ public class Event {
     // Optional capacity (not wired in UI yet, kept for future)
     private @Nullable Integer capacity; // null => unlimited
 
-
     // NEW: waitlist buckets (store userIds)
     private List<String> waitlist = new ArrayList<>();
     private List<String> cancelledList = new ArrayList<>();
     private List<String> approvedList = new ArrayList<>();
+    private List<String> inviteList = new ArrayList<>();
 
 
     // Optional limit on waitlist size (from checkbox + number)
@@ -45,6 +51,7 @@ public class Event {
     public static Event fromCreation(
             String title,
             String description,
+            String lotteryDetails,
             Date eventDate,
             Date regOpen,
             Date regClose,
@@ -57,10 +64,11 @@ public class Event {
         Event e = new Event();
         e.title = title;
         e.description = description;
+        e.lotteryDetails = lotteryDetails;
         e.eventDate = eventDate;
         e.registrationOpenDate = regOpen;
         e.registrationCloseDate = regClose;
-        e.capacity = capacity;
+        e.capacity = capacity; //invite list limit
         e.waitlistLimit = waitlistLimit;
         e.organizerId = organizerId;
         e.posterUrl = posterUrl;
@@ -69,6 +77,7 @@ public class Event {
         e.waitlist = new ArrayList<>();
         e.cancelledList = new ArrayList<>();
         e.approvedList = new ArrayList<>();
+        e.inviteList = new ArrayList<>();
         return e;
     }
 
@@ -87,6 +96,9 @@ public class Event {
 
     public @Nullable Integer getCapacity() { return capacity; }
 
+    public void setLotteryDetails(String lotteryDetails) {
+        this.lotteryDetails = lotteryDetails;
+    }
 
     public List<String> getWaitlist() { return waitlist; }
     public List<String> getCancelledList() { return cancelledList; }
@@ -101,4 +113,43 @@ public class Event {
 
     public @Nullable String getPosterUrl() { return posterUrl; }
     public boolean isRequireGeo() { return requireGeo; }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setOrganizerId(String organizerId) {
+        this.organizerId = organizerId;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public void setRegistrationOpenDate(Date registrationOpenDate) {
+        this.registrationOpenDate = registrationOpenDate;
+    }
+
+    public void setRegistrationCloseDate(Date registrationCloseDate) {
+        this.registrationCloseDate = registrationCloseDate;
+    }
+
+    public void setWaitlist(List<String> waitlist) {
+        this.waitlist = waitlist;
+    }
+
+    public void setCancelledList(List<String> cancelledList) {
+        this.cancelledList = cancelledList;
+    }
+
+    public void setApprovedList(List<String> approvedList) {
+        this.approvedList = approvedList;
+    }
+
+    public void setInvitelistlimit(int value) {
+    }
 }
