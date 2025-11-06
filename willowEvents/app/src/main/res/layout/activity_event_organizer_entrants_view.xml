@@ -6,7 +6,7 @@
     android:padding="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventOrganizerEntrantView">
+    tools:context=".organizer.EventOrganizerEntrantView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profile_bar"
@@ -29,7 +29,7 @@
         android:text="Organizer"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
-        app:layout_constraintStart_toStartOf="@+id/profile_bar"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
         app:layout_constraintTop_toTopOf="@+id/profile_bar" />
 
     <ImageButton
@@ -314,5 +314,20 @@
         app:layout_constraintEnd_toEndOf="@+id/waitlist_background"
         app:layout_constraintStart_toStartOf="@+id/waitlist_background"
         app:layout_constraintTop_toBottomOf="@+id/waitlist_send_notification_button" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:backgroundTint="@color/blue_dark"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="bk"
+        android:textSize="24sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
+        app:layout_constraintStart_toStartOf="@+id/profile_bar"
+        app:layout_constraintTop_toTopOf="@+id/profile_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="corner_radius">10dp</dimen>
+    <dimen name="spacing_btwn_elem">20dp</dimen>
+    <dimen name="toolbar_width">386dp</dimen>
 </resources>

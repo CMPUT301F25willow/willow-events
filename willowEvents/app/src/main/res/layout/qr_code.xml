@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:padding="12dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EventOrganizerEntrantView">
+    android:layout_height="496dp"
+    tools:context=".organizer.EventOrganizerEntrantView">
 
     <TextView
-        android:id="@+id/selection_info2"
+        android:id="@+id/poster_background"
         android:layout_width="match_parent"
         android:layout_height="472dp"
         android:background="@drawable/rounded_corner_background"
@@ -32,7 +32,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/selection_info2" />
+        app:layout_constraintTop_toTopOf="@+id/poster_background" />
 
     <Button
         android:id="@+id/poster_heading2"
@@ -47,7 +47,7 @@
         android:textSize="14sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/selection_info2" />
+        app:layout_constraintTop_toTopOf="@+id/poster_background" />
 
     <Button
         android:id="@+id/poster_heading3"
@@ -60,7 +60,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:cornerRadius="@dimen/corner_radius"
-        app:layout_constraintBottom_toBottomOf="@+id/selection_info2"
+        app:layout_constraintBottom_toBottomOf="@+id/poster_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
