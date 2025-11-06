@@ -1,6 +1,10 @@
 package com.example.willowevents.organizer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +18,14 @@ import java.util.ArrayList;
 /**
  * This View displays a list of events that the organizer who is logged in
  * has made, as well as an option to make another. Clicking on an event should
- * take the user to a screen with more options regarding the event.
+ * take the user to a screen with more options regarding the event, passing the event
+ * by giving the eventId as an extra with the tag "Event ID"
  */
 public class MainOrganizerView extends AppCompatActivity {
     ListView eventView;
     EventArrayAdapter eventAdapter;
     ArrayList<Event> events;
+    Button newEventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +42,27 @@ public class MainOrganizerView extends AppCompatActivity {
 
 
         eventView = findViewById(R.id.eventList);   //find event ListView
+        newEventButton = findViewById(R.id.createNewEvent);
+
         eventAdapter = new EventArrayAdapter(this, events); //set array adapter
         eventView.setAdapter(eventAdapter);     //link array adapter to ListView
+
+
+        newEventButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainOrganizerView.this, EventCreationView.class);
+            startActivity(intent);
+        });
+
+        eventView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String eventId = events.get(i).getId();
+                Intent myIntent = new Intent(MainOrganizerView.this, EventOrganizerEntrantView.class);
+                //need to pass event to be shown
+                myIntent.putExtra("Event ID", eventId);
+                startActivity(myIntent);
+
+            }
+        });
 
     }
 }

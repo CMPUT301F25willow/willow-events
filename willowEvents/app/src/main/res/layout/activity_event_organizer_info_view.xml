@@ -81,11 +81,11 @@
         app:layout_constraintTop_toBottomOf="@+id/info_button" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Organizer"
+        android:text="Event"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
         app:layout_constraintStart_toEndOf="@+id/back_button"
@@ -101,21 +101,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/event_info_banner"
         app:layout_constraintStart_toStartOf="@+id/event_info_banner"
         app:layout_constraintTop_toTopOf="@+id/event_info_banner" />
-
-    <ImageButton
-        android:id="@+id/profile_button"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/rounded_corner_background"
-        android:backgroundTint="@color/blue_dark"
-        android:padding="12dp"
-        android:text="Profile"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
-        app:layout_constraintEnd_toEndOf="@+id/profile_bar"
-        app:layout_constraintTop_toTopOf="@+id/profile_bar" />
 
     <TextView
         android:id="@+id/info_button"
@@ -166,9 +151,13 @@
         android:layout_height="60dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/green_base"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
         android:text="Show QR Code"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
@@ -179,9 +168,13 @@
         android:layout_height="60dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/green_base"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
         android:text="Location req"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,9 +186,13 @@
         android:layout_height="60dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/green_base"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
         android:text="upload new Image"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
