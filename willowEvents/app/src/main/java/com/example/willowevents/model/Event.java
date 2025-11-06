@@ -18,7 +18,7 @@ public class Event {
     private String id;          //combine this with firestore doc id
     private String bannerURL;    //banner
 
-    private  Integer waitlistlimit;
+    private Integer waitlistlimit;
 
     private Date eventDate;
     private Date registrationDeadline;
@@ -30,6 +30,7 @@ public class Event {
     private ArrayList<Entrant> waitlist;        //opted in but didn't make it. Possible to join again if participant cancels
     private ArrayList<Entrant> cancellist;      //cancelled or removed
     private ArrayList<Entrant> approvelist;      //won and accepted?
+    private ArrayList<Entrant> invitlist;    // selcted to join event, waiting for approval
 
     //----------Lottery Stuff---------------------------------
     private Boolean lotteryDone;                //has the lottery been done?
@@ -57,6 +58,7 @@ public class Event {
         this.waitlist = new ArrayList<>();
         this.approvelist = new ArrayList<>();
         this.cancellist = new ArrayList<>();
+        this.invitlist = new ArrayList<>();
     }
 
     public Event(String eventTitle) {
@@ -89,6 +91,7 @@ public class Event {
         return waitlist;
     }
 
+
     ;
 
     public ArrayList<Entrant> getAprovelist() {
@@ -98,6 +101,7 @@ public class Event {
     public ArrayList<Entrant> getCancellist() {
         return cancellist;
     }
+    public ArrayList<Entrant> getInvitelist() {return invitlist;}
 
     public Date getEventDate() {
         return eventDate;
@@ -142,6 +146,7 @@ public class Event {
     public void setCancellist(ArrayList<Entrant> cancellist) {
         this.cancellist = cancellist;
     }
+    public void setInvitelist(ArrayList<Entrant> invitlist) { this.invitlist = invitlist;}
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
