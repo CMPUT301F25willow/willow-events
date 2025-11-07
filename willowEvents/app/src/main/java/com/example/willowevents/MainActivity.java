@@ -16,6 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+/**
+ * This View sets up the app
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Event> data = new ArrayList<>();

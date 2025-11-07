@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This Dialog Fragment allows for a User object to change and update their data
+ */
 public class ChangeProfileInfo extends DialogFragment {
 
     interface EditInfoDialogueListener{

@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.R;
 
+/**
+ * This View allows an Entrant object to view invitations for Event Objects
+ */
 public class ViewInvitations extends AppCompatActivity {
 
     @Override
