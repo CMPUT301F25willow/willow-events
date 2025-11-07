@@ -174,7 +174,8 @@ public class UserController {
                 joinList);
     }
     /**
-     * Private method to retrieve organizer class. Assumption is that Entrant already exists
+     * Private method to retrieve organizer class. Assumption is that Entrant already exists.
+     * Fetches existing entrant in the database and turns it into a placeholder class
      * @param document The Document snapshot of the user ID query
      * @return The placeholder of organizer
      */
@@ -218,7 +219,6 @@ public class UserController {
     public interface OnExistsUser {
         void onExistsUser(boolean userExists, User user);
     }
-
 }
 
 
