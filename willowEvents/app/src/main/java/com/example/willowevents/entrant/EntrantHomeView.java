@@ -1,16 +1,20 @@
 package com.example.willowevents.entrant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.organizer.MainOrganizerView;
 
 import java.util.ArrayList;
 
@@ -26,6 +30,7 @@ public class EntrantHomeView extends AppCompatActivity {
     Button AllEventsButton;
     Button ClearFilterButton;
     Button InviteButton;
+    ImageView profileIcon;
     EditText FilterOne;
     EditText FilterTwo;
     EditText FilterThree;
@@ -37,7 +42,17 @@ public class EntrantHomeView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrant_home);
+
+        // get current user from DB
+
+
+
+        //
+
+
+
 //        //buttons
+        profileIcon = findViewById(R.id.accountIcon);
         MyEventsButton = findViewById(R.id.my_events_button);
         AvailableEventsButton = findViewById(R.id.available_events_button);
         AllEventsButton = findViewById(R.id.all_events_button);
@@ -124,5 +139,14 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
+
+        profileIcon.setOnClickListener(view -> {
+            // TRANSITION TO PROFILE PAGE
+            Intent intent = new Intent(EntrantHomeView.this, ProfileView.class);
+            startActivity(intent);
+            }
+
+
+        );
     }
 }

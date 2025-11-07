@@ -9,7 +9,7 @@ public class Entrant extends User {
                    String Email,
                    String phoneNumber,
                    ArrayList<String> joinList) {
-        super(ID, name, Email, phoneNumber, joinList);
+        super(ID, name, Email, phoneNumber, "entrant", joinList);
     };
     public Entrant(){}
 

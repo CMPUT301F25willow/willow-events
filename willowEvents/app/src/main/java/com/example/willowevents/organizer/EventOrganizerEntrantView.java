@@ -12,13 +12,11 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.Lottery;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Random;
 
 /**

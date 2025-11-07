@@ -1,12 +1,15 @@
 package com.example.willowevents;
 
 import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.Organizer;
 import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class UserController {
@@ -19,65 +22,76 @@ public class UserController {
     public UserController() {
         // get pointer to database
         userDB= FirebaseFirestore.getInstance();
-
         // get all users
         usersRef = userDB.collection("users");
     }
 
     /**
-     * Adds a user to the database given an entrnat. Gives it a unique tag "Entrant" in the databse
+     * Adds a user to the database given an entrnat. Gives it a unique tag "Entrant" in the database
+     * @param userID is the Device-ID as a STRING of the user
      */
-    public void addEntrantUser() {
+    public void addNewEntrantUser(String userID) {
 
+        Entrant user = new Entrant(userID,
+                "No name",
+                "No email",
+                "No phone number",
+                new ArrayList<>());
+
+        DocumentReference docRef = usersRef.document(userID);
+        docRef.set(user);
     }
 
     /**
-     * Adds the
+     * Adds a user to the database given an organizer. Gives it a unique tag "Entrant" in the database
+     * @param userID is the Device-ID as a STRING of the user
      */
-    public void addOrganizerUser() {
+    public void addNewOrganizerUser(String userID) {
+        Organizer user = new Organizer(userID,
+                "No name",
+                "No email",
+                "No phone number",
+                new ArrayList<>());
+
+        DocumentReference docRef = usersRef.document(userID);
+        docRef.set(user);
+    }
+
+    /**
+     * Adds a user to the database given an ADMIN
+     */
+    public void addAdminUser(String userID) {
+        // TO BE IMPLEMENTED IN FUTURE ITERATION
+
     }
 
     /**
      * Given a userID in the form of a String, return the user details from the database
      * User can only be retrieved via a callback function
-     * @param userID is the ID of the user
+     * @param deviceID is the Device-ID as a STRING of the user
      *
      */
-    public void getUser(String userID , OnUserLoaded callback) {
+    public void getUser(String deviceID , OnUserLoaded callback) {
         // get document via id
-        DocumentReference docRef = usersRef.document(userID);
+        DocumentReference docRef = usersRef.document(deviceID);
         // https://firebase.google.com/docs/firestore/query-data/get-data?hl=fr#java
-        docRef.get().addOnSuccessListener(snapshot -> {
+        docRef.get().addOnSuccessListener(document -> {
 
-            User user;
+            User user = null;
 
             // if user exists
-            if (snapshot.exists()) {
-                String userType = snapshot.getString("userType");
-                String name = snapshot.getString("name");
-                String email = snapshot.getString("email");
-                String phoneNumber = snapshot.getString("phoneNumber");
-                ArrayList<String> joinList = (ArrayList<String>) snapshot.get("joinList");
-                if (userType == "organizer") {
-//                    user = new Organizer(userID,
-//                            name,
-//                            email,
-//                            phoneNumber,
-//                            joinList);
-                    user = new Entrant(userID,
-                            name,
-                            email,
-                            phoneNumber,
-                            joinList);
-                } else {
-                    user = new Entrant(userID,
-                            name,
-                            email,
-                            phoneNumber,
-                            joinList);
+            if (document.exists()) {
+                if (document.exists()) {
+                    String userType = document.getString("userType");
+                    if (Objects.equals(userType, "organizer")) {
+                        user = generateOrganizer(document, deviceID);
+                    }
+                    else {
+                        user = generateEntrant(document, deviceID);
+                    }
+
                 }
                 callback.onUserLoaded(user);
-
             }
             else{
                 callback.onUserLoaded(null);
@@ -90,6 +104,91 @@ public class UserController {
         });
     }
 
+    /***
+     * Checks if a given user exists in the database queried by the String of its device ID
+     * @param deviceID String of the device ID
+     * @return True if the user is registered in the database. Else return False.
+     */
+    public void userExists(String deviceID, OnExistsUser callback) {
+        usersRef.document(deviceID).get().addOnSuccessListener( document -> {
+
+            User user = null;
+            if (document.exists()) {
+                String userType = document.getString("userType");
+                if (Objects.equals(userType, "organizer")) {
+                    user = generateOrganizer(document, deviceID);
+                }
+                else {
+                    user = generateEntrant(document, deviceID);
+                }
+
+            }
+            callback.onExistsUser(document.exists(), user);
+
+        });
+    }
+
+
+    /**
+     * Updates the user info given
+     * @param user The most recently updated object of the user to store in the database
+     */
+    public void updateUserInfo(User user ) {
+        tempDeleteUser(user);
+        reAddUser(user);
+
+    }
+
+    /**
+     * Private method meant to re-add a user after deleting. To be used only with updateUserInfo
+     */
+    private void reAddUser(User user) {
+        DocumentReference docRef = usersRef.document(user.getID());
+        docRef.set(user);
+    }
+
+    /**
+     * Private method meant to TEMPORARILY delete an existing user after updating. to be used onlw with updateUserInfo
+     */
+    private void tempDeleteUser(User user) {
+        DocumentReference docRef = usersRef.document(user.getID());
+        docRef.delete();
+
+
+    }
+
+    /**
+     * Private method to retrieve organizer class. Assumption is that Organizer already exists
+     * @param document The Document snapshot of the user ID query
+     * @return The placeholder of organizer
+     */
+    private Organizer generateOrganizer(DocumentSnapshot document, String deviceID) {
+        String name = document.getString("name");
+        String email = document.getString("email");
+        String phoneNumber = document.getString("phoneNumber");
+        ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
+        return new Organizer(deviceID,
+                name,
+                email,
+                phoneNumber,
+                joinList);
+    }
+    /**
+     * Private method to retrieve organizer class. Assumption is that Entrant already exists
+     * @param document The Document snapshot of the user ID query
+     * @return The placeholder of organizer
+     */
+    private Entrant generateEntrant(DocumentSnapshot document, String deviceID) {
+        String name = document.getString("name");
+        String email = document.getString("email");
+        String phoneNumber = document.getString("phoneNumber");
+        ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
+        return new Entrant(deviceID,
+                name,
+                email,
+                phoneNumber,
+                joinList);
+    }
 
 
     /**
@@ -114,6 +213,10 @@ public class UserController {
         // any function that calls getUser must implement the following callback functions
         void onUserLoaded(User user);
 
+    }
+//    private Entrant getEntrant(DocumentSnap)
+    public interface OnExistsUser {
+        void onExistsUser(boolean userExists, User user);
     }
 
 }

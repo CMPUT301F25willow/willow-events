@@ -32,7 +32,6 @@ public class ErrorArrayAdapter extends ArrayAdapter {
         //get event to grab info from
         Error error = (Error) getItem(position);
 
-
         return view;
     }
 }
