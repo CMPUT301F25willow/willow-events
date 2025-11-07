@@ -1,5 +1,6 @@
 package com.example.willowevents.entrant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Button;
@@ -12,10 +13,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.EventController;
+import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.UserController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.User;
+import com.example.willowevents.organizer.MainOrganizerView;
 
 /**
  * This view allows Entrant objects to view the details of an Event object
@@ -127,6 +130,15 @@ public class EventEntrantView extends AppCompatActivity {
             updateCurrentEvent(eventID);
 
         });
+
+        // go back
+        backButton.setOnClickListener( view -> {
+            Intent myIntent = new Intent(EventEntrantView.this, EntrantHomeView.class);
+            startActivity(myIntent);
+        }
+        );
+
+
 
 
 
