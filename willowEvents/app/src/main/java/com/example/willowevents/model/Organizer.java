@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Organizer extends User {
 
-    private ArrayList<String> createdList;
+    private ArrayList<Event> createdList;
     // List of events created by organizer
     public Organizer(
             String ID,
@@ -19,7 +19,7 @@ public class Organizer extends User {
         super(name);
     }
 
-    public ArrayList<String> getCreatedList() { return this.createdList; };
+    public ArrayList<Event> getCreatedList() { return this.createdList; };
 
 
 

@@ -49,8 +49,6 @@ public class MainOrganizerView extends AppCompatActivity {
         events.add(event);
         events.add(event);
 
-        // for testing only
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, events);
 
         eventView = findViewById(R.id.eventList);   //find event ListView
         newEventButton = findViewById(R.id.create_new_event);
@@ -84,10 +82,10 @@ public class MainOrganizerView extends AppCompatActivity {
         ArrayList<String> tempList = new ArrayList<>();
         ArrayList<Entrant> entrantlist = new ArrayList<>();
 
-        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
+        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", "type", tempList));
+        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", "type", tempList));
+        entrantlist.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456","type", tempList));
+        entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", "type",tempList));
 
         event.setWaitlist(entrantlist);
         return event;

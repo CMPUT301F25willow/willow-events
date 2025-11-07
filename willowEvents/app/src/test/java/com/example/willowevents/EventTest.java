@@ -39,7 +39,7 @@ public class EventTest {
         Event event = mockEvent();
         ArrayList<String> tempList = new ArrayList<>();
         ArrayList<Entrant> entrantlist = new ArrayList<>();
-        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
+        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", "type", tempList));
         event.setWaitlist(entrantlist);
         assertEquals(1,event.getWaitlist().size());
         event.getWaitlist().remove(0);
@@ -51,8 +51,8 @@ public class EventTest {
         Event event = mockEvent();
         ArrayList<String> tempList = new ArrayList<>();
         ArrayList<Entrant> entrantlist = new ArrayList<>();
-        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
+        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", "type", tempList));
+        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", "type", tempList));
         event.setWaitlist(entrantlist);
         assertEquals(2,event.getWaitlist().size());
         assertNotEquals(event.getWaitlist().get(0), event.getWaitlist().get(1));
