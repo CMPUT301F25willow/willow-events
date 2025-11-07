@@ -42,16 +42,18 @@ public class ViewInvitations extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_invitations);
-
+        //find all buttons on the page
         backButton = findViewById(R.id.back_button);
         acceptWaitlistButton = findViewById(R.id.accept_waitlist_button);
         declineWithdrawButton = findViewById(R.id.decline_withdraw_button);
-
-        //Is this called repeatedly?
+        // If you cant find curInvite dont allow the user to click any buttons
+        //TODO why is the only definition of curInvite commented out? Why is that definition an onclick listener?
         if(curInvite == null){
             acceptWaitlistButton.setVisibility(View.GONE);
             declineWithdrawButton.setVisibility(View.GONE);
         }
+        // Toggle button visibility and names so only names corresponding to current
+        // status of invite are visible and enabled
         else if (!(curInvite == null)){
             switch(curInvite.getStatus()){
                 case("INVITED"):
@@ -75,16 +77,20 @@ public class ViewInvitations extends AppCompatActivity {
 //            }
 //        });
 
+        //allow user to go back to EntrantHomeView when they are done looking at their invitations
         backButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(ViewInvitations.this, EntrantHomeView.class);
             startActivity(myIntent);
         });
 
+        // If accept/waitlist button has been clicked update the status and
+        // database info to match
         acceptWaitlistButton.setOnClickListener(view -> {
             if (!(curInvite == null)){
                 switch(curInvite.getStatus()){
                     case("INVITED"):
                         curInvite.setStatus("ACCEPTED");
+                        //TODO add firestore
                         //update status
                         //update event lists to match
                         //update buttons
@@ -92,16 +98,20 @@ public class ViewInvitations extends AppCompatActivity {
                         declineWithdrawButton.setText("Withdraw");
                     case("NOT INVITED"):
                         curInvite.setStatus("NOT INVITED");
+                        //TODO add firestore
                         //update event lists (they signed up to be on waitlist)
                 }
             }
         });
 
+        // If decline/withdraw button has been clicked update the status and
+        // database info to match
         declineWithdrawButton.setOnClickListener(view -> {
             if (!(curInvite == null)){
                 switch(curInvite.getStatus()){
                     case("INVITED"):
                         curInvite.setStatus("DECLINED");
+                        //TODO add firestore
                         //update status
                         //update event lists to match
                         //update buttons
@@ -109,6 +119,7 @@ public class ViewInvitations extends AppCompatActivity {
                         declineWithdrawButton.setVisibility(View.GONE);
                     case("ACCEPTED"):
                         curInvite.setStatus("DECLINED");
+                        //TODO add firestore
                         //update status
                         //update event lists to match
                         //update buttons
@@ -118,6 +129,7 @@ public class ViewInvitations extends AppCompatActivity {
             }
         });
 
+        //Initialize a temp list for dev manual testing
         invites = new ArrayList<Invite>();
         invites.add(new Invite(new Event("myEventOne"), new Entrant("Myself"), "INVITED"));
         invites.add(new Invite(new Event("myEventTwo"), new Entrant("Myself"), "DECLINED"));
