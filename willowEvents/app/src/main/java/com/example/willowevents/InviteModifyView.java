@@ -16,9 +16,6 @@ public class InviteModifyView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invite_content);
-
-        acceptButton = findViewById(R.id.accept_button);
-        declineWithdrawButton = findViewById(R.id.decline_withdraw_button);
         inviteMessage = findViewById(R.id.invite_message);
     }
 }

@@ -16,4 +16,16 @@ public class Invite {
     public Event getEvent() {
         return this.event;
     }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public Entrant getUser() {
+        return this.entrant;
+    }
+
+    public void setStatus(String stat) {
+        this.status = stat;
+    }
 }
