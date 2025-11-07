@@ -19,12 +19,11 @@ import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.model.Organizer;
 import com.example.willowevents.model.User;
 import com.example.willowevents.organizer.MainOrganizerView;
-
+/**
+ * The ProfileView class is used for the User's profile view. It displays
+ * their information, allows them to edit it, and to return to the event view.
+ */
 public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.EditInfoDialogueListener {
-
-    //This variable keeps track of if the edit button has been hit, in other words if the
-    // profile text is editable
-
     // 1. get the current user
     String deviceID ;
 
@@ -47,9 +46,6 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         TextView emailText = findViewById(R.id.emailTextView);
         TextView phoneText = findViewById(R.id.phoneTextView);
 
-
-
-
         // INIT user controller
         userController = new UserController();
         // GET DEVICE ID
@@ -68,17 +64,18 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             }
         });
 
-        //We want to make the edit button clickable
+        //Make the edit button clickable
         Button editButton = findViewById(R.id.edit_button);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //change the mode to be editable
+                //Make the popup appear for the user to edit their information
                 new ChangeProfileInfo().show(getSupportFragmentManager(), "Edit Info");
 
             }
         });
 
+        //Buttons that allow the user to go back to the main views
         Button entrantViewButton = findViewById(R.id.entrant_view_button);
         Button organizerViewButton = findViewById(R.id.organizer_view_button);
         entrantViewButton.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +107,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
 
     /**
     This method sets the information specified by the user to be the new name, email, and phone
-    number.
+    number. It changes both the text on screen and user's information in the database
      @param newName: This is the new name to set the user's name to
      @param newEmail: This is the new email to set the user's email to
      @param newPhone: This is the new phone number to set the user's phone number to
@@ -129,6 +126,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         emailText.setText(newEmail);
         phoneText.setText(newPhone);
 
+        //Update the user's actual information
         currentUser.setName(newName);
         currentUser.setEmail(newEmail);
         currentUser.setPhoneNumber(newPhone);
@@ -139,14 +137,29 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
     }
 
     //Getters for the name, email, and phone number
+
+    /**
+     * Getter for the user's name
+     * @return String: the user's name in the database
+     */
     public String getCurrName()
     {
         return currentUser.getName();
     }
+
+    /**
+     * Getter for the user's email
+     * @return String: the user's email in the database
+     */
     public String getCurrEmail()
     {
         return currentUser.getEmail();
     }
+
+    /**
+     * Getter for the user's phone number
+     * @return String: the user's phone number in the database
+     */
     public String getCurrPhone()
     {
         return currentUser.getPhoneNumber();
