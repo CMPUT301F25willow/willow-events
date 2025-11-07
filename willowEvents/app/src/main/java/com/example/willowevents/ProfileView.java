@@ -56,7 +56,6 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             public void onUserLoaded(User user) {
                 currentUser = user;
 
-                //TODO: this will work once the getters are set to connect to firestore
                 //and display the correct information
                 nameText.setText(getCurrName());
                 emailText.setText(getCurrEmail());
@@ -102,7 +101,6 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
      */
     public void editInfo(String newName, String newEmail, String newPhone)
     {
-        //TODO: IMPLEMENT FIRESTORE CONNECTIONS -- make it so the new information passed through
         //becomes the actual user's information
 
         //Update all the texts to the new text
@@ -127,17 +125,14 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
     //Getters for the name, email, and phone number
     public String getCurrName()
     {
-        //TODO: connect with firestore to return the real values here
         return currentUser.getName();
     }
     public String getCurrEmail()
     {
-        //TODO: connect with firestore to return the real values here
         return currentUser.getEmail();
     }
     public String getCurrPhone()
     {
-        //TODO: connect with firestore to return the real values here
         return currentUser.getPhoneNumber();
     }
 }
