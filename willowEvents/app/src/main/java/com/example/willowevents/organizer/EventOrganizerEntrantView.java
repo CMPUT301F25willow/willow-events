@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,11 +41,14 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private String eventID;
 
+    private final com.google.firebase.firestore.FirebaseFirestore db =
+            com.google.firebase.firestore.FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_entrants_view);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Intent origIntent = new Intent(this, MainOrganizerView.class);
         //check for any data sent along side activity change
@@ -57,13 +62,25 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                 eventId = extras.getString("Event ID");
             }
         }
-        if (eventId != null) {
-            //TODO: event = firestore find event via eventId (then uncomment else exception below)
-            TextView eventName = findViewById(R.id.eventName);
-            eventName.setText(event.getTitle());
-        } else {
-//            throw new IllegalArgumentException("event ID not acquired");
+        if (eventId == null || eventId.trim().isEmpty()) {
+            android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
+        db.collection("events").document(eventId).get()
+                .addOnSuccessListener(snap -> {
+                    if (!snap.exists()) {
+                        android.widget.Toast.makeText(this, "Event not found", android.widget.Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
+
+                })
+                .addOnFailureListener(e -> {
+                    android.util.Log.e("EventOrganizerEntrantView", "Failed to load event", e);
+                    android.widget.Toast.makeText(this, "Failed to load event. See Logcat.", android.widget.Toast.LENGTH_LONG).show();
+                    finish();
+                });
 
         backButton = findViewById(R.id.back_button);
         seeInfo = findViewById(R.id.info_button);
@@ -75,6 +92,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
+
 
         //Event event = addMockEvent();
 
@@ -108,6 +126,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "waitlist");
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
@@ -115,6 +134,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "invited");
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
@@ -122,6 +142,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "enrolled");
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
@@ -129,6 +150,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "cancelled");
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
@@ -216,6 +238,5 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         }
     }
 
-
-    }
+ }
 
