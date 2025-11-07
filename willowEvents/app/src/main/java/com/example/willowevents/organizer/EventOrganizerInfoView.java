@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * This View shows event information from the organizer's perspective,
@@ -26,6 +27,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_info_view);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Button backButton = findViewById(R.id.back_button);
         Button seeEntrants = findViewById(R.id.entrants_button);
@@ -35,24 +37,28 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             eventId = extras.getString("Event ID");
-            if (eventId != null) {
-                //TODO: event = firestore find event via eventId (then uncomment else exception below)
-                TextView eventName = findViewById(R.id.eventName);
-                //Other initializations
-
-                eventName.setText(event.getTitle());
-                //Other sets
-            } else {
-//                throw new IllegalArgumentException("event ID not acquired");
+            if (eventId == null) {
+                android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+                startActivity(origIntent);
             }
+        } else {
+            android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+            startActivity(origIntent);
         }
 
+        //TODO: event = get event from database with eventId
 
         seeEntrants.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, EventOrganizerEntrantView.class);
             myIntent.putExtra("event ID", eventId);
             startActivity(myIntent);
         });
+
+        TextView eventName = findViewById(R.id.eventName);
+        //Other initializations
+
+        eventName.setText(event.getTitle());
+        //Other sets
 
         backButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, MainOrganizerView.class);

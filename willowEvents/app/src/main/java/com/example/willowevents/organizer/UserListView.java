@@ -38,7 +38,8 @@ public class UserListView extends AppCompatActivity {
     private ArrayList<User> invitedUsers;
     private ArrayList<User> enrolledUsers;
     private ArrayList<User> cancelledUsers;
-    String type = "";
+    String eventId;
+    String listType;
     private final com.google.firebase.firestore.FirebaseFirestore db =
             com.google.firebase.firestore.FirebaseFirestore.getInstance();
 
@@ -48,12 +49,14 @@ public class UserListView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list_view);
 
-        //String eventId = null;
-
         Bundle extras = getIntent().getExtras();
-        logExtras(extras);
-        String eventId = resolveEventId(getIntent());
-        String type = (extras != null) ? extras.getString("Type") : null;
+        if (extras != null) {
+            eventId = extras.getString("Event ID");
+            listType = extras.getString("Type");
+        }
+//        logExtras(extras);
+//        String eventId = resolveEventId(getIntent());
+//        String type = (extras != null) ? extras.getString("Type") : null;
 
         if (eventId == null || eventId.trim().isEmpty()) {
             Toast.makeText(this, "Missing Event ID", Toast.LENGTH_LONG).show();
@@ -101,21 +104,22 @@ public class UserListView extends AppCompatActivity {
         //Go back on close
         close.setOnClickListener(view -> {
             Intent myIntent = new Intent(UserListView.this, EventOrganizerEntrantView.class);
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
         userView = findViewById(R.id.user_list);
         int size;
-        if (Objects.equals(type, "waitlist")) {
+        if (Objects.equals(listType, "waitlist")) {
             size = waitlistUsers.size();
             userAdapter = new UserArrayAdapter(this, waitlistUsers);
-        } else if (Objects.equals(type, "invited")) {
+        } else if (Objects.equals(listType, "invited")) {
             size = invitedUsers.size();
             userAdapter = new UserArrayAdapter(this, invitedUsers);
-        } else if (Objects.equals(type, "enrolled")) {
+        } else if (Objects.equals(listType, "enrolled")) {
             size = enrolledUsers.size();
             userAdapter = new UserArrayAdapter(this, enrolledUsers);
-        } else if (Objects.equals(type, "cancelled")) {
+        } else if (Objects.equals(listType, "cancelled")) {
             size = cancelledUsers.size();
             userAdapter = new UserArrayAdapter(this, cancelledUsers);
         } else {

@@ -100,25 +100,19 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         updateEvent.setOnClickListener(view -> {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventModifyView.class);
-            myIntent.putExtra("Type", "EventModifyView");
+            myIntent.putExtra("event ID", eventId);
             startActivity(myIntent);
         });
 
         backButton.setOnClickListener(view -> {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
-            myIntent.putExtra("Type", "mainOrganizerPage");
             startActivity(myIntent);
         });
 
         seeInfo.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventOrganizerInfoView.class);
-            myIntent.putExtra("event ID", eventId);
-            startActivity(myIntent);
-        });
-
-        backButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 

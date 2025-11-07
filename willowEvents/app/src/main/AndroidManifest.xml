@@ -36,9 +36,6 @@
             android:name=".InitialView"
             android:exported="false" />
         <activity
-            android:name=".UserListView"
-            android:exported="false" />
-        <activity
             android:name=".organizer.EventCreationView"
             android:exported="false" />
         <activity
