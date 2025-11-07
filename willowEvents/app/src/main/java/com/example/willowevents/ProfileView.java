@@ -1,11 +1,13 @@
 package com.example.willowevents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.willowevents.entrant.EntrantHomeView;
+import com.example.willowevents.model.Organizer;
 import com.example.willowevents.model.User;
+import com.example.willowevents.organizer.MainOrganizerView;
 
 public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.EditInfoDialogueListener {
 
@@ -79,13 +84,24 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         entrantViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                TODO: switch to EntrantHomeView
+                // ENTRANT HOME PAGE (ORGANIZERS CAN SEE ENTRANT HOME PAGE TOO)
+                Intent myIntent = new Intent(ProfileView.this, EntrantHomeView.class);
+                startActivity(myIntent);
+
             }
         });
         organizerViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                TODO: switch to MainOrganizerView
+                if (currentUser.getUserType() == "organizer" || currentUser.getUserType() == "admin") {
+                    Intent myIntent = new Intent(ProfileView.this, MainOrganizerView.class);
+                    startActivity(myIntent);
+                }
+                else {
+                    String notifyText = "Cannot access Organizer View. You are not a registered Organizer";
+                    Toast toast = Toast.makeText(ProfileView.this, notifyText, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 

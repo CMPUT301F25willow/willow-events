@@ -3,6 +3,7 @@ package com.example.willowevents.entrant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,10 +14,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.EventController;
+import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.UserController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.User;
+import com.example.willowevents.organizer.MainOrganizerView;
 
 /**
  * This view allows Entrant objects to view the details of an Event object
@@ -133,38 +136,86 @@ public class EventEntrantView extends AppCompatActivity {
 
         });
 
+        // go back
+        backButton.setOnClickListener( view -> {
+            Intent myIntent = new Intent(EventEntrantView.this, EntrantHomeView.class);
+            startActivity(myIntent);
+        }
+        );
+
+
+
 
 
 
     }
 
+    /**
+     * This returns a String title from object currentEvent
+     * @return title
+     */
     private String getEventTitle() {
         return currentEvent.getTitle();
     }
+
+    /**
+     * This returns a Date eventDate in String format from object currentEvent
+     * @return String eventDate
+     */
     private String getEventDate() {
         return currentEvent.getEventDate().toString();
     }
 
+    /**
+     * This returns a String description + String lotteryDetails from object currentEvent
+     * @return description +  lotteryDetails
+     */
     private String getSelectionInfo() {
-        return currentEvent.getDescription();
+        return currentEvent.getDescription()+currentEvent.getLotteryDetails();
     }
 
+    /**
+     * This returns an Integer size of an arraylist waitlist from object currentEvent
+     * @return Integer size of arraylist
+     */
     private Integer getWaitlistCount() {
         return currentEvent.getWaitlist().size();
     }
 
+    /**
+     * This uses a parameter String userID to return a boolean if userID
+     * is in the arrayList waitlist of object current.event
+     * @param userID    - String
+     * @return  boolean
+     */
     private Boolean isUserInWaitlist(String userID) {
         return currentEvent.getWaitlist().contains(userID);
     }
 
+    /**
+     * This uses a parameter String userID to return a boolean if userID
+     * is in the arrayList inviteList of object current.event
+     * @param userID    - String
+     * @return  boolean
+     */
     private Boolean isUserInvited(String userID) {
         return currentEvent.getInviteList().contains(userID);
     }
-
+    /**
+     * This uses a parameter String userID to return a boolean if userID
+     * is in the arrayList approvedList of object current.event
+     * @param userID    - String
+     * @return  boolean
+     */
     private Boolean isUserRegistered(String userID) {
         return currentEvent.getApprovedList().contains(userID);
     }
 
+    /**
+     * This returns a boolean based on the size of an object currentEvent's
+     * arrayList waitList and the Integer value of waitListLimit
+     * @return  boolean
+     */
     private Boolean isWaitlistFull() {
         if (currentEvent.getWaitlistLimit() == null) {
             return Boolean.FALSE;
@@ -175,6 +226,10 @@ public class EventEntrantView extends AppCompatActivity {
         }
     }
 
+    /**
+     * This updates the view based on what list from object currentEvent this entrant is in
+     * and the data from currentEvent object
+     */
     private void editInfo() {
 
 
@@ -184,6 +239,7 @@ public class EventEntrantView extends AppCompatActivity {
         );
 
         selectionInfo.setText(getSelectionInfo());
+        selectionInfo.setMovementMethod(new ScrollingMovementMethod());
 
         waitlistLength.setText("Waitlist count: " + getWaitlistCount());
 
@@ -216,6 +272,11 @@ public class EventEntrantView extends AppCompatActivity {
             declineInvitation.setVisibility(Button.INVISIBLE);
         }
     }
+
+    /**
+     * Using the currentEvent object's String eventID, update the view based on currentEvent
+     * @param eventID   - String
+     */
     private void updateCurrentEvent(String eventID) {
         eventController.generateOneEvent(eventID, new EventController.OnEventGeneration() {
             @Override
