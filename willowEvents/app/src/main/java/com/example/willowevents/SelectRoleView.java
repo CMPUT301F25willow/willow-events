@@ -15,6 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.organizer.MainOrganizerView;
 
+/**
+ * This View requests a user to choose a role/Object class their phone
+ * will be registered as and effects the interactivity of the app
+ */
 public class SelectRoleView extends AppCompatActivity {
 
     @Override

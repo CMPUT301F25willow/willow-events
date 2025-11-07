@@ -10,6 +10,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.R;
 
+/**
+ * This view allows Entrant objects to view the details of an Event object
+ * and join it's Waiting List
+ */
 public class EventEntrantView extends AppCompatActivity {
 
     @Override
