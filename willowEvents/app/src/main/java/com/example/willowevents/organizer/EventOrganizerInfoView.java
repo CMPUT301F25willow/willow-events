@@ -40,7 +40,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                 TextView eventName = findViewById(R.id.eventName);
                 //Other initializations
 
-                eventName.setText(event.getName());
+                eventName.setText(event.getTitle());
                 //Other sets
             } else {
 //                throw new IllegalArgumentException("event ID not acquired");
