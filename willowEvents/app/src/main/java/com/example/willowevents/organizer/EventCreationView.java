@@ -48,7 +48,11 @@ import java.util.Date;
 import java.util.Locale;
 
 
-
+/**
+ * This view is what an organizer sees when they create an event
+ * and stores relevant info about the event in an Event to be used
+ * elsewhere
+ */
 public class EventCreationView extends AppCompatActivity {
     private EditText nameEt, descEt, waitlistLimitEt;
     private TextView eventDateTv, regOpenTv, regCloseTv;

@@ -11,7 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This is a class that defines an Event
+ * Defines an event object, storing the data about an Event in a convient place to be read by
+ * and passed between other classes
  */
 public class Event {
     private String id; // Firestore doc id
