@@ -43,7 +43,7 @@ public class ChangeProfileInfo extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_change_info_popup, null);
 
-        //view is our full file, so we can get the text from it
+        //view is our full file, so we can get the text boxes from it
         EditText editNameText = view.findViewById(R.id.edit_profile_name_text);
         editNameText.setText(listener.getCurrName());
 
@@ -53,7 +53,7 @@ public class ChangeProfileInfo extends DialogFragment {
         EditText editPhoneText = view.findViewById(R.id.edit_profile_phone_text);
         editPhoneText.setText(listener.getCurrPhone());
 
-
+        //Set up the popup
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
