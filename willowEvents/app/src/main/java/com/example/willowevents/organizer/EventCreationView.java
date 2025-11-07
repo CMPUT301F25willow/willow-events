@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -148,16 +149,10 @@ public class EventCreationView extends AppCompatActivity {
     private void onCreateClicked() {
         String title = textOf(nameEt);
         String description = textOf(descEt);
-        //DEV HACKS ----- THIS IS TO OVERRIDE THE ORGANIZER ID WHEN DEVELOPING
-       /* String organizerId = FirebaseAuth.getInstance().getCurrentUser() != null ?
-                FirebaseAuth.getInstance().getCurrentUser().getUid() : null;*/
-        String organizerId = null;
-        var user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            organizerId = user.getUid();
-        } else  {
-            organizerId = "dev-uid-123"; // DEV-ONLY fallback
-        }
+        String organizerId = Settings.Secure.getString(
+                getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
 
 
         Integer waitlistLimit = null;
