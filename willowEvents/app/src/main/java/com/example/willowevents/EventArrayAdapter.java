@@ -15,6 +15,9 @@ import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
 
+/**
+ * This ArrayAdapter manages how events are displayed in lists
+ */
 public class EventArrayAdapter extends ArrayAdapter {
     public EventArrayAdapter(@NonNull Context context, ArrayList<Event> events){
         super(context, 0, events);

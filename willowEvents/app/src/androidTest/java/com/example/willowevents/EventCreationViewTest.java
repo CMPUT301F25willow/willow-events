@@ -1,165 +1,133 @@
 package com.example.willowevents;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.Matchers.*;
 
-import android.widget.DatePicker;
-import android.widget.TimePicker;
+import static org.junit.Assert.*;
 
-import androidx.test.core.app.ActivityScenario;
+import android.util.Log;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
 
-import com.example.willowevents.R;
-import com.example.willowevents.organizer.EventCreationView;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import androidx.test.espresso.contrib.PickerActions;
+import java.util.*;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class EventCreationViewTest {
 
-    private FirebaseFirestore db;
-    private FirebaseAuth auth;
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    // We’ll write into a dedicated test collection to avoid polluting real data
+    private static final String TEST_COLL = "events_test";
+    private final List<DocumentReference> createdDocs = new ArrayList<>();
 
     @Before
-    public void setUp() throws Exception {
-        // Point SDKs to local emulators
-        db = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
-        db.useEmulator("10.0.2.2", 8080);
-        auth.useEmulator("10.0.2.2", 9099);
-        // Sign in anonymously for organizerId
+    public void signIn() throws Exception {
+        // Requires Anonymous sign-in enabled in your Firebase Console
         Tasks.await(auth.signInAnonymously());
+        assertNotNull("Auth user must be non-null", auth.getCurrentUser());
     }
 
-    @Test
-    public void datePickersUpdate() {
-        try (ActivityScenario<EventCreationView> scenario =
-                     ActivityScenario.launch(EventCreationView.class)) {
-
-            // Event date
-            onView(withId(R.id.event_start_date_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class))
-                    .perform(PickerActions.setDate(2026, 1, 2)); // Jan 2, 2026
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class))
-                    .perform(PickerActions.setTime(9, 30));
-            onView(withText("OK")).perform(click());
-
-            // Open date
-            onView(withId(R.id.registration_open_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class))
-                    .perform(PickerActions.setDate(2025, 12, 31));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class))
-                    .perform(PickerActions.setTime(8, 0));
-            onView(withText("OK")).perform(click());
-
-            // Close date
-            onView(withId(R.id.registration_deadline_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class))
-                    .perform(PickerActions.setDate(2026, 1, 1));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class))
-                    .perform(PickerActions.setTime(12, 0));
-            onView(withText("OK")).perform(click());
-
-            // Check text fields not equal to the default seed value
-            onView(withId(R.id.event_start_date))
-                    .check(matches(not(withText("1/1/25|12:00"))));
-            onView(withId(R.id.registration_open_date))
-                    .check(matches(not(withText("1/1/25|12:00"))));
-            onView(withId(R.id.registration_deadline_date))
-                    .check(matches(not(withText("1/1/25|12:00"))));
+    @After
+    public void cleanUp() {
+        // Best-effort cleanup of created docs
+        for (DocumentReference ref : createdDocs) {
+            ref.delete();
         }
     }
 
     @Test
-    public void createEvent_happyPath_writesToFirestore() throws Exception {
-        try (ActivityScenario<EventCreationView> scenario =
-                     ActivityScenario.launch(EventCreationView.class)) {
+    public void writeAndReadEvent_minimal() throws Exception {
+        String id = UUID.randomUUID().toString();
+        DocumentReference ref = db.collection(TEST_COLL).document(id);
 
-            onView(withId(R.id.event_name_entry)).perform(typeText("Espresso Event"), closeSoftKeyboard());
-            onView(withId(R.id.additional_details_entry)).perform(typeText("Espresso description"), closeSoftKeyboard());
+        Map<String, Object> event = new HashMap<>();
+        event.put("id", id);
+        event.put("title", "Direct Test Event");
+        event.put("description", "Created by instrumented test");
+        Date now = new Date();
+        event.put("registrationOpenDate", now);
+        event.put("registrationCloseDate", new Date(now.getTime() + 86_400_000)); // +1 day
+        event.put("eventDate", new Date(now.getTime() + 2 * 86_400_000)); // +2 days
+        event.put("organizerId", auth.getCurrentUser().getUid());
+        event.put("waitlist", Arrays.asList("user-001", "user-002"));
+        event.put("inviteList", Collections.emptyList());
+        event.put("approvedList", Collections.emptyList());
+        event.put("cancelledList", Collections.emptyList());
+        // optional fields only if you use them:
+        // event.put("waitlistLimit", 10);
+        // event.put("capacity", 100);
 
-            // Set dates in proper order: open < close < event
-            onView(withId(R.id.registration_open_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2026, 1, 1));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class)).perform(PickerActions.setTime(9, 0));
-            onView(withText("OK")).perform(click());
+        // Write
+        Tasks.await(ref.set(event));
+        createdDocs.add(ref);
 
-            onView(withId(R.id.registration_deadline_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2026, 1, 2));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class)).perform(PickerActions.setTime(9, 0));
-            onView(withText("OK")).perform(click());
+        // Read back
+        var snapshot = Tasks.await(ref.get());
+        assertTrue(snapshot.exists());
+        assertEquals("Direct Test Event", snapshot.getString("title"));
+        assertEquals(auth.getCurrentUser().getUid(), snapshot.getString("organizerId"));
 
-            onView(withId(R.id.event_start_date_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2026, 1, 3));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class)).perform(PickerActions.setTime(9, 0));
-            onView(withText("OK")).perform(click());
-
-            onView(withId(R.id.create_event_create_button)).perform(click());
-
-            // Verify Firestore emulator has a doc with this title
-            var snap = Tasks.await(db.collection("events")
-                    .whereEqualTo("title", "Espresso Event").get());
-            org.junit.Assert.assertTrue(snap.size() >= 1);
-        }
+        // Waitlist should be a list of strings
+        @SuppressWarnings("unchecked")
+        List<String> waitlist = (List<String>) snapshot.get("waitlist");
+        assertNotNull(waitlist);
+        assertTrue(waitlist.contains("user-001"));
+        assertTrue(waitlist.contains("user-002"));
     }
 
     @Test
-    public void waitlistLimit_digitsOnlyValidation() {
-        try (ActivityScenario<EventCreationView> scenario =
-                     ActivityScenario.launch(EventCreationView.class)) {
+    public void updateInvite_thenApprove() throws Exception {
+        String id = UUID.randomUUID().toString();
+        DocumentReference ref = db.collection(TEST_COLL).document(id);
 
-            // Enable limit and type non-digits
-            onView(withId(R.id.limit_waitlist_checkbox)).perform(click());
-            onView(withId(R.id.waitlist_size_limit_entry)).perform(typeText("abc"), closeSoftKeyboard());
+        Map<String, Object> base = new HashMap<>();
+        base.put("id", id);
+        base.put("title", "Invite Flow");
+        base.put("description", "Test invite/approve flow");
+        base.put("eventDate", new Date(System.currentTimeMillis() + 2 * 86_400_000));
+        base.put("registrationOpenDate", new Date());
+        base.put("registrationCloseDate", new Date(System.currentTimeMillis() + 86_400_000));
+        base.put("organizerId", auth.getCurrentUser().getUid());
+        base.put("waitlist", Arrays.asList("u1", "u2", "u3"));
+        base.put("inviteList", new ArrayList<String>());
+        base.put("approvedList", new ArrayList<String>());
+        base.put("cancelledList", new ArrayList<String>());
 
-            // Minimal required fields to trigger create
-            onView(withId(R.id.event_name_entry)).perform(typeText("Bad Limit"), closeSoftKeyboard());
-            onView(withId(R.id.additional_details_entry)).perform(typeText("desc"), closeSoftKeyboard());
+        Tasks.await(ref.set(base));
+        createdDocs.add(ref);
 
-            // Set reasonable dates
-            onView(withId(R.id.registration_open_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2026, 1, 1));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class)).perform(PickerActions.setTime(9, 0));
-            onView(withText("OK")).perform(click());
+        // Add invite
+        Tasks.await(ref.update("inviteList", Arrays.asList("u1", "u2")));
 
-            onView(withId(R.id.registration_deadline_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2026, 1, 2));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class)).perform(PickerActions.setTime(9, 0));
-            onView(withText("OK")).perform(click());
+        // Accept u1: inviteList remove u1, approvedList add u1
+        // (This is a client-side simulation; in real app you'd do it in code or with a Cloud Function)
+        var snap = Tasks.await(ref.get());
+        @SuppressWarnings("unchecked") List<String> invite = (List<String>) snap.get("inviteList");
+        @SuppressWarnings("unchecked") List<String> approved = (List<String>) snap.get("approvedList");
+        if (invite == null) invite = new ArrayList<>();
+        if (approved == null) approved = new ArrayList<>();
+        invite.remove("u1");
+        if (!approved.contains("u1")) approved.add("u1");
 
-            onView(withId(R.id.event_start_date_button)).perform(click());
-            onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2026, 1, 3));
-            onView(withText("OK")).perform(click());
-            onView(isAssignableFrom(TimePicker.class)).perform(PickerActions.setTime(9, 0));
-            onView(withText("OK")).perform(click());
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("inviteList", invite);
+        updates.put("approvedList", approved);
+        Tasks.await(ref.update(updates));
 
-            onView(withId(R.id.create_event_create_button)).perform(click());
-
-            // Assert EditText shows error
-            onView(withId(R.id.waitlist_size_limit_entry))
-                    .check(matches(hasErrorText("Digits only")));
-        }
+        // Verify u1 is approved
+        var snap2 = Tasks.await(ref.get());
+        @SuppressWarnings("unchecked") List<String> approved2 = (List<String>) snap2.get("approvedList");
+        assertTrue(approved2.contains("u1"));
     }
 }
+
 

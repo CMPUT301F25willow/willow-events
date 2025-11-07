@@ -63,11 +63,15 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.espresso.contrib)
     implementation(libs.espresso.contrib) // move to implementation only if needed by app code
+    androidTestImplementation(platform("com.google.firebase:firebase-bom:34.3.0"))
+    androidTestImplementation("com.google.firebase:firebase-firestore")
+    androidTestImplementation("com.google.firebase:firebase-auth")
 
 }

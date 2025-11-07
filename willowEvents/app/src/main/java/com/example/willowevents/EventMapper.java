@@ -18,7 +18,7 @@ final class EventMapper {
         m.put("eventDate", e.getEventDate()); // stored as Timestamp by SDK
         m.put("registrationOpenDate", e.getRegistrationOpenDate());
         m.put("registrationCloseDate", e.getRegistrationCloseDate());
-        if (e.getCapacity() != null) m.put("capacity", e.getCapacity());
+        if (e.getInvitelistlimit() != null) m.put("capacity", e.getInvitelistlimit());
         if (e.getWaitlistLimit() != null) m.put("waitlistLimit", e.getWaitlistLimit());
         m.put("waitlist", e.getWaitlist()); // [] initially
         m.put("cancelledList", e.getCancelledList()); // [] initially

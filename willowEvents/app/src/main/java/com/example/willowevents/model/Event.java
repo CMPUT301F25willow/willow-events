@@ -94,7 +94,7 @@ public class Event {
     public Date getRegistrationCloseDate() { return registrationCloseDate; }
 
 
-    public @Nullable Integer getCapacity() { return capacity; }
+    public @Nullable Integer getInvitelistlimit() { return capacity; }
 
     public void setLotteryDetails(String lotteryDetails) {
         this.lotteryDetails = lotteryDetails;
@@ -103,6 +103,7 @@ public class Event {
     public List<String> getWaitlist() { return waitlist; }
     public List<String> getCancelledList() { return cancelledList; }
     public List<String> getApprovedList() { return approvedList; }
+    public List <String> getInviteList() {return inviteList; }
 
 
     public @Nullable Integer getWaitlistLimit() { return waitlistLimit; }
@@ -150,6 +151,7 @@ public class Event {
         this.approvedList = approvedList;
     }
 
-    public void setInvitelistlimit(int value) {
+
+    public void setInvitelistlimit(Integer capacity) {this.capacity = capacity;
     }
 }
