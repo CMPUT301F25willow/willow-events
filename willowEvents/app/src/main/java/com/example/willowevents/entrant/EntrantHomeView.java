@@ -2,7 +2,8 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +13,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
-import com.example.willowevents.organizer.MainOrganizerView;
 
 import java.util.ArrayList;
 
@@ -43,17 +44,15 @@ public class EntrantHomeView extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar FilterBase;
     androidx.appcompat.widget.Toolbar InviteBase;
     Boolean isFilterVisible;
+    EventController eventController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrant_home);
 
-        // get current user from DB
-
-
-
-        //
+        // EVENT CONTROLLER
+        eventController = new EventController();
 
 
 
@@ -81,33 +80,14 @@ public class EntrantHomeView extends AppCompatActivity {
         InviteBase.setVisibility(View.GONE);
         isFilterVisible = false;
 
-        String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-
+        eventView = findViewById(R.id.eventList);
+        // TODO: add user ID checking here along with events to get the events the user is signed up in
         myEvents = new ArrayList<Event>();
-//        TODO: myEvents = pull a list of events that the user is in the waitlist, invited list, or enrolled list
 
-        /*      REPLACE WITH FIRESTORE SHIT:
-        myEvents.add(new Event("myEventOne"));
-        myEvents.add(new Event("myEventTwo"));
-        myEvents.add(new Event("myEventThree"));
-        myEvents.add(new Event("myEventFour"));
-        myEvents.add(new Event("myEventFive"));*/
-        allEvents = new ArrayList<Event>();
-//        TODO: allEvents = pull a list of all the events that have a deadline datetime after the current datetime
 
-        /*allEvents.add(new Event("allEventOne"));
-        allEvents.add(new Event("allEventTwo"));
-        allEvents.add(new Event("allEventThree"));
-        allEvents.add(new Event("allEventFour"));
-        allEvents.add(new Event("allEventFive"));*/
+
+        // TODO: add in Event controller logic to handle dates
         availableEvents = new ArrayList<Event>();
-//        TODO: availableEvents = same as above, but only wtih open waitlists?
-
-        /*availableEvents.add(new Event("avEventOne"));
-        availableEvents.add(new Event("avEventTwo"));
-        availableEvents.add(new Event("avEventThree"));
-        availableEvents.add(new Event("avEventFour"));
-        availableEvents.add(new Event("avEventFive"));*/
 
         InviteButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
@@ -142,8 +122,22 @@ public class EntrantHomeView extends AppCompatActivity {
 
         AllEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
-            eventAdapter = new EventArrayAdapter(this, allEvents);
+            // GET ALL EVENTS FROM FIRESTORE
+            allEvents = new ArrayList<>();
+            eventAdapter = new EventArrayAdapter(this, myEvents);
             eventView.setAdapter(eventAdapter);
+            // Get all events
+            eventController.generateAllEvents(new EventController.OnEventsGeneration() {
+                @Override
+                public void onEventsGenerated(ArrayList<Event> events) {
+                    allEvents=events;
+                    eventAdapter = new EventArrayAdapter(EntrantHomeView.this, allEvents);
+                    eventView.setAdapter(eventAdapter);
+                    eventAdapter.notifyDataSetChanged();
+                }
+            });
+
+
             //Make invite bar disappear
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
@@ -157,6 +151,15 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
+
+
+        eventView.setOnItemClickListener((parent, view, position, id) -> {
+                    Event selectedEvent = (Event )parent.getItemAtPosition(position);
+                    Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
+                    myIntent.putExtra("eventID", selectedEvent.getId());
+                    startActivity(myIntent);
+                });
+
 
         profileIcon.setOnClickListener(view -> {
             // TRANSITION TO PROFILE PAGE
