@@ -2,6 +2,7 @@ package com.example.willowevents.organizer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.User;
+import com.example.willowevents.UserController;
 
 import java.util.ArrayList;
 
@@ -31,19 +34,18 @@ public class MainOrganizerView extends AppCompatActivity {
     ArrayList<Event> events;
     Button newEventButton;
     Button profileButton;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_organizer_view);
 
+        String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
         events = new ArrayList<Event>();
-//      REPLACE WITH FIRESTORE SHIT:
-        //events.add(new Event("eventOne"));
-        //events.add(new Event("eventTwo"));
-       // events.add(new Event("eventThree"));
-       // events.add(new Event("eventFour"));
-       // events.add(new Event("eventFive"));
+        //TODO: pull list of events with organizerId == deviceID
+        //events = ??
 
         /*Event event = addMockEvent();
         events.add(event);
@@ -54,13 +56,14 @@ public class MainOrganizerView extends AppCompatActivity {
         // for testing only
         ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, events);
 
-        eventView = findViewById(R.id.eventList);   //find event ListView
+        // find UI items
+        eventView = findViewById(R.id.eventList);
         newEventButton = findViewById(R.id.createNewEvent);
         profileButton = findViewById(R.id.profile_button);
 
-
-        eventAdapter = new EventArrayAdapter(this, events); //set array adapter
-        eventView.setAdapter(eventAdapter);     //link array adapter to ListView
+        // set + link array adapter
+        eventAdapter = new EventArrayAdapter(this, events);
+        eventView.setAdapter(eventAdapter);
         
 
         newEventButton.setOnClickListener(view -> {
