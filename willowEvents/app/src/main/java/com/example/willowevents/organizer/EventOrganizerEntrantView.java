@@ -7,35 +7,65 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.Lottery;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Random;
 
+/**
+ * This View shows the organizer options regarding the waitlist and
+ * other lists of users in the event.
+ */
 public class EventOrganizerEntrantView extends AppCompatActivity {
 
+    private String eventId;
+    private Event event;
     private Button seeWaitlist;
     private Button seeInvited;
     private Button seeEnrolled;
     private Button seeCancelled;
+    private Button seeInfo;
     private Button backButton;
     private Button sendInvite;
     private Button updateEvent;
     private boolean redraw = false;
+
+    private String eventID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_entrants_view);
 
+        Intent origIntent = new Intent(this, MainOrganizerView.class);
+        //check for any data sent along side activity change
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            eventId = extras.getString("Event ID");
+        } else {
+            origIntent = new Intent(this, EventOrganizerInfoView.class);
+            extras = getIntent().getExtras();
+            if (extras != null) {
+                eventId = extras.getString("Event ID");
+            }
+        }
+        if (eventId != null) {
+            //TODO: event = firestore find event via eventId (then uncomment else exception below)
+            TextView eventName = findViewById(R.id.eventName);
+            eventName.setText(event.getTitle());
+        } else {
+//            throw new IllegalArgumentException("event ID not acquired");
+        }
+
+        backButton = findViewById(R.id.back_button);
+        seeInfo = findViewById(R.id.info_button);
         seeWaitlist = findViewById(R.id.waitlist_see_entrants_button);
         seeInvited = findViewById(R.id.invited_see_entrants_button);
         seeEnrolled = findViewById(R.id.enrolled_see_entrants_button);
@@ -45,7 +75,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
 
-        Event event = addMockEvent();
+        //Event event = addMockEvent();
 
 
         updateEvent.setOnClickListener(view -> {
@@ -59,6 +89,17 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
             myIntent.putExtra("Type", "mainOrganizerPage");
+            startActivity(myIntent);
+        });
+
+        seeInfo.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventOrganizerInfoView.class);
+            myIntent.putExtra("event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        backButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
             startActivity(myIntent);
         });
 
@@ -167,14 +208,14 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
      */
     public void doLottery(Event event){
 
-        int max = event.getInvitelistlimit() - event.getInvitelist().size() - event.getAprovelist().size();
+        int max = event.getInvitelistlimit() - event.getInviteList().size() - event.getApprovedList().size();
 
         while ( max > 0){
             max-=1;
             int size = event.getWaitlist().size();
             int random = new Random().nextInt(size);
-            event.getInvitelist().add(event.getWaitlist().get(random));
-            event.getInvitelist().remove(random);
+            event.getInviteList().add(event.getWaitlist().get(random));
+            event.getInviteList().remove(random);
         }
     }
 
@@ -184,7 +225,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
 
     // tis is for testing only
-    public Event addMockEvent(){
+   /* public Event addMockEvent(){
 
         Event event = new Event("EventOne");
         ArrayList<String> tempList = new ArrayList<>();
@@ -196,7 +237,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
 
         event.setWaitlist(entrantlist);
-        return event;
+        return event;*/
     }
 
-}

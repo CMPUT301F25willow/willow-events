@@ -14,13 +14,14 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.Invite;
 
 public class InviteArrayAdapter extends ArrayAdapter {
     Button acceptButton;
     Button declineWithdrawButton;
     TextView inviteMessage;
-    public InviteArrayAdapter(@NonNull Context context, ArrayList<Event> events){
-        super(context, 0, events);
+    public InviteArrayAdapter(@NonNull Context context, ArrayList<Invite> invites){
+        super(context, 0, invites);
     }
 
     @NonNull

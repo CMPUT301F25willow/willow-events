@@ -34,7 +34,7 @@ public class EventModifyView extends AppCompatActivity {
 
     /**
      * Effectively does the same thing as EventCreationView..
-     */
+     *//*
     private EditText nameEt;                  // @id/event_name_entry
     private EditText locationEt;              // @id/event_location_entry (kept; optional)
     private TextView eventStartTv;            // @id/event_start_date
@@ -51,11 +51,11 @@ public class EventModifyView extends AppCompatActivity {
     private Button cancelBtn;                 // @id/create_event_cancel_button
     private Button createBtn;
 
-   /* private EditText etTitle;
+   *//* private EditText etTitle;
     private EditText etBannerUrl;
     private EditText etStart;
     private EditText etEnd;
-    private EditText etDetails;*/
+    private EditText etDetails;*//*
 
     private final Calendar eventStartCal = Calendar.getInstance();
     private final Calendar regDeadlineCal = Calendar.getInstance();
@@ -296,7 +296,7 @@ public class EventModifyView extends AppCompatActivity {
             return null;
         }
 
-    }
+    }*/
 
 
 }
