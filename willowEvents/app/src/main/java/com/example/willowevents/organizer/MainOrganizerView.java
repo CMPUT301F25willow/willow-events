@@ -54,8 +54,6 @@ public class MainOrganizerView extends AppCompatActivity {
         eventAdapter = new EventArrayAdapter(this, events);
         eventList.setAdapter(eventAdapter);
 
-        //TODO: pull list of events with organizerId == deviceID
-        //events = ??
         // Open the entrants hub for the tapped event
         eventList.setOnItemClickListener((parent, view, position, id) -> {
             if (position < 0 || position >= events.size()) return;
