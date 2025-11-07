@@ -38,7 +38,7 @@ public class EventArrayAdapter extends ArrayAdapter {
 
         //get event name and display it in the view
         TextView eventName = view.findViewById(R.id.eventName);
-        eventName.setText(event.getName());
+        eventName.setText(event.getTitle());
 
         return view;
     }

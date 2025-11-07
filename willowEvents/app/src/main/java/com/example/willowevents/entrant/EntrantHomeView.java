@@ -76,25 +76,25 @@ public class EntrantHomeView extends AppCompatActivity {
         isFilterVisible = false;
         //      REPLACE WITH FIRESTORE SHIT:
         myEvents = new ArrayList<Event>();
-        myEvents.add(new Event("myEventOne"));
+       /* myEvents.add(new Event("myEventOne"));
         myEvents.add(new Event("myEventTwo"));
         myEvents.add(new Event("myEventThree"));
         myEvents.add(new Event("myEventFour"));
-        myEvents.add(new Event("myEventFive"));
+        myEvents.add(new Event("myEventFive"));*/
         //      REPLACE WITH FIRESTORE SHIT:
         allEvents = new ArrayList<Event>();
-        allEvents.add(new Event("allEventOne"));
+        /*allEvents.add(new Event("allEventOne"));
         allEvents.add(new Event("allEventTwo"));
         allEvents.add(new Event("allEventThree"));
         allEvents.add(new Event("allEventFour"));
-        allEvents.add(new Event("allEventFive"));
+        allEvents.add(new Event("allEventFive"));*/
         //      REPLACE WITH FIRESTORE SHIT:
         availableEvents = new ArrayList<Event>();
-        availableEvents.add(new Event("avEventOne"));
+        /*availableEvents.add(new Event("avEventOne"));
         availableEvents.add(new Event("avEventTwo"));
         availableEvents.add(new Event("avEventThree"));
         availableEvents.add(new Event("avEventFour"));
-        availableEvents.add(new Event("avEventFive"));
+        availableEvents.add(new Event("avEventFive"));*/
 
         ClearFilterButton.setOnClickListener(view -> {
             if(isFilterVisible){

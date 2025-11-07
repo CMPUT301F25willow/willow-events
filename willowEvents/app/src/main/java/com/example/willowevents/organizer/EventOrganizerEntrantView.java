@@ -37,6 +37,8 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button updateEvent;
     private boolean redraw = false;
 
+    private String eventID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         if (eventId != null) {
             //TODO: event = firestore find event via eventId (then uncomment else exception below)
             TextView eventName = findViewById(R.id.eventName);
-            eventName.setText(event.getName());
+            eventName.setText(event.getTitle());
         } else {
 //            throw new IllegalArgumentException("event ID not acquired");
         }
@@ -73,7 +75,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
 
-        Event event = addMockEvent();
+        //Event event = addMockEvent();
 
 
         updateEvent.setOnClickListener(view -> {
@@ -206,14 +208,14 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
      */
     public void doLottery(Event event){
 
-        int max = event.getInvitelistlimit() - event.getInvitelist().size() - event.getAprovelist().size();
+        int max = event.getInvitelistlimit() - event.getInviteList().size() - event.getApprovedList().size();
 
         while ( max > 0){
             max-=1;
             int size = event.getWaitlist().size();
             int random = new Random().nextInt(size);
-            event.getInvitelist().add(event.getWaitlist().get(random));
-            event.getInvitelist().remove(random);
+            event.getInviteList().add(event.getWaitlist().get(random));
+            event.getInviteList().remove(random);
         }
     }
 
@@ -223,7 +225,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
 
     // tis is for testing only
-    public Event addMockEvent(){
+   /* public Event addMockEvent(){
 
         Event event = new Event("EventOne");
         ArrayList<String> tempList = new ArrayList<>();
@@ -235,7 +237,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
 
         event.setWaitlist(entrantlist);
-        return event;
+        return event;*/
     }
 
-}
