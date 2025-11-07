@@ -1,20 +1,20 @@
 package com.example.willowevents;
 
-import androidx.annotation.Nullable;
+import android.util.Log;
 
 import com.example.willowevents.model.Event;
-import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class EventController {
     private FirebaseFirestore eventDB;
     private CollectionReference eventsRef;
-
+    // Author: Jeanard Sinfuego
 
     // get all users
     public EventController() {
@@ -24,6 +24,30 @@ public class EventController {
             eventsRef = eventDB.collection("events");
 
     }
+
+    /**     generates snapshot of the AVAILABLE events form the database
+
+     *
+     */
+    public void generateAllEvents(OnEventGeneration callback) {
+        eventsRef.addSnapshotListener((value, error) -> {
+
+            if (error != null) {
+                Log.e("Firestore", error.toString());
+            }
+            else {
+                ArrayList<Event> events = new ArrayList<>();
+                for (QueryDocumentSnapshot snapshot: value){
+                    Event event = snapshot.toObject(Event.class);
+//                    event.setId(snapshot.getId());
+                    events.add(event);
+                }
+                callback.onEventsGenerated(events);
+            }
+
+        });
+    }
+
     public void retrieveCapacity(String eventID, OnExistsCapacity callback) {
         DocumentReference docRef = eventsRef.document(eventID);
         docRef.get().addOnSuccessListener(document -> {
@@ -73,8 +97,42 @@ public class EventController {
         eventsRef.document(eventID).update("cancelledList", FieldValue.arrayUnion(userID));
     }
     //---------------- DELETING FUNCTIONALITY
+    /**
+     * Removes user from the waitlist
+     * @param eventID the ID of the event
+     * @param userID the ID of the user
+     */
+    public void removeUserWaitlist(String eventID, String userID) {
+        eventsRef.document(eventID).update("waitlist", FieldValue.arrayRemove(userID));
+    }
 
+    /**
+     * Removes user from the invite list
+     * @param eventID the ID of the event
+     * @param userID the ID of the user
+     */
+    public void removeUserInviteList(String eventID, String userID) {
+        eventsRef.document(eventID).update("inviteList", FieldValue.arrayRemove(userID));
+    }
 
+    /**
+     * Removes user from the registered list
+     * @param eventID the ID of the event
+     * @param userID the ID of the user
+     */
+    public void removeUserRegisteredList(String eventID, String userID) {
+        eventsRef.document(eventID).update("approvedList", FieldValue.arrayRemove(userID));
+    }
+
+    /**
+     * Removes user from the cancelled list.
+     *
+     * @param eventID the ID of the event
+     * @param userID the ID of the user
+     */
+    public void removeUserCancelledList(String eventID, String userID) {
+        eventsRef.document(eventID).update("cancelledList", FieldValue.arrayRemove(userID));
+    }
 
     //---------------- EXISTS-IN-ARRAY FUNCTIONALITY
 
@@ -96,6 +154,10 @@ public class EventController {
     public interface ExistsInArray {
 
     void existsInArray(boolean contains);
+    }
+
+    public interface OnEventGeneration {
+        void onEventsGenerated(ArrayList<Event> events);
     }
 }
 

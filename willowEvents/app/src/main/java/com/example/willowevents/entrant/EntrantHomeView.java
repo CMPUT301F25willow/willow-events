@@ -11,10 +11,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
-import com.example.willowevents.organizer.MainOrganizerView;
 
 import java.util.ArrayList;
 
@@ -37,17 +37,15 @@ public class EntrantHomeView extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar FilterBase;
     androidx.appcompat.widget.Toolbar InviteBase;
     Boolean isFilterVisible;
+    EventController eventController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrant_home);
 
-        // get current user from DB
-
-
-
-        //
+        // EVENT CONTROLLER
+        eventController = new EventController();
 
 
 
@@ -74,27 +72,23 @@ public class EntrantHomeView extends AppCompatActivity {
         InviteButton.setVisibility(View.GONE);
         InviteBase.setVisibility(View.GONE);
         isFilterVisible = false;
-        //      REPLACE WITH FIRESTORE SHIT:
+
+
+        // TODO: add user ID checking here along with events to get the events the user is signed up in
         myEvents = new ArrayList<Event>();
-       /* myEvents.add(new Event("myEventOne"));
-        myEvents.add(new Event("myEventTwo"));
-        myEvents.add(new Event("myEventThree"));
-        myEvents.add(new Event("myEventFour"));
-        myEvents.add(new Event("myEventFive"));*/
-        //      REPLACE WITH FIRESTORE SHIT:
-        allEvents = new ArrayList<Event>();
-        /*allEvents.add(new Event("allEventOne"));
-        allEvents.add(new Event("allEventTwo"));
-        allEvents.add(new Event("allEventThree"));
-        allEvents.add(new Event("allEventFour"));
-        allEvents.add(new Event("allEventFive"));*/
-        //      REPLACE WITH FIRESTORE SHIT:
+
+        allEvents = new ArrayList<>();
+        // Get all events
+        eventController.generateAllEvents(new EventController.OnEventGeneration() {
+                                           @Override
+                                           public void onEventsGenerated(ArrayList<Event> events) {
+                                               allEvents = events;
+
+                                           }
+                                       });
+
+        // TODO: add in Event controller logic to handle dates
         availableEvents = new ArrayList<Event>();
-        /*availableEvents.add(new Event("avEventOne"));
-        availableEvents.add(new Event("avEventTwo"));
-        availableEvents.add(new Event("avEventThree"));
-        availableEvents.add(new Event("avEventFour"));
-        availableEvents.add(new Event("avEventFive"));*/
 
         ClearFilterButton.setOnClickListener(view -> {
             if(isFilterVisible){
