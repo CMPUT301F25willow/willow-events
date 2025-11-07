@@ -2,6 +2,8 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -146,6 +148,9 @@ public class EntrantHomeView extends AppCompatActivity {
         //Display all events still accepting entrants in the system
         AvailableEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
+
+            // Start with an empty list bound to the ListView (same pattern as AllEventsButton)
+            availableEvents = new ArrayList<>();
             eventAdapter = new EventArrayAdapter(this, availableEvents);
             eventView.setAdapter(eventAdapter);
             //Make invite bar disappear
@@ -164,6 +169,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
         // Transition to profile page
         profileIcon.setOnClickListener(view -> {
+            // TRANSITION TO PROFILE PAGE
             Intent intent = new Intent(EntrantHomeView.this, ProfileView.class);
             startActivity(intent);
             }

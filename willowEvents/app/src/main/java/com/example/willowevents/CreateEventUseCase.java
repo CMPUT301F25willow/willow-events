@@ -7,7 +7,7 @@ public interface CreateEventUseCase {
     final class Request {
         public String title;
         public String description;
-        // Firestore will store these as Timestamp; model uses java.util.Date for ergonomics
+
         public String lotteryDetails;
         public Date eventDate;
         public Date registrationOpenDate;
