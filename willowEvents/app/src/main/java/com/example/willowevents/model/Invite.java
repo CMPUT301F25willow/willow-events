@@ -12,4 +12,8 @@ public class Invite {
         this.entrant = entrant;
         this.status = stat;
     }
+
+    public Event getEvent() {
+        return this.event;
+    }
 }

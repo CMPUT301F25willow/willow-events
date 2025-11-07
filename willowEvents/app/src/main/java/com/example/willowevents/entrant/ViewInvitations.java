@@ -1,6 +1,8 @@
 package com.example.willowevents.entrant;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,12 +25,20 @@ public class ViewInvitations extends AppCompatActivity {
     ArrayList<Invite> invites;
     ListView inviteListView;
     InviteArrayAdapter inviteAdapter;
+    Button backButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_invitations);
+
+        backButton = findViewById(R.id.back_button);
+
+        backButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(ViewInvitations.this, EntrantHomeView.class);
+            startActivity(myIntent);
+        });
 
         invites = new ArrayList<Invite>();
         invites.add(new Invite(new Event("myEventOne"), new Entrant("Myself"), "INVITED"));

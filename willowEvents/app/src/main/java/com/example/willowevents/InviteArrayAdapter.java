@@ -35,13 +35,13 @@ public class InviteArrayAdapter extends ArrayAdapter {
             view = convertView;
         }
         //get event to grab info from
-        Event event = (Event) getItem(position);
+        Invite invite = (Invite) getItem(position);
 
         acceptButton = view.findViewById(R.id.accept_button);
         declineWithdrawButton = view.findViewById(R.id.decline_withdraw_button);
         inviteMessage = view.findViewById(R.id.invite_message);
-        assert event != null;
-        String message = "Congratulations USER! You have been invited to " + event.getName();
+        assert invite != null;
+        String message = "Congratulations USER! You have been invited to " + invite.getEvent().getTitle();
         inviteMessage.setText(message);
 
         return view;
