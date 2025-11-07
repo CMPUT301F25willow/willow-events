@@ -53,6 +53,11 @@ public class Event {
     private @Nullable String posterUrl;
     private boolean requireGeo;
 
+    public Event(){}
+    public Event(String name) {
+        this.title = name;
+    }
+
     /**
      * This creates a new Event object
      * @param title         - String
