@@ -3,6 +3,7 @@ package com.example.willowevents;
 import android.util.Log;
 
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
@@ -26,10 +27,9 @@ public class EventController {
     }
 
     /**     generates snapshot of the AVAILABLE events form the database
-
      *
      */
-    public void generateAllEvents(OnEventGeneration callback) {
+    public void generateAllEvents(OnEventsGeneration callback) {
         eventsRef.addSnapshotListener((value, error) -> {
 
             if (error != null) {
@@ -44,6 +44,24 @@ public class EventController {
                 }
                 callback.onEventsGenerated(events);
             }
+
+        });
+    }
+
+    /**     generates a single snapshot of the AVAILABLE events form the database
+     *
+     */
+    public void generateOneEvent(String eventID, OnEventGeneration callback) {
+        DocumentReference docRef = eventsRef.document(eventID);
+        docRef.get().addOnSuccessListener(document -> {
+
+            Event event = null;
+
+            // if user exists
+            if (document.exists()) {
+                event = document.toObject(Event.class);
+            }
+            callback.onEventGenerated(event);
 
         });
     }
@@ -156,8 +174,12 @@ public class EventController {
     void existsInArray(boolean contains);
     }
 
-    public interface OnEventGeneration {
+    public interface OnEventsGeneration {
         void onEventsGenerated(ArrayList<Event> events);
+    }
+
+    public interface OnEventGeneration {
+        void onEventGenerated(Event event);
     }
 }
 

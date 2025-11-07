@@ -24,7 +24,9 @@ public class EventEntrantView extends AppCompatActivity {
         });
     }
 
-    // Add clickables here
+    // Get current user ID
+
+    // Get event
 
 
 
