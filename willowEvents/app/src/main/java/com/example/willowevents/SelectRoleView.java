@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.organizer.MainOrganizerView;
 
@@ -21,10 +20,13 @@ import com.example.willowevents.organizer.MainOrganizerView;
  */
 public class SelectRoleView extends AppCompatActivity {
 
+    Button entrantButton;
+    Button organizerButton;
+    Button adminButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_select_role);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -69,8 +71,4 @@ public class SelectRoleView extends AppCompatActivity {
         });
 
     }
-
-
-
-
 }

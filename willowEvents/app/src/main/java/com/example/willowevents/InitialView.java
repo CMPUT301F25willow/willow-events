@@ -21,6 +21,8 @@ import com.example.willowevents.organizer.MainOrganizerView;
 import java.util.Objects;
 
 public class InitialView extends AppCompatActivity {
+    String currentEntrantID;
+    User currentEntrant ;
     Button loginButton;
     Button signupButton;
     Button deviceLoginButton;
@@ -78,25 +80,10 @@ public class InitialView extends AppCompatActivity {
                 }
             });
         });
-        signupButton.setOnClickListener(view -> {
-            // First check if user exists
-            userController.userExists(deviceID, new UserController.OnExistsUser() {
-                @Override
-                public void onExistsUser(boolean userExists, User user) {
 
-                    // valid sign up
-                    if (!userExists) {
-                        Intent myIntent = new Intent(InitialView.this, SelectRoleView.class);
-                        startActivity(myIntent);
-                    }
-                    // cannot sign up because user exists
-                    else {
-                        String notifyText = "Your device ID is already registered. Please log in.";
-                        Toast toast = Toast.makeText(InitialView.this, notifyText, Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
-            });
+        signupButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(InitialView.this, SelectRoleView.class);
+            startActivity(myIntent);
         });
 
         deviceLoginButton.setOnClickListener(view -> {
