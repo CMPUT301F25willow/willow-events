@@ -140,6 +140,14 @@ public class EventController {
     }
     //---------------- DELETING FUNCTIONALITY
     /**
+     * Removes the event from the database
+     * @param eventID String of the event ID
+     */
+    public void removeEvent(String eventID) {
+        DocumentReference docRef = eventsRef.document(eventID);
+        docRef.delete();
+    }
+    /**
      * Removes user from the waitlist
      * @param eventID the ID of the event
      * @param userID the ID of the user
