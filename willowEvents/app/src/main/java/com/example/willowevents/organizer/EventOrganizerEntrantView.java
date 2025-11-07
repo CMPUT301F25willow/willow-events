@@ -39,6 +39,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private String eventID;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,16 +196,12 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     }
 
+
     /**
-     * Usage:
-     * Given a max value, the loop will pick a random entrant and add them to the invitelist.
-     * Then remove them from the waitlist.
-     * This will continue until max reaches zero
-     * This can also be used for redrawing entrants
-     * On first invite:
-     * invitelist abnd approvelist are zero, so the max = invitelistlimit
-     * On the next iterations:
-     * draw the missing amount of invites
+     * For a max value, a max number of random entrants will be chosen from an event's
+     * WaitList and be moved to the event's ApprovedList.
+     * max refers to the value of inviteListLimit - size of InviteList - size of ApprovedList
+     * @param event - Event
      */
     public void doLottery(Event event){
 
@@ -220,23 +217,5 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     }
 
 
-
-
-
-
-    // tis is for testing only
-   /* public Event addMockEvent(){
-
-        Event event = new Event("EventOne");
-        ArrayList<String> tempList = new ArrayList<>();
-        ArrayList<Entrant> entrantlist = new ArrayList<>();
-
-        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
-        entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
-
-        event.setWaitlist(entrantlist);
-        return event;*/
     }
 
