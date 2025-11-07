@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.R;
 
+/**
+ * This View allows Entrant objects to view notifications sent by Organizers and Admins
+ */
 public class NotificationView extends AppCompatActivity {
 
     @Override

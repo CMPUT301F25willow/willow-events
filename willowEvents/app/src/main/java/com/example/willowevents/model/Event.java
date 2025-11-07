@@ -53,6 +53,11 @@ public class Event {
     private @Nullable String posterUrl;
     private boolean requireGeo;
 
+    public Event(){}
+    public Event(String name) {
+        this.title = name;
+    }
+
     /**
      * This creates a new Event object
      * @param title         - String
@@ -272,5 +277,8 @@ public class Event {
      * @param capacity - String capacity for event
      */
     public void setInvitelistlimit(Integer capacity) {this.capacity = capacity;
+    }
+    public void setRequireGeo(boolean requireGeo) {
+         this.requireGeo = requireGeo;
     }
 }

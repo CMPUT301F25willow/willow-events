@@ -20,6 +20,11 @@ import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
 
+/**
+ * This View allows interactivity for an Entrant object
+ * - View event lists       - check event details   - check notifications
+ * - filter event lists     - check profile information     - view invitations
+ */
 public class EntrantHomeView extends AppCompatActivity {
     //Stole from taylor's MainOrganizerView
     ListView eventView;
@@ -83,6 +88,11 @@ public class EntrantHomeView extends AppCompatActivity {
 
         // TODO: add in Event controller logic to handle dates
         availableEvents = new ArrayList<Event>();
+
+        InviteButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            startActivity(myIntent);
+        });
 
         ClearFilterButton.setOnClickListener(view -> {
             if(isFilterVisible){

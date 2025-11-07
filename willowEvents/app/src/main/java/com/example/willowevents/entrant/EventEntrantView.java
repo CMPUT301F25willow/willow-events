@@ -17,6 +17,10 @@ import com.example.willowevents.UserController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.User;
 
+/**
+ * This view allows Entrant objects to view the details of an Event object
+ * and join it's Waiting List
+ */
 public class EventEntrantView extends AppCompatActivity {
 
 

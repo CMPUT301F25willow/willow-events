@@ -10,9 +10,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WillowEvents" >
+        android:theme="@style/Theme.WillowEvents">
+        <activity
+            android:name=".model.Invite"
+            android:exported="false" />
         <activity
             android:name=".SelectRoleView"
+            android:exported="false" />
+        <activity
+            android:name=".SelectRoleView"
+            android:exported="false" />
+        <activity
+            android:name=".LoginInfoView"
+            android:exported="false" />
+        <activity
+            android:name=".ViewInvitations"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
@@ -21,19 +36,10 @@
             android:name=".InitialView"
             android:exported="false" />
         <activity
-            android:name=".organizer.UserListView"
+            android:name=".UserListView"
             android:exported="false" />
         <activity
-            android:name=".organizer.EventOrganizerEntrantView"
-            android:exported="false" />
-        <activity
-            android:name=".organizer.EventCreationView"
-            android:exported="false" />
-        <activity
-            android:name=".organizer.EventModifyView"
-            android:exported="false" />
-        <activity
-            android:name=".organizer.EventOrganizerInfoView"
+            android:name=".EventOrganizerEntrantView"
             android:exported="false" />
         <activity
             android:name=".organizer.MainOrganizerView"
@@ -53,7 +59,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

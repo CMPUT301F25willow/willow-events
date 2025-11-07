@@ -42,7 +42,6 @@ public class MainOrganizerView extends AppCompatActivity {
         setContentView(R.layout.activity_main_organizer_view);
 
         String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-
         events = new ArrayList<Event>();
         //TODO: pull list of events with organizerId == deviceID
         //events = ??
@@ -89,23 +88,5 @@ public class MainOrganizerView extends AppCompatActivity {
         });
 
     }
-
-
-//    public Event addMockEvent(){
-//
-//        Event event = new Event("EventOne");
-//        ArrayList<String> tempList = new ArrayList<>();
-//        ArrayList<Entrant> entrantlist = new ArrayList<>();
-//
-//        entrantlist.add(new Entrant("0", "userOne", "email@gmail.com", "306 123 456", tempList));
-//        entrantlist.add(new Entrant("1", "userTwo", "email@gmail.com", "306 123 456", tempList));
-//        entrantlist.add(new Entrant("2", "userThree", "email@gmail.com", "306 123 456", tempList));
-//        entrantlist.add(new Entrant("3", "userFour", "email@gmail.com", "306 123 456", tempList));
-//
-//        event.setWaitlist(entrantlist);
-//        return event;
-//    }
-
-
 
 }
