@@ -23,6 +23,10 @@ import com.example.willowevents.R;
 
 import java.util.ArrayList;
 
+/**
+ * This View allows entrants to see their invitations and accept,
+ * withdraw or decline as they see fit
+ */
 public class ViewInvitations extends AppCompatActivity {
     ArrayList<Invite> invites;
     ListView inviteListView;
