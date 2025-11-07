@@ -1,6 +1,7 @@
 package com.example.willowevents.entrant;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 
 public class ViewInvitations extends AppCompatActivity {
     ArrayList<Invite> invites;
+    ListView inviteList;
+    InviteArrayAdapter eventAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,8 @@ public class ViewInvitations extends AppCompatActivity {
         invites.add(new Invite(new Event("myEventOne"), new Entrant("Myself"), "INVITED"));
         invites.add(new Invite(new Event("myEventTwo"), new Entrant("Myself"), "DECLINED"));
         invites.add(new Invite(new Event("myEventThree"), new Entrant("Myself"), "ACCEPTED"));
-//        eventView = findViewById(R.id.eventList);
-//        eventAdapter = new EventArrayAdapter(this, myEvents);
-//        eventView.setAdapter(eventAdapter);
+        inviteList = findViewById(R.id.invite_list);
+        eventAdapter = new EventArrayAdapter(this, myEvents);
+        eventView.setAdapter(eventAdapter);
     }
 }
