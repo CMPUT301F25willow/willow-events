@@ -5,9 +5,9 @@ import com.example.willowevents.model.Organizer;
 import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -30,12 +30,12 @@ public class UserController {
      * Adds a user to the database given an entrnat. Gives it a unique tag "Entrant" in the database
      * @param userID is the Device-ID as a STRING of the user
      */
-    public void addEntrantUser(String userID) {
+    public void addNewEntrantUser(String userID) {
+
         Entrant user = new Entrant(userID,
                 "No name",
                 "No email",
                 "No phone number",
-                "entrant",
                 new ArrayList<>());
 
         DocumentReference docRef = usersRef.document(userID);
@@ -46,12 +46,11 @@ public class UserController {
      * Adds a user to the database given an organizer. Gives it a unique tag "Entrant" in the database
      * @param userID is the Device-ID as a STRING of the user
      */
-    public void addOrganizerUser(String userID) {
+    public void addNewOrganizerUser(String userID) {
         Organizer user = new Organizer(userID,
                 "No name",
                 "No email",
                 "No phone number",
-                "organizer",
                 new ArrayList<>());
 
         DocumentReference docRef = usersRef.document(userID);
@@ -69,38 +68,28 @@ public class UserController {
     /**
      * Given a userID in the form of a String, return the user details from the database
      * User can only be retrieved via a callback function
-     * @param userID is the Device-ID as a STRING of the user
+     * @param deviceID is the Device-ID as a STRING of the user
      *
      */
-    public void getUser(String userID , OnUserLoaded callback) {
+    public void getUser(String deviceID , OnUserLoaded callback) {
         // get document via id
-        DocumentReference docRef = usersRef.document(userID);
+        DocumentReference docRef = usersRef.document(deviceID);
         // https://firebase.google.com/docs/firestore/query-data/get-data?hl=fr#java
-        docRef.get().addOnSuccessListener(snapshot -> {
+        docRef.get().addOnSuccessListener(document -> {
 
-            User user;
+            User user = null;
 
             // if user exists
-            if (snapshot.exists()) {
-                String userType = snapshot.getString("userType");
-                String name = snapshot.getString("name");
-                String email = snapshot.getString("email");
-                String phoneNumber = snapshot.getString("phoneNumber");
-                ArrayList<String> joinList = (ArrayList<String>) snapshot.get("joinList");
-                if (Objects.equals(userType, "organizer")) {
-                    user = new Organizer(userID,
-                            name,
-                            email,
-                            phoneNumber,
-                            userType,
-                            joinList);
-                } else {
-                    user = new Entrant(userID,
-                            name,
-                            email,
-                            phoneNumber,
-                            userType,
-                            joinList);
+            if (document.exists()) {
+                if (document.exists()) {
+                    String userType = document.getString("userType");
+                    if (Objects.equals(userType, "organizer")) {
+                        user = generateOrganizer(document, deviceID);
+                    }
+                    else {
+                        user = generateEntrant(document, deviceID);
+                    }
+
                 }
                 callback.onUserLoaded(user);
             }
@@ -126,24 +115,11 @@ public class UserController {
             User user = null;
             if (document.exists()) {
                 String userType = document.getString("userType");
-                String name = document.getString("name");
-                String email = document.getString("email");
-                String phoneNumber = document.getString("phoneNumber");
-                ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
                 if (Objects.equals(userType, "organizer")) {
-                    user = new Organizer(deviceID,
-                            name,
-                            email,
-                            phoneNumber,
-                            userType,
-                            joinList);
-                } else {
-                    user = new Entrant(deviceID,
-                            name,
-                            email,
-                            phoneNumber,
-                            userType,
-                            joinList);
+                    user = generateOrganizer(document, deviceID);
+                }
+                else {
+                    user = generateEntrant(document, deviceID);
                 }
 
             }
@@ -181,6 +157,39 @@ public class UserController {
 
     }
 
+    /**
+     * Private method to retrieve organizer class. Assumption is that Organizer already exists
+     * @param document The Document snapshot of the user ID query
+     * @return The placeholder of organizer
+     */
+    private Organizer generateOrganizer(DocumentSnapshot document, String deviceID) {
+        String name = document.getString("name");
+        String email = document.getString("email");
+        String phoneNumber = document.getString("phoneNumber");
+        ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
+        return new Organizer(deviceID,
+                name,
+                email,
+                phoneNumber,
+                joinList);
+    }
+    /**
+     * Private method to retrieve organizer class. Assumption is that Entrant already exists
+     * @param document The Document snapshot of the user ID query
+     * @return The placeholder of organizer
+     */
+    private Entrant generateEntrant(DocumentSnapshot document, String deviceID) {
+        String name = document.getString("name");
+        String email = document.getString("email");
+        String phoneNumber = document.getString("phoneNumber");
+        ArrayList<String> joinList = (ArrayList<String>) document.get("joinList");
+        return new Entrant(deviceID,
+                name,
+                email,
+                phoneNumber,
+                joinList);
+    }
+
 
     /**
      * Removes the entrant from the database. What also needs to be deleted is the entrantID from
@@ -205,7 +214,7 @@ public class UserController {
         void onUserLoaded(User user);
 
     }
-
+//    private Entrant getEntrant(DocumentSnap)
     public interface OnExistsUser {
         void onExistsUser(boolean userExists, User user);
     }

@@ -8,9 +8,8 @@ public class Entrant extends User {
                    String name,
                    String Email,
                    String phoneNumber,
-                   String userType,
                    ArrayList<String> joinList) {
-        super(ID, name, Email, phoneNumber, userType, joinList);
+        super(ID, name, Email, phoneNumber, "entrant", joinList);
     };
     public Entrant(){}
 

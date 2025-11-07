@@ -11,9 +11,8 @@ public class Organizer extends User {
             String name,
             String Email,
             String phoneNumber,
-            String userType,
             ArrayList<String> joinList) {
-        super(ID, name, Email, phoneNumber, userType, joinList);
+        super(ID, name, Email, phoneNumber, "organizer", joinList);
     };
     Organizer(String name){
         super(name);

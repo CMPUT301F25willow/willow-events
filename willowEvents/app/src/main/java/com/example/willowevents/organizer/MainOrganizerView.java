@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.EventArrayAdapter;
 import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
@@ -29,6 +30,7 @@ public class MainOrganizerView extends AppCompatActivity {
     EventArrayAdapter eventAdapter;
     ArrayList<Event> events;
     Button newEventButton;
+    Button profileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class MainOrganizerView extends AppCompatActivity {
 
         eventView = findViewById(R.id.eventList);   //find event ListView
         newEventButton = findViewById(R.id.create_new_event);
+        profileButton = findViewById(R.id.profile_button);
+
 
         eventAdapter = new EventArrayAdapter(this, events); //set array adapter
         eventView.setAdapter(eventAdapter);     //link array adapter to ListView
@@ -73,6 +77,12 @@ public class MainOrganizerView extends AppCompatActivity {
                 startActivity(myIntent);
 
             }
+        });
+
+        // TRANSITION TO PROFILE
+        profileButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainOrganizerView.this, ProfileView.class);
+            startActivity(intent);
         });
 
     }
