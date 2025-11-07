@@ -36,10 +36,13 @@
             android:name=".InitialView"
             android:exported="false" />
         <activity
-            android:name=".UserListView"
+            android:name=".organizer.EventCreationView"
             android:exported="false" />
         <activity
-            android:name=".EventOrganizerEntrantView"
+            android:name=".organizer.EventOrganizerEntrantView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.UserListView"
             android:exported="false" />
         <activity
             android:name=".organizer.MainOrganizerView"

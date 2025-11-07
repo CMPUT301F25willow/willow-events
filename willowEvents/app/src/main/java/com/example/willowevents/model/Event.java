@@ -17,19 +17,16 @@ public class Event {
     private String id; // Firestore doc id
     private String title;
     private String description;
+    private Date eventDate;
+    private Date registrationOpenDate;
+    private Date registrationCloseDate;
 
-    // this will be moved to EventEntrantView
-    private String lotteryDetails =
+    String lotteryDetails =
             "\n\nLottery System:" +
                     "\nAfter the deadline has ended a specified number of entrants will be randomly selected from the waiting list." +
                     "\nIf you have been invited to an event, you will be notified immediately."+
                     "\nIf you have not been invited, it is possible to be invited again if an entrant declines their invitation, " +
                     "in which case a new entrant will be randomly selected again from the waiting list.";
-
-    private Date eventDate;
-    private Date registrationOpenDate;
-    private Date registrationCloseDate;
-
 
     // Optional capacity (not wired in UI yet, kept for future)
     private @Nullable Integer capacity; // null => unlimited
@@ -86,9 +83,14 @@ public class Event {
             @Nullable String posterUrl,
             boolean requireGeo
     ) {
+
         Event e = new Event();
         e.title = title;
-        e.description = description;
+        e.description = description + "\n\nLottery System:" +
+                "\nAfter the deadline has ended a specified number of entrants will be randomly selected from the waiting list." +
+                "\nIf you have been invited to an event, you will be notified immediately."+
+                "\nIf you have not been invited, it is possible to be invited again if an entrant declines their invitation, " +
+                "in which case a new entrant will be randomly selected again from the waiting list.";
         e.lotteryDetails = lotteryDetails;
         e.eventDate = eventDate;
         e.registrationOpenDate = regOpen;
@@ -158,10 +160,11 @@ public class Event {
     public @Nullable Integer getInvitelistlimit() { return capacity; }
 
     /**
-     * Will move this somewhere else = unneeded on event
+     * This returns a String lotterydetails
+     * @return lotteryDetails
      */
-    public void setLotteryDetails(String lotteryDetails) {
-        this.lotteryDetails = lotteryDetails;
+    public String getLotteryDetails() {
+        return this.lotteryDetails;
     }
 
     /**

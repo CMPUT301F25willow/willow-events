@@ -24,6 +24,7 @@ final class EventMapper {
         m.put("cancelledList", e.getCancelledList()); // [] initially
         m.put("approvedList", e.getApprovedList()); // [] initially
         m.put("organizerId", e.getOrganizerId());
+        m.put("invitedlist", e.getInviteList());
 // reserved
         if (e.getPosterUrl() != null) m.put("posterUrl", e.getPosterUrl());
         m.put("requireGeo", e.isRequireGeo());
