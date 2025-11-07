@@ -54,7 +54,7 @@ public class ChangeProfileInfo extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
-                .setTitle("Edit City")
+                .setTitle("Edit Profile")
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Confirm", (dialog, which) -> {
                     String name = editNameText.getText().toString();
