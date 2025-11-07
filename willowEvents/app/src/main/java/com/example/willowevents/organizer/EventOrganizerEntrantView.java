@@ -50,6 +50,18 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         setContentView(R.layout.activity_event_organizer_entrants_view);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+//        int invitedNum = event.getInviteList().size() + event.getApprovedList().size();
+//        int limitNum = event.getInvitelistlimit();
+//
+//        if(redraw){
+//            if (invitedNum < limitNum) {
+//                sendInvite.setText("Draw replacements");
+//            } else {
+//                sendInvite.setText("Invite Limit Reached");
+//                sendInvite.setEnabled(false);
+//            }
+//        }
+
         Intent origIntent = new Intent(this, MainOrganizerView.class);
         //check for any data sent along side activity change
         Bundle extras = getIntent().getExtras();
@@ -164,7 +176,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         // click on invite button
         sendInvite.setOnClickListener(new View.OnClickListener() {
             // open up fragment to send invite
-
             @Override
             public void onClick(View view) {
                 dialog.setContentView(R.layout.select_batch_from_waitlist);
@@ -202,8 +213,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
-
+                redraw = true;
                 dialog.show();
 
             }

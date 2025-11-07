@@ -53,10 +53,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
         // EVENT CONTROLLER
         eventController = new EventController();
-
-
-
-//        //buttons
+        //buttons
         profileIcon = findViewById(R.id.accountIcon);
         MyEventsButton = findViewById(R.id.my_events_button);
         AvailableEventsButton = findViewById(R.id.available_events_button);
@@ -89,11 +86,13 @@ public class EntrantHomeView extends AppCompatActivity {
         // TODO: add in Event controller logic to handle dates
         availableEvents = new ArrayList<Event>();
 
+        // Switch to invitations view so user can see their invitations
         InviteButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
             startActivity(myIntent);
         });
 
+        // Toggle visibility of filter elements when filter button is clicked
         ClearFilterButton.setOnClickListener(view -> {
             if(isFilterVisible){
                 FilterOne.setVisibility(View.GONE);
@@ -111,7 +110,9 @@ public class EntrantHomeView extends AppCompatActivity {
             }
         });
 
+        //Display the users events
         MyEventsButton.setOnClickListener(view -> {
+            //TODO: I don't think my events is actually interfacing with firebase
             eventView = findViewById(R.id.eventList);
             eventAdapter = new EventArrayAdapter(this, myEvents);
             eventView.setAdapter(eventAdapter);
@@ -120,6 +121,7 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteBase.setVisibility(View.VISIBLE);
         });
 
+        //Display all events in the system
         AllEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
             // GET ALL EVENTS FROM FIRESTORE
@@ -143,6 +145,7 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteBase.setVisibility(View.GONE);
         });
 
+        //Display all events still accepting entrants in the system
         AvailableEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
             eventAdapter = new EventArrayAdapter(this, availableEvents);
@@ -152,7 +155,8 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteBase.setVisibility(View.GONE);
         });
 
-
+        //detect if a user clicks an event in the event list and go to
+        //
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
