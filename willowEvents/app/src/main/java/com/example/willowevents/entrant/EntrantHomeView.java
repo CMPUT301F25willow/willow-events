@@ -2,6 +2,7 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,22 +75,29 @@ public class EntrantHomeView extends AppCompatActivity {
         InviteButton.setVisibility(View.GONE);
         InviteBase.setVisibility(View.GONE);
         isFilterVisible = false;
-        //      REPLACE WITH FIRESTORE SHIT:
+
+        String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
         myEvents = new ArrayList<Event>();
-       /* myEvents.add(new Event("myEventOne"));
+//        TODO: myEvents = pull a list of events that the user is in the waitlist, invited list, or enrolled list
+
+        /*      REPLACE WITH FIRESTORE SHIT:
+        myEvents.add(new Event("myEventOne"));
         myEvents.add(new Event("myEventTwo"));
         myEvents.add(new Event("myEventThree"));
         myEvents.add(new Event("myEventFour"));
         myEvents.add(new Event("myEventFive"));*/
-        //      REPLACE WITH FIRESTORE SHIT:
         allEvents = new ArrayList<Event>();
+//        TODO: allEvents = pull a list of all the events that have a deadline datetime after the current datetime
+
         /*allEvents.add(new Event("allEventOne"));
         allEvents.add(new Event("allEventTwo"));
         allEvents.add(new Event("allEventThree"));
         allEvents.add(new Event("allEventFour"));
         allEvents.add(new Event("allEventFive"));*/
-        //      REPLACE WITH FIRESTORE SHIT:
         availableEvents = new ArrayList<Event>();
+//        TODO: availableEvents = same as above, but only wtih open waitlists?
+
         /*availableEvents.add(new Event("avEventOne"));
         availableEvents.add(new Event("avEventTwo"));
         availableEvents.add(new Event("avEventThree"));

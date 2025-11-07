@@ -42,7 +42,6 @@ public class MainOrganizerView extends AppCompatActivity {
         setContentView(R.layout.activity_main_organizer_view);
 
         String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-
         events = new ArrayList<Event>();
         //TODO: pull list of events with organizerId == deviceID
         //events = ??
