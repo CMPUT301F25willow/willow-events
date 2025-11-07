@@ -75,6 +75,20 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             }
         });
 
+        Button entrantViewButton = findViewById(R.id.entrant_view_button);
+        Button organizerViewButton = findViewById(R.id.organizer_view_button);
+        entrantViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                TODO: switch to EntrantHomeView
+            }
+        });
+        organizerViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                TODO: switch to MainOrganizerView
+            }
+        });
 
 
     }

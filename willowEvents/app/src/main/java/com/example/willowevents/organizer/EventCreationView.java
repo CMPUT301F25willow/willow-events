@@ -52,7 +52,7 @@ public class EventCreationView extends AppCompatActivity {
     private EditText nameEt, descEt, waitlistLimitEt;
     private TextView eventDateTv, regOpenTv, regCloseTv;
     private Button eventDateBtn, regOpenBtn, regCloseBtn, createBtn, cancelBtn;
-    private CheckBox limitWaitlistCb;
+    private CheckBox limitWaitlistCb, geolocCb;
 
 
     private final SimpleDateFormat displayFmt = new SimpleDateFormat("M/d/yy|HH:mm", Locale.US);
@@ -97,6 +97,7 @@ public class EventCreationView extends AppCompatActivity {
 
 
         limitWaitlistCb = findViewById(R.id.limit_waitlist_checkbox);
+        geolocCb = findViewById(R.id.geolocation_checkbox);
     }
     private void wireDependencies() {
         EventRepository events = new FirestoreEventRepository(FirebaseFirestore.getInstance());
@@ -181,7 +182,7 @@ public class EventCreationView extends AppCompatActivity {
         r.waitlistLimit = waitlistLimit; // optional
         r.organizerId = organizerId;
         r.posterUri = null; // reserved
-        r.requireGeo = false; // reserved
+        r.requireGeo = geolocCb.isChecked();
 
 
 // Execute
