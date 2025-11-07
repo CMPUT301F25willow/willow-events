@@ -1,5 +1,6 @@
 package com.example.willowevents.entrant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Button;
@@ -86,7 +87,11 @@ public class EventEntrantView extends AppCompatActivity {
 
         // EDIT INFO
 //        editInfo();
+        backButton.setOnClickListener(view ->{
+            Intent myIntent = new Intent(EventEntrantView.this,EntrantHomeView.class);
+            startActivity(myIntent);
 
+        });
 
         // add join waitlist functionality
         joinWaitlist.setOnClickListener(view -> {

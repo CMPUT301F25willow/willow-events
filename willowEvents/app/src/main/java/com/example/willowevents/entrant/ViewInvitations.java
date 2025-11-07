@@ -81,10 +81,14 @@ public class ViewInvitations extends AppCompatActivity {
                 switch(curInvite.getStatus()){
                     case("INVITED"):
                         curInvite.setStatus("ACCEPTED");
-                        //Add to list
+                        //update status
+                        //update event lists to match
+                        //update buttons
+                        acceptWaitlistButton.setVisibility(View.GONE);
+                        declineWithdrawButton.setText("Withdraw");
                     case("NOT INVITED"):
                         curInvite.setStatus("NOT INVITED");
-                        //Add to waitlist
+                        //update event lists (they signed up to be on waitlist)
                 }
             }
         });
@@ -94,9 +98,18 @@ public class ViewInvitations extends AppCompatActivity {
                 switch(curInvite.getStatus()){
                     case("INVITED"):
                         curInvite.setStatus("DECLINED");
+                        //update status
+                        //update event lists to match
+                        //update buttons
+                        acceptWaitlistButton.setVisibility(View.GONE);
+                        declineWithdrawButton.setVisibility(View.GONE);
                     case("ACCEPTED"):
                         curInvite.setStatus("DECLINED");
-                        //Remove from list
+                        //update status
+                        //update event lists to match
+                        //update buttons
+                        acceptWaitlistButton.setVisibility(View.GONE);
+                        declineWithdrawButton.setVisibility(View.GONE);
                 }
             }
         });
