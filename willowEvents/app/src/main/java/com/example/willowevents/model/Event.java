@@ -278,4 +278,7 @@ public class Event {
      */
     public void setInvitelistlimit(Integer capacity) {this.capacity = capacity;
     }
+    public void setRequireGeo(boolean requireGeo) {
+         this.requireGeo = requireGeo;
+    }
 }
