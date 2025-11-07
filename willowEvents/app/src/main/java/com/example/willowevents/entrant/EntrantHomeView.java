@@ -2,6 +2,8 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,19 +75,11 @@ public class EntrantHomeView extends AppCompatActivity {
         InviteBase.setVisibility(View.GONE);
         isFilterVisible = false;
 
-
+        eventView = findViewById(R.id.eventList);
         // TODO: add user ID checking here along with events to get the events the user is signed up in
         myEvents = new ArrayList<Event>();
 
-        allEvents = new ArrayList<>();
-        // Get all events
-        eventController.generateAllEvents(new EventController.OnEventGeneration() {
-                                           @Override
-                                           public void onEventsGenerated(ArrayList<Event> events) {
-                                               allEvents = events;
 
-                                           }
-                                       });
 
         // TODO: add in Event controller logic to handle dates
         availableEvents = new ArrayList<Event>();
@@ -118,8 +112,22 @@ public class EntrantHomeView extends AppCompatActivity {
 
         AllEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
-            eventAdapter = new EventArrayAdapter(this, allEvents);
+            // GET ALL EVENTS FROM FIRESTORE
+            allEvents = new ArrayList<>();
+            eventAdapter = new EventArrayAdapter(this, myEvents);
             eventView.setAdapter(eventAdapter);
+            // Get all events
+            eventController.generateAllEvents(new EventController.OnEventsGeneration() {
+                @Override
+                public void onEventsGenerated(ArrayList<Event> events) {
+                    allEvents=events;
+                    eventAdapter = new EventArrayAdapter(EntrantHomeView.this, allEvents);
+                    eventView.setAdapter(eventAdapter);
+                    eventAdapter.notifyDataSetChanged();
+                }
+            });
+
+
             //Make invite bar disappear
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
@@ -133,6 +141,15 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
+
+
+        eventView.setOnItemClickListener((parent, view, position, id) -> {
+                    Event selectedEvent = (Event )parent.getItemAtPosition(position);
+                    Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
+                    myIntent.putExtra("EventID", selectedEvent.getId());
+                    startActivity(myIntent);
+                });
+
 
         profileIcon.setOnClickListener(view -> {
             // TRANSITION TO PROFILE PAGE
