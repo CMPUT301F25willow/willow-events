@@ -146,7 +146,7 @@ public class EntrantHomeView extends AppCompatActivity {
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
-                    myIntent.putExtra("EventID", selectedEvent.getId());
+                    myIntent.putExtra("eventID", selectedEvent.getId());
                     startActivity(myIntent);
                 });
 

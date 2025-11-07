@@ -77,7 +77,31 @@ public class EventController {
             callback.getCapacity(waitlistLimit);
         });
     }
+    // ------------- UPDATING EVENT
+    public void updateEventInfo(Event event ) {
+        tempDeleteEvent(event);
+        reAddEvent(event);
+    }
 
+    /**
+     * Private method meant to re-add a event after deleting. To be used only with updateEventInfo
+     */
+    private void reAddEvent(Event event) {
+        DocumentReference docRef = eventsRef.document(event.getId());
+        docRef.set(event);
+    }
+
+    /**
+     * Private method meant to TEMPORARILY delete an existing event after updating. to be used onlw with updateEventInfo
+     */
+    private void tempDeleteEvent(Event event) {
+        DocumentReference docRef = eventsRef.document(event.getId());
+        docRef.delete();
+
+
+    }
+    
+    
     // ------------- ADDING FUNCTIONALITY
     /**
      * Adds user to the waitlist
