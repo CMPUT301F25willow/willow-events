@@ -20,7 +20,7 @@ public class TestEventController {
 
 
     /**
-     * After each test is conducted, mock event must be REMOVED from the datbase
+     * After each test is conducted, mock event must be REMOVED from the database
      */
     @After
     public void addInitialEvent() {
