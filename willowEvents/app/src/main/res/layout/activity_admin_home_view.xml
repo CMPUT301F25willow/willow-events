@@ -151,23 +151,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </ListView>
-
-    <Button
-        android:id="@+id/delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/red_base"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="DELETE"
-        android:textColor="@color/red_dark"
-        android:textSize="12sp"
-        app:cornerRadius="@dimen/corner_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"></ListView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
