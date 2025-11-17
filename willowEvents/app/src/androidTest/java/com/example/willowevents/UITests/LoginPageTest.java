@@ -54,88 +54,94 @@ public class LoginPageTest {
         user.put("userType", type);
         return user;
     }
-    private void clearCollection(String col){
-        db.collection(col).get().addOnSuccessListener(querySnapshot -> {
-            for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
-                db.collection(col).document(doc.getId()).delete();
-            }
-        });
-    }
+//    private void clearCollection(String col){
+//        db.collection(col).get().addOnSuccessListener(querySnapshot -> {
+//            for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+//                db.collection(col).document(doc.getId()).delete();
+//            }
+//        });
+//    }
 
     @Rule
     public IntentsTestRule<InitialView> intentsTestRule  = new IntentsTestRule<>(InitialView.class);
     @Test
     public void testLoginOrganizer() {
-        db.collection("users").document(deviceID)
-            .get()
-            .addOnSuccessListener(documentSnapshot -> {
-                if (!documentSnapshot.exists()) {
-                    userController.addNewOrganizerUser(deviceID);
-                }
-            })
-            .addOnFailureListener(e -> {
-
-            });
+        userController.addNewOrganizerUser(deviceID);
+//        db.collection("users").document(deviceID)
+//            .get()
+//            .addOnSuccessListener(documentSnapshot -> {
+//                if (!documentSnapshot.exists()) {
+//                    userController.addNewOrganizerUser(deviceID);
+//                }
+//            })
+//            .addOnFailureListener(e -> {
+//
+//            });
         onView(ViewMatchers.withId(R.id.login_button)).perform(click());
         intended(hasComponent(MainOrganizerView.class.getName()));
     }
     @Test
     public void testLoginEntrant() {
-        db.collection("users").document(deviceID)
-            .get()
-            .addOnSuccessListener(documentSnapshot -> {
-                if (!documentSnapshot.exists()) {
-                    userController.addNewEntrantUser(deviceID);
-                }
-            });
+        userController.addNewEntrantUser(deviceID);
+//        db.collection("users").document(deviceID)
+//            .get()
+//            .addOnSuccessListener(documentSnapshot -> {
+//                if (!documentSnapshot.exists()) {
+//                    userController.addNewEntrantUser(deviceID);
+//                }
+//            });
         onView(withId(R.id.login_button)).perform(click());
         intended(hasComponent(EntrantHomeView.class.getName()));
     }
     @Test
     public void testWLoginWithDeviceIdOrganizer() {
-        db.collection("users").document(deviceID)
-            .get()
-            .addOnSuccessListener(documentSnapshot -> {
-                if (!documentSnapshot.exists()) {
-                    userController.addNewOrganizerUser(deviceID);
-                }
-            });
+        userController.addNewOrganizerUser(deviceID);
+//        db.collection("users").document(deviceID)
+//            .get()
+//            .addOnSuccessListener(documentSnapshot -> {
+//                if (!documentSnapshot.exists()) {
+//                    userController.addNewOrganizerUser(deviceID);
+//                }
+//            });
         onView(withId(R.id.device_login_button)).perform(click());
         intended(hasComponent(MainOrganizerView.class.getName()));
     }
     @Test
     public void testLoginWithDeviceIdEntrant() {
-        db.collection("users").document(deviceID)
-            .get()
-            .addOnSuccessListener(documentSnapshot -> {
-                if (!documentSnapshot.exists()) {
-                    userController.addNewEntrantUser(deviceID);
-                }
-            });
+        userController.addNewEntrantUser(deviceID);
+//        db.collection("users").document(deviceID)
+//            .get()
+//            .addOnSuccessListener(documentSnapshot -> {
+//                if (!documentSnapshot.exists()) {
+//                    userController.addNewEntrantUser(deviceID);
+//                }
+//            });
         onView(withId(R.id.device_login_button)).perform(click());
         intended(hasComponent(EntrantHomeView.class.getName()));
     }
     @Test
     public void testSignup() {
-        db.collection("users").document(deviceID)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        db.collection("users").document(deviceID).delete();
-                    }
-                });
+        db.collection("users").document(deviceID).delete();
+//        db.collection("users").document(deviceID)
+//                .get()
+//                .addOnSuccessListener(documentSnapshot -> {
+//                    if (documentSnapshot.exists()) {
+//                        db.collection("users").document(deviceID).delete();
+//                    }
+//                });
         onView(withId(R.id.signup_button)).perform(click());
         intended(hasComponent(SelectRoleView.class.getName()));
     }
     @Test
     public void testSignupWithDeviceId() {
-        db.collection("users").document(deviceID)
-            .get()
-            .addOnSuccessListener(documentSnapshot -> {
-                if (documentSnapshot.exists()) {
-                    db.collection("users").document(deviceID).delete();
-                }
-            });
+        db.collection("users").document(deviceID).delete();
+//        db.collection("users").document(deviceID)
+//            .get()
+//            .addOnSuccessListener(documentSnapshot -> {
+//                if (documentSnapshot.exists()) {
+//                    db.collection("users").document(deviceID).delete();
+//                }
+//            });
         onView(withId(R.id.device_signup_button)).perform(click());
         intended(hasComponent(SelectRoleView.class.getName()));
     }
