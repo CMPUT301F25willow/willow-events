@@ -44,7 +44,6 @@ public class EventEntrantView extends AppCompatActivity {
     TextView selectionInfo;
     TextView waitlistLength;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
