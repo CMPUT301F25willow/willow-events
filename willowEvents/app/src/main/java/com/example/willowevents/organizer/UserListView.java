@@ -46,6 +46,7 @@ public class UserListView extends AppCompatActivity {
     private ArrayList<User> invitedUsers;
     private ArrayList<User> enrolledUsers;
     private ArrayList<User> cancelledUsers;
+    private ArrayList<User> userList;   // for removal user button stuff
     String eventId;
     String listType;
     private final com.google.firebase.firestore.FirebaseFirestore db =
@@ -121,15 +122,19 @@ public class UserListView extends AppCompatActivity {
         if (Objects.equals(listType, "waitlist")) {
             size = waitlistUsers.size();
             userAdapter = new UserArrayAdapter(this, waitlistUsers);
+            userList = waitlistUsers;
         } else if (Objects.equals(listType, "invited")) {
             size = invitedUsers.size();
             userAdapter = new UserArrayAdapter(this, invitedUsers);
+            userList = invitedUsers;
         } else if (Objects.equals(listType, "enrolled")) {
             size = enrolledUsers.size();
             userAdapter = new UserArrayAdapter(this, enrolledUsers);
+            userList = enrolledUsers;
         } else if (Objects.equals(listType, "cancelled")) {
             size = cancelledUsers.size();
             userAdapter = new UserArrayAdapter(this, cancelledUsers);
+            userList = cancelledUsers;
         } else {
             //smth bad happened
             size = 0;
@@ -143,6 +148,7 @@ public class UserListView extends AppCompatActivity {
         Dialog dialog = new Dialog(this);
 
         // Upon clicking an item in list, get popup to remove entrant from list
+        // applies to all list types
         // Pop up should work in theory, cannot confirm
         userView.setOnItemClickListener((parent, view, position, id) -> {
 
@@ -153,9 +159,11 @@ public class UserListView extends AppCompatActivity {
                 TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
                 TextView email = dialog.findViewById(R.id.user_email);
 
-                userName.setText(invitedUsers.get(position).getName());
-                phoneNumber.setText(invitedUsers.get(position).getPhoneNumber());
-                email.setText(invitedUsers.get(position).getEmail());
+
+
+                userName.setText(userList.get(position).getName());
+                phoneNumber.setText(userList.get(position).getPhoneNumber());
+                email.setText(userList.get(position).getEmail());
 
                 Button cancelButton = dialog.findViewById(R.id.cancel_button);
                 Button removalButton = dialog.findViewById(R.id.remove_button);
