@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.Lottery;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private boolean redraw = false;
 
     private String eventID;
+    private final Lottery lottery = new Lottery();    // refer to Lottery.java in model folder
 
     private final com.google.firebase.firestore.FirebaseFirestore db =
             com.google.firebase.firestore.FirebaseFirestore.getInstance();
@@ -204,11 +206,17 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                             amount.requestFocus();
                             return;
                         }
-
                         // get invitelistlimit, set and use
                         int value = Integer.parseInt(amount.getText().toString());
+
+                        if ( value > event.getWaitlist().size()){
+                            amount.setError("Not enough entrants to invite");
+                            amount.requestFocus();
+                            return;
+                        }
+
                         event.setInvitelistlimit(value);
-                        doLottery(event);
+                        lottery.doLottery(event);           // refer to Lottery.java in model folder
 
                         dialog.dismiss();
                     }
@@ -222,25 +230,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     }
 
-
-    /**
-     * For a max value, a max number of random entrants will be chosen from an event's
-     * WaitList and be moved to the event's ApprovedList.
-     * max refers to the value of inviteListLimit - size of InviteList - size of ApprovedList
-     * @param event - Event
-     */
-    public void doLottery(Event event){
-
-        int max = event.getInvitelistlimit() - event.getInviteList().size() - event.getApprovedList().size();
-
-        while ( max > 0){
-            max-=1;
-            int size = event.getWaitlist().size();
-            int random = new Random().nextInt(size);
-            event.getInviteList().add(event.getWaitlist().get(random));
-            event.getInviteList().remove(random);
-        }
-    }
 
  }
 
