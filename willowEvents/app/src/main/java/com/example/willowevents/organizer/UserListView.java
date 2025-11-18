@@ -1,8 +1,13 @@
 package com.example.willowevents.organizer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
 import com.example.willowevents.UserArrayAdapter;
+import com.example.willowevents.entrant.EntrantHomeView;
+import com.example.willowevents.entrant.EventEntrantView;
+import com.example.willowevents.model.Event;
 import com.example.willowevents.model.User;
 import com.example.willowevents.model.Entrant;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -130,6 +138,63 @@ public class UserListView extends AppCompatActivity {
         numberOfEntrants.setText(numberEntrantsMessage);
 
         userView.setAdapter(userAdapter);     //link array adapter to ListView
+
+
+        Dialog dialog = new Dialog(this);
+
+        // Upon clicking an item in list, get popup to remove entrant from list
+        // Pop up should work in theory, cannot confirm
+        userView.setOnItemClickListener((parent, view, position, id) -> {
+
+                dialog.setContentView(R.layout.activity_remove_entrant);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                TextView userName = dialog.findViewById(R.id.user_name);
+                TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
+                TextView email = dialog.findViewById(R.id.user_email);
+
+                userName.setText(invitedUsers.get(position).getName());
+                phoneNumber.setText(invitedUsers.get(position).getPhoneNumber());
+                email.setText(invitedUsers.get(position).getEmail());
+
+                Button cancelButton = dialog.findViewById(R.id.cancel_button);
+                Button removalButton = dialog.findViewById(R.id.remove_button);
+
+                // click on cancel button to leave fragment
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                // remove entrant from list, then leave fragment
+                removalButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                       // remove entrant from list via firestore stuff idk how it works I only know front end stuffs
+                        if (Objects.equals(listType, "waitlist")) {
+
+
+                        } else if (Objects.equals(listType, "invited")) {
+
+
+                        } else if (Objects.equals(listType, "enrolled")) {
+
+
+                        } else if (Objects.equals(listType, "cancelled")) {
+
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+        });
+
+
+
     }
 
     private void loadAllEntrantLists(String eventId) {
