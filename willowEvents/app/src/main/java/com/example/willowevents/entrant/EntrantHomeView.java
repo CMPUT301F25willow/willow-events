@@ -2,8 +2,6 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,7 +86,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
         // Switch to invitations view so user can see their invitations
         InviteButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
             startActivity(myIntent);
         });
 
