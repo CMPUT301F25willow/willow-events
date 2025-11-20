@@ -27,12 +27,6 @@
             android:name=".LoginInfoView"
             android:exported="false" />
         <activity
-            android:name=".ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationView"
-            android:exported="false" />
-        <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
@@ -58,10 +52,7 @@
             android:name=".entrant.EventEntrantView"
             android:exported="false" />
         <activity
-            android:name=".entrant.ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".entrant.NotificationView"
+            android:name=".entrant.ViewNotifications"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

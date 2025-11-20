@@ -229,7 +229,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue_base"
-        android:text="View my invitations"
+        android:text="View my notifications"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:cornerRadius="@dimen/corner_radius"

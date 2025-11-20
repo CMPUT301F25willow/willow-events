@@ -86,7 +86,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
         // Switch to invitations view so user can see their invitations
         InviteButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
             startActivity(myIntent);
         });
 
