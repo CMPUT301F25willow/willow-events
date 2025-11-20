@@ -27,12 +27,6 @@
             android:name=".LoginInfoView"
             android:exported="false" />
         <activity
-            android:name=".ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationView"
-            android:exported="false" />
-        <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
