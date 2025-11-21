@@ -66,13 +66,25 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 //            }
 //        }
 
+        // Did we come from MainOrganizerView? check extras
         Intent origIntent = new Intent(this, MainOrganizerView.class);
         //check for any data sent along side activity change
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             eventId = extras.getString("Event ID");
-        } else {
+        }
+
+        // if extras empty, then check if we came from EventOrganizerInfoView
+        if (extras == null) {
             origIntent = new Intent(this, EventOrganizerInfoView.class);
+            extras = getIntent().getExtras();
+            if (extras != null) {
+                eventId = extras.getString("Event ID");
+            }
+        }
+        // if extras empty, then check if we came from SendNotification
+        if (extras == null) {
+            origIntent = new Intent(this, SendNotification.class);
             extras = getIntent().getExtras();
             if (extras != null) {
                 eventId = extras.getString("Event ID");

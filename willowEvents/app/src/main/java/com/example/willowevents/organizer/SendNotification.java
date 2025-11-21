@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,9 @@ import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Notification;
 
+/**
+ *
+ */
 public class SendNotification extends AppCompatActivity {
 
     private String eventId;
@@ -24,7 +28,7 @@ public class SendNotification extends AppCompatActivity {
         setContentView(R.layout.send_notification);
 
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
-        //check for any data sent along side activity change
+        //check for data sent along side activity change
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             eventId = extras.getString("Event ID");
@@ -34,11 +38,14 @@ public class SendNotification extends AppCompatActivity {
             finish();
             return;
         }
+        // make sure we have eventId to make notifications with
         if (eventId == null || eventId.trim().isEmpty()) {
             android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
             finish();
             return;
-        } else if (listType == null || listType.trim().isEmpty()) {
+        }
+        // make sure that we have listType to make notifications with
+        else if (listType == null || listType.trim().isEmpty()) {
             android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
             finish();
             return;
@@ -47,26 +54,30 @@ public class SendNotification extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_button);
         sendButton = findViewById(R.id.send_button);
 
+        // goes back to EventOrganizerEntrantView
         cancelButton.setOnClickListener(view -> {
             //Switch views
             Intent myIntent = new Intent(SendNotification.this, EventOrganizerEntrantView.class);
-            myIntent.putExtra("event ID", eventId);
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
+        // creates notification, creates success popup and goes back to EventOrganizerEntrantView
         sendButton.setOnClickListener(view -> {
             EditText notificationMessageTextbox = findViewById(R.id.notification_message);
 
-            Event event;
+            Event event; //find event with eventId to create notification with
 
             //TODO: use eventId to grab event from database (replace next line)
             event = new Event();
 
+            //create notification and success popup
             new Notification(event, notificationMessageTextbox.getText().toString(), listType);
+            android.widget.Toast.makeText(this, "Notification sent!", Toast.LENGTH_SHORT).show();
 
             //Switch views
             Intent myIntent = new Intent(SendNotification.this, EventOrganizerEntrantView.class);
-            myIntent.putExtra("event ID", eventId);
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
