@@ -33,6 +33,10 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button seeInvited;
     private Button seeEnrolled;
     private Button seeCancelled;
+    private Button notifyWaitlist;
+    private Button notifyInvited;
+    private Button notifyEnrolled;
+    private Button notifyCancelled;
     private Button seeInfo;
     private Button backButton;
     private Button sendInvite;
@@ -100,6 +104,11 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         seeInvited = findViewById(R.id.invited_see_entrants_button);
         seeEnrolled = findViewById(R.id.enrolled_see_entrants_button);
         seeCancelled = findViewById(R.id.cancelled_see_entrants_button);
+
+        notifyWaitlist = findViewById(R.id.waitlist_send_notification_button);
+        notifyInvited = findViewById(R.id.invited_send_notification_button);
+        notifyEnrolled = findViewById(R.id.enrolled_send_notification_button);
+        notifyCancelled = findViewById(R.id.cancelled_send_notification_button);
         backButton = findViewById(R.id.back_button);
 
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
@@ -148,6 +157,13 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "enrolled");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+        seeEnrolled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
+            myIntent.putExtra("List type", "waitList");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });

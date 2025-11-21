@@ -42,6 +42,9 @@
             android:name=".organizer.MainOrganizerView"
             android:exported="false" />
         <activity
+            android:name=".organizer.SendNotification"
+            android:exported="false" />
+        <activity
             android:name=".entrant.EntrantHomeView"
             android:exported="false"
             android:theme="@style/Theme.WillowEvents" />
