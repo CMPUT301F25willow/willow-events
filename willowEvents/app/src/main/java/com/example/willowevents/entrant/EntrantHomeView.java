@@ -34,7 +34,7 @@ public class EntrantHomeView extends AppCompatActivity {
     Button AvailableEventsButton;
     Button AllEventsButton;
     Button ClearFilterButton;
-    Button InviteButton;
+    Button NotificationButton;
     ImageView profileIcon;
     EditText FilterOne;
     EditText FilterTwo;
@@ -58,7 +58,7 @@ public class EntrantHomeView extends AppCompatActivity {
         AllEventsButton = findViewById(R.id.all_events_button);
         ClearFilterButton = findViewById(R.id.clear_filter_button);
         //invite elements
-        InviteButton = findViewById(R.id.invite_button);
+        NotificationButton = findViewById(R.id.notification_button);
         InviteBase = findViewById(R.id.invite_bar);
         //filter elements
         FilterOne = findViewById(R.id.filter_option_one);
@@ -71,7 +71,7 @@ public class EntrantHomeView extends AppCompatActivity {
         FilterThree.setVisibility(View.GONE);
         FilterBase.setVisibility(View.GONE);
         //Make invite bar disappear
-        InviteButton.setVisibility(View.GONE);
+        NotificationButton.setVisibility(View.GONE);
         InviteBase.setVisibility(View.GONE);
         isFilterVisible = false;
 
@@ -85,7 +85,7 @@ public class EntrantHomeView extends AppCompatActivity {
         availableEvents = new ArrayList<Event>();
 
         // Switch to invitations view so user can see their invitations
-        InviteButton.setOnClickListener(view -> {
+        NotificationButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
             startActivity(myIntent);
         });
@@ -115,7 +115,7 @@ public class EntrantHomeView extends AppCompatActivity {
             eventAdapter = new EventArrayAdapter(this, myEvents);
             eventView.setAdapter(eventAdapter);
             //Make invite bar appear
-            InviteButton.setVisibility(View.VISIBLE);
+            NotificationButton.setVisibility(View.VISIBLE);
             InviteBase.setVisibility(View.VISIBLE);
         });
 
@@ -139,7 +139,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
 
             //Make invite bar disappear
-            InviteButton.setVisibility(View.GONE);
+            NotificationButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
 
@@ -149,7 +149,7 @@ public class EntrantHomeView extends AppCompatActivity {
             eventAdapter = new EventArrayAdapter(this, availableEvents);
             eventView.setAdapter(eventAdapter);
             //Make invite bar disappear
-            InviteButton.setVisibility(View.GONE);
+            NotificationButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
 

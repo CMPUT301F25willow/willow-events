@@ -36,8 +36,12 @@ public class ViewNotifications extends AppCompatActivity {
 
         backButton = findViewById(R.id.back_button);
         notiListView = findViewById(R.id.invite_list);
+
+        // TODO: IMPLEMENT WITH FIRESTORE
         notis = new ArrayList<Notification>();
         notis.add(new Notification(new Event(), "myNotificationMessage", "waitList"));
+
+
         notiAdapter = new NotificationArrayAdapter(this, notis);
         notiListView.setAdapter(notiAdapter);
 
