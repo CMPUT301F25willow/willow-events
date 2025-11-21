@@ -4,6 +4,9 @@ import static java.time.LocalDateTime.now;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class defines the Notification object
+ */
 public class Notification {
     String eventId;
     String eventName;
@@ -17,15 +20,22 @@ public class Notification {
         this.notificationMessage = notificationText;
         this.listType = listType;
         dateTime = now();
+
+        //TODO: add to database?
     }
+
+    //Invite makes notification with event
     public Notification(Event event){
         eventId = event.getId();
         eventName = event.getTitle();
         listType = "invitedList";
         notificationMessage = "Congratulations! You have been invited to the "+eventName+" event";
         dateTime = now();
+
+        //TODO: add to database?
     }
 
+    // getters
     public String getNotificationMessage(){
         return notificationMessage;
     }
