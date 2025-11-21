@@ -160,18 +160,43 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
-        seeEnrolled.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
-            myIntent.putExtra("List type", "waitList");
-            myIntent.putExtra("Event ID", eventId);
-            startActivity(myIntent);
-        });
 
         seeCancelled.setOnClickListener(view -> {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "cancelled");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyWaitlist.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "waitList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyInvited.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "invitedList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyEnrolled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "enrolledList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyCancelled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "cancelledList");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
