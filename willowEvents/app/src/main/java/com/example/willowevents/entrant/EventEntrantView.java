@@ -55,7 +55,8 @@ public class EventEntrantView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        // get event ID passed from EventEntrantHome so it knows
+        // which event to display
         Bundle extras = getIntent().getExtras();
         String eventID = extras.getString("eventID");
         // BUTTONS

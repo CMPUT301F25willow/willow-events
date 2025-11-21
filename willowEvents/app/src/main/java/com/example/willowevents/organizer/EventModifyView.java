@@ -32,6 +32,7 @@ import java.util.Locale;
 
 /**
  * This View allows for an Organizer that has logged in to edit details of an Event Object
+ * that has already been created
  */
 public class EventModifyView extends AppCompatActivity {
 

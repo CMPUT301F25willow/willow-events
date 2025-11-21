@@ -3,7 +3,8 @@ package com.example.willowevents.model;
 import java.util.ArrayList;
 
 /**
- * This is an abstract class that defines a User. Extended by Entrant and Organizer
+ * This is an abstract class that defines a User. Extended by Entrant and Organizer (and eventually
+ * Admin) this gives a framework for what data about a use rof the application should be stored
  */
 public abstract class User {
 

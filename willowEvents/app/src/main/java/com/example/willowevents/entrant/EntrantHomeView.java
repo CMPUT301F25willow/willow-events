@@ -19,7 +19,7 @@ import com.example.willowevents.model.Event;
 import java.util.ArrayList;
 
 /**
- * This View allows interactivity for an Entrant object
+ * This View serves as the main page for a user with entrant permissions. It allows them to.
  * - View event lists       - check event details   - check notifications
  * - filter event lists     - check profile information     - view invitations
  */
@@ -153,8 +153,8 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteBase.setVisibility(View.GONE);
         });
 
-        //detect if a user clicks an event in the event list and go to
-        //
+        // detect if a user clicks an event in the event list and go to
+        // the corresponding event details page EventEntrantView
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
@@ -162,9 +162,8 @@ public class EntrantHomeView extends AppCompatActivity {
                     startActivity(myIntent);
                 });
 
-
+        // Transition to profile page
         profileIcon.setOnClickListener(view -> {
-            // TRANSITION TO PROFILE PAGE
             Intent intent = new Intent(EntrantHomeView.this, ProfileView.class);
             startActivity(intent);
             }
