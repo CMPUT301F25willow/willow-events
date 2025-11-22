@@ -5,6 +5,9 @@ import java.util.Date;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.firestore.PropertyName;
+
 import org.checkerframework.common.returnsreceiver.qual.This;
 
 import java.util.Date;
@@ -14,6 +17,7 @@ import java.util.List;
  * Defines an event object, storing the data about an Event in a convient place to be read by
  * and passed between other classes
  */
+@IgnoreExtraProperties
 public class Event {
     private String id; // Firestore doc id
     private String title;
@@ -30,12 +34,14 @@ public class Event {
                     "in which case a new entrant will be randomly selected again from the waiting list.";
 
     // Optional capacity (not wired in UI yet, kept for future)
+    @PropertyName("capacity")
     private @Nullable Integer capacity; // null => unlimited
 
     // NEW: waitlist buckets (store userIds)
     private List<String> waitlist = new ArrayList<>();
     private List<String> cancelledList = new ArrayList<>();
     private List<String> approvedList = new ArrayList<>();
+    @PropertyName("inviteList")
     private List<String> inviteList = new ArrayList<>();
 
 
@@ -158,6 +164,7 @@ public class Event {
      * This returns an Integer capacity = Invitelistlimit
      * @return capacity
      */
+    @PropertyName("capacity")
     public @Nullable Integer getInvitelistlimit() { return capacity; }
 
     /**
@@ -187,7 +194,8 @@ public class Event {
      * This returns a List<String> inviteList
      * @return inviteList
      */
-    public List <String> getInviteList() {return inviteList; }
+    @PropertyName("inviteList")
+    public List <String> getInviteList() {return inviteList;}
 
     /**
      * This returns an Integer waitlistLimit
@@ -276,11 +284,16 @@ public class Event {
     public void setApprovedList(List<String> approvedList) {
         this.approvedList = approvedList;
     }
+    @PropertyName("inviteList")
+    public void setInviteList(List<String> inviteList) {
+        this.inviteList = inviteList;
+    }
     /**
      * This sets a String capacity
      * @param capacity - String capacity for event
      */
-    public void setInvitelistlimit(Integer capacity) {this.capacity = capacity;
+    @PropertyName("capacity")
+    public void setInvitelistlimit(@Nullable Integer capacity) {this.capacity = capacity;
     }
     public void setRequireGeo(boolean requireGeo) {
          this.requireGeo = requireGeo;
