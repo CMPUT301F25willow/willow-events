@@ -18,13 +18,13 @@ final class EventMapper {
         m.put("eventDate", e.getEventDate()); // stored as Timestamp by SDK
         m.put("registrationOpenDate", e.getRegistrationOpenDate());
         m.put("registrationCloseDate", e.getRegistrationCloseDate());
-        if (e.getInvitelistlimit() != null) m.put("capacity", e.getInvitelistlimit());
+        m.put("capacity", e.getInvitelistlimit());
         if (e.getWaitlistLimit() != null) m.put("waitlistLimit", e.getWaitlistLimit());
         m.put("waitlist", e.getWaitlist()); // [] initially
         m.put("cancelledList", e.getCancelledList()); // [] initially
         m.put("approvedList", e.getApprovedList()); // [] initially
         m.put("organizerId", e.getOrganizerId());
-        m.put("invitedlist", e.getInviteList());
+        m.put("inviteList", e.getInviteList());
 // reserved
         if (e.getPosterUrl() != null) m.put("posterUrl", e.getPosterUrl());
         m.put("requireGeo", e.isRequireGeo());
