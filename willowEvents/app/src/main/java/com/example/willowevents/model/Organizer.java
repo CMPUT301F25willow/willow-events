@@ -11,7 +11,7 @@ public class Organizer extends User {
     // List of events created by organizer
 
     /**
-     * This creates a new Organizer Object
+     * This creates a new Organizer Object given fields
      * @param ID            - String
      * @param name          - String
      * @param Email         - String
@@ -25,6 +25,14 @@ public class Organizer extends User {
             String phoneNumber,
             ArrayList<String> joinList) {
         super(ID, name, Email, phoneNumber, "organizer", joinList);
+    }
+
+
+    /**
+     * This is a base constructor so that firebase can create a constructor
+     */
+    public Organizer() {
+        super();
     }
 
     /**

@@ -82,7 +82,8 @@ public class EntrantHomeView extends AppCompatActivity {
 
 
         // TODO: add in Event controller logic to handle dates
-        availableEvents = new ArrayList<Event>();
+        //uuhhhhh I did the logic based on if the inviteList exceeds the capacity
+
 
         // Switch to invitations view so user can see their invitations
         NotificationButton.setOnClickListener(view -> {
@@ -146,9 +147,30 @@ public class EntrantHomeView extends AppCompatActivity {
         //Display all events still accepting entrants in the system
         AvailableEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
+
+            // Start with an empty list bound to the ListView (same pattern as AllEventsButton)
+            availableEvents = new ArrayList<>();
             eventAdapter = new EventArrayAdapter(this, availableEvents);
             eventView.setAdapter(eventAdapter);
-            //Make invite bar disappear
+
+            // Fetch all events, then filter to "available" and display
+            eventController.generateAllEvents(new EventController.OnEventsGeneration() {
+                @Override
+                public void onEventsGenerated(ArrayList<Event> events) {
+                    // Keep a copy of all events if you need to switch tabs later
+                    allEvents = (events != null) ? events : new ArrayList<>();
+
+                    // Apply your availability rule from the controller
+                    availableEvents = new ArrayList<>(eventController.filterAvailable(allEvents));
+
+                    // Bind the filtered list
+                    eventAdapter = new EventArrayAdapter(EntrantHomeView.this, availableEvents);
+                    eventView.setAdapter(eventAdapter);
+                    eventAdapter.notifyDataSetChanged();
+                }
+            });
+
+            // Hide invite bar for this view
             NotificationButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
