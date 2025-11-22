@@ -60,11 +60,7 @@ import java.util.Locale;
  * to {@link CreateEventUseCase}.
  */
 
-/**
- * This view is what an organizer sees when they create an event
- * and stores relevant info about the event in an Event to be used
- * elsewhere
- */
+
 public class EventCreationView extends AppCompatActivity {
     //Initialize Fields
     private EditText nameEt, descEt, waitlistLimitEt;

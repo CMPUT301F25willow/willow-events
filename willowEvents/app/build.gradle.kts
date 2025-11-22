@@ -59,7 +59,6 @@ dependencies {
     implementation(libs.espresso.contrib)
     implementation(libs.espresso.intents)
     implementation(libs.firebase.storage)
-    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -77,10 +76,6 @@ dependencies {
     androidTestImplementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     androidTestImplementation("com.google.firebase:firebase-firestore")
     androidTestImplementation("com.google.firebase:firebase-auth")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
