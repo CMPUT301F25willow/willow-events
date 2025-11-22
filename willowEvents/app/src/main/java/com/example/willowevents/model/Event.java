@@ -52,7 +52,7 @@ public class Event {
     private String organizerId;
 
 
-    // Reserved for future
+
     private @Nullable String posterUrl;
     private boolean requireGeo;
 
