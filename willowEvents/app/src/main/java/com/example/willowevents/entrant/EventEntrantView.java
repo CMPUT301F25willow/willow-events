@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,11 +15,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+//import com.bumptech.glide.Glide;
+//import com.example.willowevents.EventController;
+import com.example.willowevents.ProfileView;
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.R;
 import com.example.willowevents.controller.UserController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.User;
+import com.example.willowevents.organizer.MainOrganizerView;
 
 /**
  * This view allows Entrant objects to view the details of an Event object
@@ -42,6 +48,8 @@ public class EventEntrantView extends AppCompatActivity {
     TextView selectionInfo;
     TextView waitlistLength;
 
+    ImageView posterImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,8 @@ public class EventEntrantView extends AppCompatActivity {
         declineInvitation   = findViewById(R.id.decline_button);
         backButton          = findViewById(R.id.back_button);
         leaveWaitlist       = findViewById(R.id.leave_button);
+        // IMAGES
+        posterImage         = findViewById(R.id.uploaded_image);
 
         // TEXT
         eventInfo     = findViewById(R.id.event_info);
@@ -241,6 +251,16 @@ public class EventEntrantView extends AppCompatActivity {
         selectionInfo.setMovementMethod(new ScrollingMovementMethod());
 
         waitlistLength.setText("Waitlist count: " + getWaitlistCount());
+
+        // DISPLAY POSTER IMAGE IF EXISTS, COLLAPSE IF DOESNT
+        String posterUrl = currentEvent.getPosterUrl();
+        if (posterUrl != null && !posterUrl.isEmpty()) {
+//            Glide.with(this)
+//                    .load(posterUrl)
+//                    .into(posterImage);
+        } else {
+            posterImage.setVisibility(View.GONE);
+        }
 
 
 
