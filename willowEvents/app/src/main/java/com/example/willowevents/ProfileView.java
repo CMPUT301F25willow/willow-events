@@ -90,7 +90,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         organizerViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentUser.getUserType() == "organizer" || currentUser.getUserType() == "admin") {
+                if (currentUser.getUserType().equals( "organizer") || currentUser.getUserType().equals( "admin") ) {
                     Intent myIntent = new Intent(ProfileView.this, MainOrganizerView.class);
                     startActivity(myIntent);
                 }
