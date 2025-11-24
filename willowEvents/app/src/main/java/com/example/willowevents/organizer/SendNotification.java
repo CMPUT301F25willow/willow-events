@@ -27,7 +27,6 @@ public class SendNotification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_notification);
 
-        Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         //check for data sent along side activity change
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

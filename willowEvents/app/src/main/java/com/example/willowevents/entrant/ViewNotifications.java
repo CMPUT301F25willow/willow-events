@@ -39,7 +39,15 @@ public class ViewNotifications extends AppCompatActivity {
 
         // TODO: IMPLEMENT WITH FIRESTORE
         notis = new ArrayList<Notification>();
-        notis.add(new Notification(new Event(), "myNotificationMessage", "waitList"));
+        Event event = new Event();
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
+        notis.add(new Notification(event, "myNotificationMessage", "waitList"));
 
 
         notiAdapter = new NotificationArrayAdapter(this, notis);
