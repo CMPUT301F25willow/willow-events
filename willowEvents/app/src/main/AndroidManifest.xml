@@ -12,22 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".model.Invite"
-            android:exported="false" />
-        <activity
             android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".LoginInfoView"
-            android:exported="false" />
-        <activity
-            android:name=".ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
@@ -42,10 +27,16 @@
             android:name=".organizer.EventOrganizerEntrantView"
             android:exported="false" />
         <activity
+            android:name=".organizer.EventOrganizerInfoView"
+            android:exported="false" />
+        <activity
             android:name=".organizer.UserListView"
             android:exported="false" />
         <activity
             android:name=".organizer.MainOrganizerView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.SendNotification"
             android:exported="false" />
         <activity
             android:name=".entrant.EntrantHomeView"
@@ -55,10 +46,7 @@
             android:name=".entrant.EventEntrantView"
             android:exported="false" />
         <activity
-            android:name=".entrant.ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".entrant.NotificationView"
+            android:name=".entrant.ViewNotifications"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
