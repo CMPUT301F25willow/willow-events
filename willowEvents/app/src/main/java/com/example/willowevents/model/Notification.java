@@ -22,20 +22,24 @@ public class Notification {
 
     }
 
-    public Notification(Event event, String notificationText, String senderID, String recipientID) {
+    public Notification(Event event, String notificationText, String recipientID) {
         this.eventId = event.getId();
         this.eventName = event.getTitle();
         this.notificationMessage = notificationText;
-        this.senderID = senderID;
+        this.senderID = event.getOrganizerId();
         this.recipientID = recipientID;
         dateTime = now();
     }
 
     //Invite makes notification with event
-    public Notification(Event event, String senderID, String recipientID){
+    public Notification(Event event, String recipientID, boolean chosen){
         eventId = event.getId();
         eventName = event.getTitle();
-        notificationMessage = "Congratulations! You have been invited to the "+eventName+" event";
+        if (chosen) {
+            notificationMessage = "Congratulations! You have been invited to the " + eventName + " event.";
+        } else {
+            notificationMessage = "Unfortunately, you were not selected to participate in the " + eventName + " event.";
+        }
         dateTime = now();
         senderID = event.getOrganizerId();
         this.recipientID = recipientID;
