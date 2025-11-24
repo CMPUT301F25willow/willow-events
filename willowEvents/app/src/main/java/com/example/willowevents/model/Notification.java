@@ -1,44 +1,76 @@
 package com.example.willowevents.model;
 
-import static java.time.LocalDateTime.now;
 
-import java.time.LocalDateTime;
-
+/**
+ * Represents a class of notifications
+ */
 public class Notification {
-    String eventId;
-    String eventName;
-    String listType;
-    String notificationMessage;
-    LocalDateTime dateTime;
 
-    public Notification(Event event, String notificationText, String listType) {
-        this.eventId = event.getId();
-        this.eventName = event.getTitle();
-        this.notificationMessage = notificationText;
-        this.listType = listType;
-        dateTime = now();
-    }
-    public Notification(Event event){
-        eventId = event.getId();
-        eventName = event.getTitle();
-        listType = "invitedList";
-        notificationMessage = "Congratulations! You have been invited to the "+eventName+" event";
-        dateTime = now();
-    }
 
-    public String getNotificationMessage(){
-        return notificationMessage;
+
+    // sender ID:
+    String senderID;
+
+    // recipient ID:
+    String recipientID;
+
+    // Event ID:
+    String eventID;
+
+    // Status
+    // TRUE: if notification is active /
+    boolean status;
+
+    /**
+     * Instatiator method for firestore
+     */
+    public Notification() {
+
     }
 
-    public String getEventName(){
-        return eventName;
+    /**
+     * Initiator class for testing
+     * @param senderID is the STRING of the device ID of the sender
+     * @param recipientID is the STRING of the device ID of the recipient
+     * @param eventID is the STRING of the device ID of the event ID
+     * @param status is TRUE if user wants notifications. FALSE otherwise.
+     */
+    public Notification(String senderID, String recipientID, String eventID, boolean status) {
+        this.senderID = senderID;
+        this.recipientID = recipientID;
+        this.eventID = eventID;
+        this.status = status;
     }
 
-    public String getEventId(){
-        return eventId;
+    public String getSenderID() {
+        return senderID;
     }
 
-    public LocalDateTime getDateTime(){
-        return dateTime;
+    public void setSenderID(String senderID) {
+        this.senderID = senderID;
+    }
+
+    public String getRecipientID() {
+        return recipientID;
+    }
+
+    public void setRecipientID(String recipientID) {
+        this.recipientID = recipientID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
