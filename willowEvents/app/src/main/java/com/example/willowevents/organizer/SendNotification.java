@@ -71,7 +71,9 @@ public class SendNotification extends AppCompatActivity {
             event = new Event();
 
             //create notification and success popup
-            new Notification(event, notificationMessageTextbox.getText().toString(), listType);
+            // TODO: grab list from database with eventId and listType to iterate through entrants in list
+            // for (entrant in list) new Notification(event, notificationMessageTextbox.getText().toString(), entrantId);
+
             android.widget.Toast.makeText(this, "Notification sent!", Toast.LENGTH_SHORT).show();
 
             //Switch views

@@ -15,7 +15,7 @@ public class Invite {
         this.event = event;
         this.entrant = entrant;
         this.status = stat;
-        new Notification(event);
+        new Notification(event, entrant.getID(), true);
     }
 
     // Getters
