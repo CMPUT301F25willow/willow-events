@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -12,25 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".admin.AdminHomeView"
-            android:exported="false" />
-        <activity
-            android:name=".model.Invite"
-            android:exported="false" />
-        <activity
-            android:name=".initialPages.SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".initialPages.SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".LoginInfoView"
+            android:name=".SelectRoleView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
-            android:name=".initialPages.InitialView"
+            android:name=".InitialView"
             android:exported="false" />
         <activity
             android:name=".organizer.EventCreationView"
@@ -39,10 +27,16 @@
             android:name=".organizer.EventOrganizerEntrantView"
             android:exported="false" />
         <activity
+            android:name=".organizer.EventOrganizerInfoView"
+            android:exported="false" />
+        <activity
             android:name=".organizer.UserListView"
             android:exported="false" />
         <activity
             android:name=".organizer.MainOrganizerView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.SendNotification"
             android:exported="false" />
         <activity
             android:name=".entrant.EntrantHomeView"
