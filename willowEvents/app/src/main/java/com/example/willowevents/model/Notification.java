@@ -9,28 +9,36 @@ import java.time.LocalDateTime;
  */
 public class Notification {
     String eventId;
+    String senderID;
+    String recipientID;
     String eventName;
-    String listType;
     String notificationMessage;
     LocalDateTime dateTime;
 
-    public Notification(Event event, String notificationText, String listType) {
+    /**
+     * Instatiator method for firestore
+     */
+    public Notification() {
+
+    }
+
+    public Notification(Event event, String notificationText, String senderID, String recipientID) {
         this.eventId = event.getId();
         this.eventName = event.getTitle();
         this.notificationMessage = notificationText;
-        this.listType = listType;
+        this.senderID = senderID;
+        this.recipientID = recipientID;
         dateTime = now();
-
-        //TODO: add to database?
     }
 
     //Invite makes notification with event
-    public Notification(Event event){
+    public Notification(Event event, String senderID, String recipientID){
         eventId = event.getId();
         eventName = event.getTitle();
-        listType = "invitedList";
         notificationMessage = "Congratulations! You have been invited to the "+eventName+" event";
         dateTime = now();
+        senderID = event.getOrganizerId();
+        this.recipientID = recipientID;
 
         //TODO: add to database?
     }
@@ -50,5 +58,21 @@ public class Notification {
 
     public LocalDateTime getDateTime(){
         return dateTime;
+    }
+
+    public String getSenderID() {
+        return senderID;
+    }
+
+    public void setSenderID(String senderID) {
+        this.senderID = senderID;
+    }
+    
+    public String getRecipientID() {
+        return recipientID;
+    }
+
+    public void setRecipientID(String recipientID) {
+        this.recipientID = recipientID;
     }
 }
