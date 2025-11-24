@@ -12,16 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".model.Invite"
-            android:exported="false" />
-        <activity
             android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".LoginInfoView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
@@ -34,6 +25,9 @@
             android:exported="false" />
         <activity
             android:name=".organizer.EventOrganizerEntrantView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.EventOrganizerInfoView"
             android:exported="false" />
         <activity
             android:name=".organizer.UserListView"
