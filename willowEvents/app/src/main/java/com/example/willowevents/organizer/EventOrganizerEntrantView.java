@@ -17,6 +17,7 @@ import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Lottery;
+import com.google.android.gms.maps.MapView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button backButton;
     private Button sendInvite;
     private Button updateEvent;
+    private Button geolocation;
     private boolean redraw = false;
 
     private String eventID;
@@ -107,6 +109,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
 
+        geolocation.findViewById(R.id.see_entrant_location_button);
 
         //Event event = addMockEvent();
 
@@ -194,6 +197,32 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
+        // open up map of location of people to dox 'em
+        Dialog geoDialog = new Dialog(this);
+        geolocation.setOnClickListener(new View.OnClickListener() {
+            // open up fragment to send invite
+            @Override
+            public void onClick(View view) {
+                geoDialog.setContentView(R.layout.join_map);
+                geoDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                geoDialog.setCancelable(false);
+                Button closeButton = geoDialog.findViewById(R.id.close_button);
+                MapView map = geoDialog.findViewById(R.id.mapView);
+
+                // Get geolocation of entrants on wait list for event, display on event
+
+
+
+                // click on cancel button to leave fragment
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        geoDialog.dismiss();
+                    }
+                });
+                geoDialog.show();
+            }
+        });
 
 
         /** For inviting entrants and redrawing
