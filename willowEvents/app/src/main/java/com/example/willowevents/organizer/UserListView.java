@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
-import com.example.willowevents.UserArrayAdapter;
+import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
