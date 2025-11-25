@@ -16,8 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.controller.EventController;
-import com.bumptech.glide.Glide;
-import com.example.willowevents.EventController;
+//import com.bumptech.glide.Glide;
+//import com.example.willowevents.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.R;
