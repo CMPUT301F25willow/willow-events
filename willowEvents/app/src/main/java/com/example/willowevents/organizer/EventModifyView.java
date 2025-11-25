@@ -38,7 +38,7 @@ public class EventModifyView extends AppCompatActivity {
 
     /**
      * Effectively does the same thing as EventCreationView..
-     *//*
+     */
 
 
 
