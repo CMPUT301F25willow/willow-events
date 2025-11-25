@@ -18,13 +18,25 @@
             android:name=".model.Invite"
             android:exported="false" />
         <activity
-            android:name=".SelectRoleView"
+            android:name=".initialPages.SelectRoleView"
+            android:exported="false" />
+        <activity
+            android:name=".initialPages.SelectRoleView"
+            android:exported="false" />
+        <activity
+            android:name=".LoginInfoView"
+            android:exported="false" />
+        <activity
+            android:name=".ViewInvitations"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
-            android:name=".InitialView"
+            android:name=".initialPages.InitialView"
             android:exported="false" />
         <activity
             android:name=".organizer.EventCreationView"
