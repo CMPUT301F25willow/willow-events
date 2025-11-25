@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
+            android:name=".admin.AdminHomeView"
+            android:exported="false" />
+        <activity
+            android:name=".model.Invite"
+            android:exported="false" />
+        <activity
             android:name=".initialPages.SelectRoleView"
+            android:exported="false" />
+        <activity
+            android:name=".initialPages.SelectRoleView"
+            android:exported="false" />
+        <activity
+            android:name=".LoginInfoView"
+            android:exported="false" />
+        <activity
+            android:name=".ViewInvitations"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
@@ -24,9 +43,6 @@
             android:exported="false" />
         <activity
             android:name=".organizer.EventOrganizerEntrantView"
-            android:exported="false" />
-        <activity
-            android:name=".organizer.EventOrganizerInfoView"
             android:exported="false" />
         <activity
             android:name=".organizer.UserListView"
@@ -42,7 +58,10 @@
             android:name=".entrant.EventEntrantView"
             android:exported="false" />
         <activity
-            android:name=".entrant.ViewNotifications"
+            android:name=".entrant.ViewInvitations"
+            android:exported="false" />
+        <activity
+            android:name=".entrant.NotificationView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
