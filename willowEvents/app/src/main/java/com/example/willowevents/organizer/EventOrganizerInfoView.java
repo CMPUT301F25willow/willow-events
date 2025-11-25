@@ -1,8 +1,13 @@
 package com.example.willowevents.organizer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +36,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.back_button);
         Button seeEntrants = findViewById(R.id.entrants_button);
+        Button uploadImage = findViewById(R.id.upload_image_button);
 
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         //check for any data sent along side activity change
@@ -64,5 +70,57 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, MainOrganizerView.class);
             startActivity(myIntent);
         });
+
+
+        // For updating Poster for Event
+
+        Dialog dialog = new Dialog(this);
+
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            // open up fragment to update Poster
+            @Override
+            public void onClick(View view) {
+                dialog.setContentView(R.layout.update_poster);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                Button cancelButton = dialog.findViewById(R.id.cancel_button);
+                Button uploadButton = dialog.findViewById(R.id.upload_image_button);
+                Button updateButton = dialog.findViewById(R.id.update_button);
+
+                // click on cancel button to leave fragment
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+                updateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+
+                uploadButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+
+
+
+                dialog.show();
+
+            }
+
+        });
+
     }
 }
