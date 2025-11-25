@@ -145,4 +145,5 @@ public abstract class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
 }

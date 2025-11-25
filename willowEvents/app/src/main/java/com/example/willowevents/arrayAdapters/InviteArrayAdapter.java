@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.arrayAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,10 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-import com.example.willowevents.model.Event;
+import com.example.willowevents.R;
 import com.example.willowevents.model.Invite;
 
 public class InviteArrayAdapter extends ArrayAdapter {

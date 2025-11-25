@@ -1,6 +1,7 @@
 package com.example.willowevents;
 import static org.junit.Assert.*;
 
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.model.Event;
 
 import org.junit.After;

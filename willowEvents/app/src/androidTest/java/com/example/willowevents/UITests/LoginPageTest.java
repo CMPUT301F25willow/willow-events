@@ -9,29 +9,23 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import android.content.Context;
 import android.provider.Settings;
 
-import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.example.willowevents.InitialView;
+import com.example.willowevents.initialPages.InitialView;
 import com.example.willowevents.R;
-import com.example.willowevents.SelectRoleView;
-import com.example.willowevents.UserController;
+import com.example.willowevents.initialPages.SelectRoleView;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.organizer.MainOrganizerView;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

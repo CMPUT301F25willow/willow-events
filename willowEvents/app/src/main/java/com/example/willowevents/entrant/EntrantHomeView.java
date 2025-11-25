@@ -2,8 +2,6 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +10,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.EventArrayAdapter;
-import com.example.willowevents.EventController;
+import com.example.willowevents.arrayAdapters.EventArrayAdapter;
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;

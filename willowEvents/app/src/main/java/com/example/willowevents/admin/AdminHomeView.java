@@ -4,25 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.willowevents.EventArrayAdapter;
-import com.example.willowevents.EventController;
-import com.example.willowevents.InviteArrayAdapter;
+import com.example.willowevents.arrayAdapters.EventArrayAdapter;
+import com.example.willowevents.controller.EventController;
+import com.example.willowevents.arrayAdapters.InviteArrayAdapter;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
-import com.example.willowevents.UserArrayAdapter;
-import com.example.willowevents.entrant.EntrantHomeView;
+import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.entrant.EventEntrantView;
-import com.example.willowevents.entrant.ViewInvitations;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Invite;
 import com.example.willowevents.model.User;
@@ -39,13 +32,27 @@ public class AdminHomeView extends AppCompatActivity {
     ArrayList<Event> eventList;
     ArrayList<User> profileList;
 //    ArrayList<Images> imageList; //TODO create image class to reference ?
-    ArrayList<Invite> notifList;
+    ArrayList<Invite> notifList; //TODO make sure compatible with Vivian's Notification class
     Button BrowseEvents;
     Button BrowseProfiles;
     Button BrowseImages;
     Button BrowseNotifs;
+    Button deleteButton;
     ImageView profileIcon;
     EventController eventController;
+    Event selectedEvent;
+    User selectedProfile;
+//    Image selectedImage;
+//    Notif selectedNotif;
+
+    enum IsDisplaying {
+        EVENT,
+        PROFILE,
+        IMAGE,
+        NOTIF,
+        NULL
+    }
+    IsDisplaying isDisplaying = IsDisplaying.NULL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,8 @@ public class AdminHomeView extends AppCompatActivity {
         BrowseProfiles = findViewById(R.id.browse_profiles_button);
         BrowseImages = findViewById(R.id.browse_images_button);
         BrowseNotifs = findViewById(R.id.browse_notifs_button);
+        deleteButton = findViewById(R.id.delete_button);
+        deleteButton.setVisibility(View.GONE);
 
         eventView = findViewById(R.id.eventList);
         eventList = new ArrayList<>();
@@ -72,6 +81,8 @@ public class AdminHomeView extends AppCompatActivity {
             eventView = findViewById(R.id.eventList);
             eventAdapter = new EventArrayAdapter(this, eventList);
             eventView.setAdapter(eventAdapter);
+
+            IsDisplaying isDisplaying = IsDisplaying.EVENT;
         });
 
         //Display all system users
@@ -80,6 +91,8 @@ public class AdminHomeView extends AppCompatActivity {
             eventView = findViewById(R.id.eventList);
             userAdapter = new UserArrayAdapter(this, profileList);
             eventView.setAdapter(userAdapter);
+
+            IsDisplaying isDisplaying = IsDisplaying.PROFILE;
         });
 
         //Display all system images
@@ -88,6 +101,8 @@ public class AdminHomeView extends AppCompatActivity {
 //            eventView = findViewById(R.id.eventList);
 //            imageAdapter = new ImageArrayAdapter(this, imageList);
 //            eventView.setAdapter(imageAdapter);
+
+//            IsDisplaying isDisplaying = IsDisplaying.IMAGE;
 //        });
 
         //Display all system notifications
@@ -96,14 +111,52 @@ public class AdminHomeView extends AppCompatActivity {
             eventView = findViewById(R.id.eventList);
             notifAdapter = new InviteArrayAdapter(this, notifList);
             eventView.setAdapter(notifAdapter);
+
+            IsDisplaying isDisplaying = IsDisplaying.NOTIF;
         });
 
         //TODO: Modify to also support profiles, images, notifs
         eventView.setOnItemClickListener((parent, view, position, id) -> {
-            Event selectedEvent = (Event )parent.getItemAtPosition(position);
-            Intent myIntent = new Intent(AdminHomeView.this, EventEntrantView.class);
-            myIntent.putExtra("eventID", selectedEvent.getId());
-            startActivity(myIntent);
+            switch(isDisplaying){
+                case EVENT:
+                    selectedEvent = (Event)parent.getItemAtPosition(position);
+                    deleteButton.setVisibility(View.VISIBLE);
+                    break;
+                case PROFILE:
+                    selectedProfile = (User)parent.getItemAtPosition(position);
+                    deleteButton.setVisibility(View.VISIBLE);
+                    break;
+//                case IMAGE:
+//                    Image selectedImage = (Image)parent.getItemAtPosition(position);
+//                    deleteButton.setVisibility(View.GONE);
+//                    break;
+//                case NOTIF:
+//                    Notification selectedNotifs = (Notification)parent.getItemAtPosition(position);
+//                    deleteButton.setVisibility(View.GONE);
+//                    break;
+            }
+        });
+
+        deleteButton.setOnClickListener(view -> {
+            switch(isDisplaying){
+                case EVENT:
+                    // TODO remove selectedEvent from events
+                    deleteButton.setVisibility(View.GONE);
+                    break;
+                case PROFILE:
+                    // TODO remove selectedProfile from events
+                    deleteButton.setVisibility(View.GONE);
+                    break;
+//                case IMAGE:
+                    // TODO remove selectedImage from events
+//                    deleteButton.setVisibility(View.GONE);
+//                    break;
+//                case NOTIF:
+                    // TODO remove selectedNotif from events
+//                deleteButton.setVisibility(View.GONE);
+//                    break;
+            }
+
         });
 
         // Transition to profile page

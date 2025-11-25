@@ -18,10 +18,10 @@
             android:name=".model.Invite"
             android:exported="false" />
         <activity
-            android:name=".SelectRoleView"
+            android:name=".initialPages.SelectRoleView"
             android:exported="false" />
         <activity
-            android:name=".SelectRoleView"
+            android:name=".initialPages.SelectRoleView"
             android:exported="false" />
         <activity
             android:name=".LoginInfoView"
@@ -36,7 +36,7 @@
             android:name=".ProfileView"
             android:exported="false" />
         <activity
-            android:name=".InitialView"
+            android:name=".initialPages.InitialView"
             android:exported="false" />
         <activity
             android:name=".organizer.EventCreationView"
