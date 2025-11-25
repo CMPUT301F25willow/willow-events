@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.arrayAdapters.EventArrayAdapter;
 import com.example.willowevents.controller.EventController;
-import com.example.willowevents.arrayAdapters.InviteArrayAdapter;
+import com.example.willowevents.arrayAdapters.NotificationArrayAdapter;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
@@ -28,7 +28,7 @@ public class AdminHomeView extends AppCompatActivity {
     EventArrayAdapter eventAdapter;
     UserArrayAdapter userAdapter;
 //    ImageArrayAdapter imageAdapter;
-    InviteArrayAdapter notifAdapter;
+    NotificationArrayAdapter notifAdapter;
     ArrayList<Event> eventList;
     ArrayList<User> profileList;
 //    ArrayList<Images> imageList; //TODO create image class to reference ?
@@ -106,11 +106,11 @@ public class AdminHomeView extends AppCompatActivity {
 //        });
 
         //Display all system notifications
-        BrowseImages.setOnClickListener(view -> {
+        BrowseNotifs.setOnClickListener(view -> {
             //TODO: display all invites/notifs in the database
             eventView = findViewById(R.id.eventList);
-            notifAdapter = new InviteArrayAdapter(this, notifList);
-            eventView.setAdapter(notifAdapter);
+//            notifAdapter = new NotificationArrayAdapter(this, notifList);
+//            eventView.setAdapter(notifAdapter);
 
             IsDisplaying isDisplaying = IsDisplaying.NOTIF;
         });

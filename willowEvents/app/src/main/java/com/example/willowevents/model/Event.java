@@ -1,16 +1,23 @@
 package com.example.willowevents.model;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.willowevents.R;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.PropertyName;
 
-import org.checkerframework.common.returnsreceiver.qual.This;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -297,5 +304,38 @@ public class Event {
     }
     public void setRequireGeo(boolean requireGeo) {
          this.requireGeo = requireGeo;
+    }
+
+    public static class InviteArrayAdapter extends ArrayAdapter {
+        Button acceptButton;
+        Button declineWithdrawButton;
+        TextView inviteMessage;
+        TextView inviteStatusMessage;
+        public InviteArrayAdapter(@NonNull Context context, ArrayList<Invite> invites){
+            super(context, 0, invites);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+            View view;
+            if (convertView == null) {
+                // Use layout blueprint, event_content.xml
+                view = LayoutInflater.from(getContext()).inflate(R.layout.invite_content, parent, false);
+            } else {
+                view = convertView;
+            }
+            //get event to grab info from
+            Invite invite = (Invite) getItem(position);
+
+            inviteMessage = view.findViewById(R.id.invite_message);
+            inviteStatusMessage = view.findViewById(R.id.invite_status_text);
+            assert invite != null;
+            String message = "Congratulations " + invite.getUser().getName() + "! You have been invited to " + invite.getEvent().getTitle();
+            inviteMessage.setText(message);
+            inviteStatusMessage.setText("Current Status: " + invite.getStatus());
+
+            return view;
+        }
     }
 }
