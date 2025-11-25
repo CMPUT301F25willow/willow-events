@@ -2,6 +2,8 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,8 +12,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.EventArrayAdapter;
-import com.example.willowevents.EventController;
+import com.example.willowevents.arrayAdapters.EventArrayAdapter;
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
@@ -19,7 +21,7 @@ import com.example.willowevents.model.Event;
 import java.util.ArrayList;
 
 /**
- * This View serves as the main page for a user with entrant permissions. It allows them to.
+ * This View allows interactivity for an Entrant object
  * - View event lists       - check event details   - check notifications
  * - filter event lists     - check profile information     - view invitations
  */
@@ -34,7 +36,7 @@ public class EntrantHomeView extends AppCompatActivity {
     Button AvailableEventsButton;
     Button AllEventsButton;
     Button ClearFilterButton;
-    Button NotificationButton;
+    Button InviteButton;
     ImageView profileIcon;
     EditText FilterOne;
     EditText FilterTwo;
@@ -58,7 +60,7 @@ public class EntrantHomeView extends AppCompatActivity {
         AllEventsButton = findViewById(R.id.all_events_button);
         ClearFilterButton = findViewById(R.id.clear_filter_button);
         //invite elements
-        NotificationButton = findViewById(R.id.notification_button);
+        InviteButton = findViewById(R.id.invite_button);
         InviteBase = findViewById(R.id.invite_bar);
         //filter elements
         FilterOne = findViewById(R.id.filter_option_one);
@@ -71,7 +73,7 @@ public class EntrantHomeView extends AppCompatActivity {
         FilterThree.setVisibility(View.GONE);
         FilterBase.setVisibility(View.GONE);
         //Make invite bar disappear
-        NotificationButton.setVisibility(View.GONE);
+        InviteButton.setVisibility(View.GONE);
         InviteBase.setVisibility(View.GONE);
         isFilterVisible = false;
 
@@ -86,7 +88,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
 
         // Switch to invitations view so user can see their invitations
-        NotificationButton.setOnClickListener(view -> {
+        InviteButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
             startActivity(myIntent);
         });
@@ -116,7 +118,7 @@ public class EntrantHomeView extends AppCompatActivity {
             eventAdapter = new EventArrayAdapter(this, myEvents);
             eventView.setAdapter(eventAdapter);
             //Make invite bar appear
-            NotificationButton.setVisibility(View.VISIBLE);
+            InviteButton.setVisibility(View.VISIBLE);
             InviteBase.setVisibility(View.VISIBLE);
         });
 
@@ -140,7 +142,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
 
             //Make invite bar disappear
-            NotificationButton.setVisibility(View.GONE);
+            InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
 
@@ -171,12 +173,12 @@ public class EntrantHomeView extends AppCompatActivity {
             });
 
             // Hide invite bar for this view
-            NotificationButton.setVisibility(View.GONE);
+            InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
 
-        // detect if a user clicks an event in the event list and go to
-        // the corresponding event details page EventEntrantView
+        //detect if a user clicks an event in the event list and go to
+        //
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
@@ -184,8 +186,9 @@ public class EntrantHomeView extends AppCompatActivity {
                     startActivity(myIntent);
                 });
 
-        // Transition to profile page
+
         profileIcon.setOnClickListener(view -> {
+            // TRANSITION TO PROFILE PAGE
             Intent intent = new Intent(EntrantHomeView.this, ProfileView.class);
             startActivity(intent);
             }
