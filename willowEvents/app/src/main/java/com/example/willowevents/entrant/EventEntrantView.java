@@ -15,12 +15,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-//import com.bumptech.glide.Glide;
-//import com.example.willowevents.EventController;
+import com.bumptech.glide.Glide;
+import com.example.willowevents.EventController;
 import com.example.willowevents.ProfileView;
-import com.example.willowevents.controller.EventController;
 import com.example.willowevents.R;
-import com.example.willowevents.controller.UserController;
+import com.example.willowevents.UserController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.User;
 import com.example.willowevents.organizer.MainOrganizerView;
@@ -61,7 +60,8 @@ public class EventEntrantView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        // get event ID passed from EventEntrantHome so it knows
+        // which event to display
         Bundle extras = getIntent().getExtras();
         String eventID = extras.getString("eventID");
         // BUTTONS
@@ -98,7 +98,11 @@ public class EventEntrantView extends AppCompatActivity {
 
         // EDIT INFO
 //        editInfo();
+        backButton.setOnClickListener(view ->{
+            Intent myIntent = new Intent(EventEntrantView.this,EntrantHomeView.class);
+            startActivity(myIntent);
 
+        });
 
         // add join waitlist functionality
         joinWaitlist.setOnClickListener(view -> {
@@ -250,9 +254,9 @@ public class EventEntrantView extends AppCompatActivity {
         // DISPLAY POSTER IMAGE IF EXISTS, COLLAPSE IF DOESNT
         String posterUrl = currentEvent.getPosterUrl();
         if (posterUrl != null && !posterUrl.isEmpty()) {
-//            Glide.with(this)
-//                    .load(posterUrl)
-//                    .into(posterImage);
+            Glide.with(this)
+                    .load(posterUrl)
+                    .into(posterImage);
         } else {
             posterImage.setVisibility(View.GONE);
         }
