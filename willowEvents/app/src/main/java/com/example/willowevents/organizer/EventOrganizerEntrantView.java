@@ -197,6 +197,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
+        
         // open up map of location of people to dox 'em
         Dialog geoDialog = new Dialog(this);
         geolocation.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +211,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                 MapView map = geoDialog.findViewById(R.id.mapView);
 
                 // Get geolocation of entrants on wait list for event, display on event
+                //  HOW TO??!
 
 
 
