@@ -14,9 +14,6 @@
             android:name=".initialPages.SelectRoleView"
             android:exported="false" />
         <activity
-            android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
@@ -27,9 +24,6 @@
             android:exported="false" />
         <activity
             android:name=".organizer.EventOrganizerEntrantView"
-            android:exported="false" />
-        <activity
-            android:name=".organizer.EventOrganizerInfoView"
             android:exported="false" />
         <activity
             android:name=".organizer.EventOrganizerInfoView"
@@ -52,6 +46,9 @@
             android:exported="false" />
         <activity
             android:name=".entrant.ViewNotifications"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminHomeView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
