@@ -6,20 +6,15 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.EventArrayAdapter;
-import com.example.willowevents.EventArrayAdapter;
+import com.example.willowevents.arrayAdapters.EventArrayAdapter;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
-import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
-import com.example.willowevents.model.User;
-import com.example.willowevents.UserController;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;

@@ -1,6 +1,4 @@
-package com.example.willowevents;
-
-import com.example.willowevents.model.User;
+package com.example.willowevents.model;
 
 import java.util.ArrayList;
 

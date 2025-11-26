@@ -1,6 +1,7 @@
 package com.example.willowevents;
 import static org.junit.Assert.*;
 
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.model.Event;
 
 import org.junit.After;
@@ -20,7 +21,7 @@ public class TestEventController {
 
 
     /**
-     * After each test is conducted, mock event must be REMOVED from the datbase
+     * After each test is conducted, mock event must be REMOVED from the database
      */
     @After
     public void addInitialEvent() {

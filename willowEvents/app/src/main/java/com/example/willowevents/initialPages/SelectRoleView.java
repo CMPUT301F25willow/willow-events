@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.initialPages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,11 +6,14 @@ import android.provider.Settings;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.willowevents.R;
+import com.example.willowevents.admin.AdminHomeView;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.organizer.MainOrganizerView;
 
@@ -64,10 +67,11 @@ public class SelectRoleView extends AppCompatActivity {
         });
         // IF USER SELECTS ADMIN
         chooseAdmin.setOnClickListener(view -> {
-            // PRINT FALLBACK STATEMENT
-            String notifyText = "Admin feature not yet implemented.";
-            Toast toast = Toast.makeText(SelectRoleView.this, notifyText, Toast.LENGTH_SHORT);
-            toast.show();
+            // TODO: ADD NEW ADMIN
+            // userController.addNewOrganizerUser(deviceID);
+            // GO TO ORGANIZER HOME
+            Intent myIntent = new Intent(SelectRoleView.this, AdminHomeView.class);
+            startActivity(myIntent);
         });
 
     }

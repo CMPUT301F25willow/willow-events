@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.controller;
 
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Organizer;

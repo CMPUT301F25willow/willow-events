@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -12,28 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WillowEvents">
         <activity
-            android:name=".model.Invite"
-            android:exported="false" />
-        <activity
-            android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".SelectRoleView"
-            android:exported="false" />
-        <activity
-            android:name=".LoginInfoView"
-            android:exported="false" />
-        <activity
-            android:name=".ViewInvitations"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationView"
+            android:name=".initialPages.SelectRoleView"
             android:exported="false" />
         <activity
             android:name=".ProfileView"
             android:exported="false" />
         <activity
-            android:name=".InitialView"
+            android:name=".initialPages.InitialView"
             android:exported="false" />
         <activity
             android:name=".organizer.EventCreationView"
@@ -42,10 +26,16 @@
             android:name=".organizer.EventOrganizerEntrantView"
             android:exported="false" />
         <activity
+            android:name=".organizer.EventOrganizerInfoView"
+            android:exported="false" />
+        <activity
             android:name=".organizer.UserListView"
             android:exported="false" />
         <activity
             android:name=".organizer.MainOrganizerView"
+            android:exported="false" />
+        <activity
+            android:name=".organizer.SendNotification"
             android:exported="false" />
         <activity
             android:name=".entrant.EntrantHomeView"
@@ -55,10 +45,10 @@
             android:name=".entrant.EventEntrantView"
             android:exported="false" />
         <activity
-            android:name=".entrant.ViewInvitations"
+            android:name=".entrant.ViewNotifications"
             android:exported="false" />
         <activity
-            android:name=".entrant.NotificationView"
+            android:name=".admin.AdminHomeView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

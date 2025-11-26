@@ -12,8 +12,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.EventArrayAdapter;
-import com.example.willowevents.EventController;
+import com.example.willowevents.arrayAdapters.EventArrayAdapter;
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
@@ -21,7 +21,7 @@ import com.example.willowevents.model.Event;
 import java.util.ArrayList;
 
 /**
- * This View serves as the main page for a user with entrant permissions. It allows them to.
+ * This View allows interactivity for an Entrant object
  * - View event lists       - check event details   - check notifications
  * - filter event lists     - check profile information     - view invitations
  */
@@ -89,7 +89,7 @@ public class EntrantHomeView extends AppCompatActivity {
 
         // Switch to invitations view so user can see their invitations
         InviteButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
             startActivity(myIntent);
         });
 
@@ -177,8 +177,8 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteBase.setVisibility(View.GONE);
         });
 
-        // detect if a user clicks an event in the event list and go to
-        // the corresponding event details page EventEntrantView
+        //detect if a user clicks an event in the event list and go to
+        //
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
@@ -186,8 +186,9 @@ public class EntrantHomeView extends AppCompatActivity {
                     startActivity(myIntent);
                 });
 
-        // Transition to profile page
+
         profileIcon.setOnClickListener(view -> {
+            // TRANSITION TO PROFILE PAGE
             Intent intent = new Intent(EntrantHomeView.this, ProfileView.class);
             startActivity(intent);
             }
