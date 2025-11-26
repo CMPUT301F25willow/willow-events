@@ -1,9 +1,8 @@
-package com.example.willowevents;
+package com.example.willowevents.controller;
 
 import android.util.Log;
 
 import com.example.willowevents.model.Event;
-import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
@@ -11,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventController {
     private FirebaseFirestore eventDB;
@@ -192,6 +192,25 @@ public class EventController {
      */
     public void existsInGivenArray(String eventID, String arrayName, String user) {
 
+    }
+    public List<Event> filterAvailable(List<Event> all) {
+        List<Event> out = new ArrayList<>();
+        if (all == null) return out;
+
+        for (Event e : all) {
+            if (e == null) continue;
+            Integer limit = e.getInvitelistlimit(); // null => unlimited
+            if (limit == null) { out.add(e); continue; }   // unlimited => include
+            if (limit == 0) { continue; }                 // ignore zero-capacity
+
+            List<String> inviteList = e.getInviteList();
+            int count = (inviteList == null) ? 0 : inviteList.size();
+
+            if (count < limit) {                          // strictly less than
+                out.add(e);
+            }
+        }
+        return out;
     }
 
 

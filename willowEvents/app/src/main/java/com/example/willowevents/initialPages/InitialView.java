@@ -1,8 +1,7 @@
-package com.example.willowevents;
+package com.example.willowevents.initialPages;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +13,8 @@ import android.provider.Settings;
 import android.widget.Toast;
 
 
+import com.example.willowevents.R;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.model.User;
 import com.example.willowevents.organizer.MainOrganizerView;

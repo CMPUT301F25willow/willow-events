@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.model;
 
 public class Error {
     private String errorMessage;

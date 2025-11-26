@@ -50,14 +50,14 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
         seeEntrants.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, EventOrganizerEntrantView.class);
-            myIntent.putExtra("event ID", eventId);
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
         TextView eventName = findViewById(R.id.eventName);
         //Other initializations
 
-        eventName.setText(event.getTitle());
+//        eventName.setText(event.getTitle());
         //Other sets
 
         backButton.setOnClickListener(view -> {

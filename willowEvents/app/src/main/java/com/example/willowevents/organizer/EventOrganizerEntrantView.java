@@ -33,6 +33,10 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button seeInvited;
     private Button seeEnrolled;
     private Button seeCancelled;
+    private Button notifyWaitlist;
+    private Button notifyInvited;
+    private Button notifyEnrolled;
+    private Button notifyCancelled;
     private Button seeInfo;
     private Button backButton;
     private Button sendInvite;
@@ -62,18 +66,9 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 //            }
 //        }
 
-        Intent origIntent = new Intent(this, MainOrganizerView.class);
         //check for any data sent along side activity change
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            eventId = extras.getString("Event ID");
-        } else {
-            origIntent = new Intent(this, EventOrganizerInfoView.class);
-            extras = getIntent().getExtras();
-            if (extras != null) {
-                eventId = extras.getString("Event ID");
-            }
-        }
+        eventId = extras.getString("Event ID");
         if (eventId == null || eventId.trim().isEmpty()) {
             android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
             finish();
@@ -100,6 +95,11 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         seeInvited = findViewById(R.id.invited_see_entrants_button);
         seeEnrolled = findViewById(R.id.enrolled_see_entrants_button);
         seeCancelled = findViewById(R.id.cancelled_see_entrants_button);
+
+        notifyWaitlist = findViewById(R.id.waitlist_send_notification_button);
+        notifyInvited = findViewById(R.id.invited_send_notification_button);
+        notifyEnrolled = findViewById(R.id.enrolled_send_notification_button);
+        notifyCancelled = findViewById(R.id.cancelled_send_notification_button);
         backButton = findViewById(R.id.back_button);
 
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
@@ -156,6 +156,38 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "cancelled");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyWaitlist.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "waitList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyInvited.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "invitedList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyEnrolled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "enrolledList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+        notifyCancelled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "cancelledList");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });

@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.controller;
 
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Organizer;
@@ -81,16 +81,15 @@ public class UserController {
 
             // if user exists
             if (document.exists()) {
-                if (document.exists()) {
                     String userType = document.getString("userType");
+                    // user is an entrant
                     if (Objects.equals(userType, "organizer")) {
-                        user = generateOrganizer(document, deviceID);
+                        user = document.toObject(Organizer.class);
                     }
+                    // user is an entrant
                     else {
-                        user = generateEntrant(document, deviceID);
+                        user = document.toObject(Entrant.class);
                     }
-
-                }
                 callback.onUserLoaded(user);
             }
             else{
@@ -116,10 +115,10 @@ public class UserController {
             if (document.exists()) {
                 String userType = document.getString("userType");
                 if (Objects.equals(userType, "organizer")) {
-                    user = generateOrganizer(document, deviceID);
+                    user = document.toObject(Organizer.class);
                 }
                 else {
-                    user = generateEntrant(document, deviceID);
+                    user = document.toObject(Entrant.class);
                 }
 
             }
@@ -211,7 +210,8 @@ public class UserController {
 
     public interface OnUserLoaded {
 
-        // any function that calls getUser must implement the following callback functions
+        // any function that calls
+        // must implement the following callback functions
         void onUserLoaded(User user);
 
     }

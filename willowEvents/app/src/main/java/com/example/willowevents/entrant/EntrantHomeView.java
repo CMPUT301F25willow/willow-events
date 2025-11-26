@@ -12,8 +12,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.EventArrayAdapter;
-import com.example.willowevents.EventController;
+import com.example.willowevents.arrayAdapters.EventArrayAdapter;
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
@@ -21,7 +21,7 @@ import com.example.willowevents.model.Event;
 import java.util.ArrayList;
 
 /**
- * This View serves as the main page for a user with entrant permissions. It allows them to.
+ * This View allows interactivity for an Entrant object
  * - View event lists       - check event details   - check notifications
  * - filter event lists     - check profile information     - view invitations
  */
@@ -84,11 +84,12 @@ public class EntrantHomeView extends AppCompatActivity {
 
 
         // TODO: add in Event controller logic to handle dates
-        availableEvents = new ArrayList<Event>();
+        //uuhhhhh I did the logic based on if the inviteList exceeds the capacity
+
 
         // Switch to invitations view so user can see their invitations
         InviteButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(EntrantHomeView.this, ViewInvitations.class);
+            Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
             startActivity(myIntent);
         });
 
@@ -148,15 +149,36 @@ public class EntrantHomeView extends AppCompatActivity {
         //Display all events still accepting entrants in the system
         AvailableEventsButton.setOnClickListener(view -> {
             eventView = findViewById(R.id.eventList);
+
+            // Start with an empty list bound to the ListView (same pattern as AllEventsButton)
+            availableEvents = new ArrayList<>();
             eventAdapter = new EventArrayAdapter(this, availableEvents);
             eventView.setAdapter(eventAdapter);
-            //Make invite bar disappear
+
+            // Fetch all events, then filter to "available" and display
+            eventController.generateAllEvents(new EventController.OnEventsGeneration() {
+                @Override
+                public void onEventsGenerated(ArrayList<Event> events) {
+                    // Keep a copy of all events if you need to switch tabs later
+                    allEvents = (events != null) ? events : new ArrayList<>();
+
+                    // Apply your availability rule from the controller
+                    availableEvents = new ArrayList<>(eventController.filterAvailable(allEvents));
+
+                    // Bind the filtered list
+                    eventAdapter = new EventArrayAdapter(EntrantHomeView.this, availableEvents);
+                    eventView.setAdapter(eventAdapter);
+                    eventAdapter.notifyDataSetChanged();
+                }
+            });
+
+            // Hide invite bar for this view
             InviteButton.setVisibility(View.GONE);
             InviteBase.setVisibility(View.GONE);
         });
 
-        // detect if a user clicks an event in the event list and go to
-        // the corresponding event details page EventEntrantView
+        //detect if a user clicks an event in the event list and go to
+        //
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
@@ -164,8 +186,9 @@ public class EntrantHomeView extends AppCompatActivity {
                     startActivity(myIntent);
                 });
 
-        // Transition to profile page
+
         profileIcon.setOnClickListener(view -> {
+            // TRANSITION TO PROFILE PAGE
             Intent intent = new Intent(EntrantHomeView.this, ProfileView.class);
             startActivity(intent);
             }
