@@ -190,7 +190,7 @@ public class UserController {
 
     /**
      * Removes a user from the database given a user ID
-     *
+     * @param userID is the ID of the user as a string referring to its device ID
      */
     public void removeUser(String userID) {
         DocumentReference docRef = usersRef.document(userID);
