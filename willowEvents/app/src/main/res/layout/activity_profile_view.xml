@@ -212,4 +212,15 @@
         app:layout_constraintBottom_toTopOf="@+id/logout_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/view_notif_button"
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationIcon"
+        app:layout_constraintEnd_toEndOf="@+id/notificationIcon"
+        app:layout_constraintStart_toStartOf="@+id/notificationIcon"
+        app:layout_constraintTop_toTopOf="@+id/notificationIcon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

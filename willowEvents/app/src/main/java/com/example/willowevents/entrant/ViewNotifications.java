@@ -10,6 +10,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.NotificationArrayAdapter;
+import com.example.willowevents.ProfileView;
 import com.example.willowevents.model.Event;
 
 import com.example.willowevents.R;
@@ -54,7 +55,7 @@ public class ViewNotifications extends AppCompatActivity {
         notiListView.setAdapter(notiAdapter);
 
         backButton.setOnClickListener(view -> {
-            Intent myIntent = new Intent(ViewNotifications.this, EntrantHomeView.class);
+            Intent myIntent = new Intent(ViewNotifications.this, ProfileView.class);
             startActivity(myIntent);
         });
 

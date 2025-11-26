@@ -60,7 +60,7 @@ public class EntrantHomeView extends AppCompatActivity {
         AllEventsButton = findViewById(R.id.all_events_button);
         ClearFilterButton = findViewById(R.id.clear_filter_button);
         //invite elements
-        InviteButton = findViewById(R.id.invite_button);
+        InviteButton = findViewById(R.id.notification_button);
         InviteBase = findViewById(R.id.invite_bar);
         //filter elements
         FilterOne = findViewById(R.id.filter_option_one);

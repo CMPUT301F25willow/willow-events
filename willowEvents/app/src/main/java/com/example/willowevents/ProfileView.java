@@ -3,6 +3,7 @@ package com.example.willowevents;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.controller.UserController;
 import com.example.willowevents.entrant.EntrantHomeView;
+import com.example.willowevents.entrant.ViewNotifications;
 import com.example.willowevents.model.User;
 import com.example.willowevents.organizer.MainOrganizerView;
 /**
@@ -74,6 +76,31 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             }
         });
 
+        //Make the delete profile button
+        Button deleteButton = findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //User wants to delete their profile
+                //TODO: FIREBASE delete the user's profile
+
+            }
+        });
+
+        //Make the view notifications button
+        Button notifButton = findViewById(R.id.view_notif_button);
+        notifButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Go to the notification page
+                Log.println(Log.VERBOSE, "LILY", "clicked view notifs");
+                Intent myIntent = new Intent(ProfileView.this, ViewNotifications.class);
+                startActivity(myIntent);
+
+            }
+        });
+
+
         //Buttons that allow the user to go back to the main views
         Button entrantViewButton = findViewById(R.id.entrant_view_button);
         Button organizerViewButton = findViewById(R.id.organizer_view_button);
@@ -88,8 +115,8 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         });
         organizerViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { //TODO: CHANGE THE ==
-                if (currentUser.getUserType() == "organizer" || currentUser.getUserType() == "admin") {
+            public void onClick(View view) {
+                if (currentUser.getUserType().equals("organizer") || currentUser.getUserType().equals("admin")) {
                     Intent myIntent = new Intent(ProfileView.this, MainOrganizerView.class);
                     startActivity(myIntent);
                 }
