@@ -29,7 +29,7 @@ public class Lottery {
             int size = event.getWaitlist().size();
             int random = new Random().nextInt(size);
             event.getInviteList().add(event.getWaitlist().get(random));
-            event.getInviteList().remove(random);
+            event.getWaitlist().remove(random);
         }
     }
 
