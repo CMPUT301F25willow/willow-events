@@ -152,8 +152,6 @@ public class UserController {
     private void tempDeleteUser(User user) {
         DocumentReference docRef = usersRef.document(user.getID());
         docRef.delete();
-
-
     }
 
     /**
@@ -190,6 +188,14 @@ public class UserController {
                 joinList);
     }
 
+    /**
+     * Removes a user from the database given a user ID
+     *
+     */
+    public void removeUser(String userID) {
+        DocumentReference docRef = usersRef.document(userID);
+        docRef.delete();
+    }
 
     /**
      * Removes the entrant from the database. What also needs to be deleted is the entrantID from
