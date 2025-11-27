@@ -6,10 +6,13 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -87,6 +90,25 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             }
         });
 
+
+        //Make the toggle to mute notifications
+        Switch notifToggle = findViewById(R.id.mute_notifs);
+
+        //set the default value to their preference:
+        //TODO: FIREBASE use the hasNotifsMuted field in the user class
+        notifToggle.setChecked(false); //TODO: FIREBASE change this boolean to the user's current actual preference
+
+        //Check to see if they change the toggle:
+        notifToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
+                //TODO: FIREBASE change the actual user's preference
+                //essentially:
+                //user.hasNotifsMuted = isChecked;
+                //tell firebase dataset changed
+            }
+        });
+
         //Make the view notifications button
         Button notifButton = findViewById(R.id.view_notif_button);
         notifButton.setOnClickListener(new View.OnClickListener() {
@@ -94,11 +116,23 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             public void onClick(View view) {
                 //Go to the notification page
                 Log.println(Log.VERBOSE, "LILY", "clicked view notifs");
-                Intent myIntent = new Intent(ProfileView.this, ViewNotifications.class);
-                startActivity(myIntent);
+
+                if(false) //TODO: FIREBASE replace false with the user's actual preference
+                {
+                    Intent myIntent = new Intent(ProfileView.this, ViewNotifications.class);
+                    startActivity(myIntent);
+                }
+                else
+                {
+                    //when notifications are muted just don't let them access the page \(ovo)/
+                    displayNotifsMutedToast();
+                }
+
 
             }
         });
+
+
 
 
         //Buttons that allow the user to go back to the main views
@@ -189,5 +223,13 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
     public String getCurrPhone()
     {
         return currentUser.getPhoneNumber();
+    }
+
+    public void displayNotifsMutedToast()
+    {
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(this, "Notifications are muted", duration);
+        toast.show();
     }
 }

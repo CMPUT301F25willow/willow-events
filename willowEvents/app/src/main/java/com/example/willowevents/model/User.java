@@ -15,6 +15,8 @@ public abstract class User {
 
     private String userType;
 
+    private boolean hasNotifsMuted; //TODO: FIREBASE add this field
+
     // MUST be a string because we must query from live DB model
 
     private ArrayList<String> joinList;
@@ -51,6 +53,7 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.userType=userType;
 //        this.joinList = joinList;
+        this.hasNotifsMuted = false;
     }
 
     /**

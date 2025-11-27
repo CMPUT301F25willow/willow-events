@@ -38,7 +38,9 @@ public class ViewNotifications extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
         notiListView = findViewById(R.id.invite_list);
 
-        // TODO: IMPLEMENT WITH FIRESTORE
+        // TODO: FIRESTORE implement based on the actual notifications the user ha
+
+        //TODO: FIRESTORE delete this temporary code
         notis = new ArrayList<Notification>();
         Event event = new Event();
         notis.add(new Notification(event, "myNotificationMessage", null));
@@ -49,7 +51,7 @@ public class ViewNotifications extends AppCompatActivity {
         notis.add(new Notification(event, "myNotificationMessage", null));
         notis.add(new Notification(event, "myNotificationMessage", null));
         notis.add(new Notification(event, "myNotificationMessage", null));
-
+        //=======
 
         notiAdapter = new NotificationArrayAdapter(this, notis);
         notiListView.setAdapter(notiAdapter);
