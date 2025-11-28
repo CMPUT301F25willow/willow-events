@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**

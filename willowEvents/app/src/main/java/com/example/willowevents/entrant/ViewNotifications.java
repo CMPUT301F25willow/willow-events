@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.NotificationArrayAdapter;
+import com.example.willowevents.arrayAdapters.NotificationArrayAdapter;
 import com.example.willowevents.model.Event;
 
 import com.example.willowevents.R;
