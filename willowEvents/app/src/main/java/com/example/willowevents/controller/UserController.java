@@ -120,8 +120,19 @@ public class UserController {
             else {
                 ArrayList<User> users = new ArrayList<>();
                 for (QueryDocumentSnapshot snapshot: value){
-                    User user = snapshot.toObject(User.class);
-                    fetchedUsers.add(user);
+
+                    String userType = snapshot.getString("userType");
+                    User user = null;
+                    // INSTATIATE CORRECT TYPE OF USER
+                    if (userType.equals("organizer")) {
+                        user = snapshot.toObject(Organizer.class);
+                    } else if (userType.equals("entrant")) {
+                        user = snapshot.toObject(Entrant.class);
+                    }
+
+                    if (user != null) {
+                        fetchedUsers.add(user);
+                    }
                 }
                 callback.onUsersLoaded(fetchedUsers);
             }

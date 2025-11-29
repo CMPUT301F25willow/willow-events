@@ -1,5 +1,7 @@
 package com.example.willowevents;
 
+import android.util.Log;
+
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.controller.UserController;
 import com.example.willowevents.model.Entrant;
@@ -57,11 +59,13 @@ public class DeletionProtocolConnector {
                 String userType = user.getUserType();
 
                 if (userType.equals("organizer")){
-
+                    Log.w("User type detected", "organizer detected for deletion");
                     deleteOrganizer(userID);
                 }
                 // ENTRANT
                 else {
+                    Log.w("User type detected", "entrant detected for deletion");
+
                     deleteEntrant(userID);
                 }
             }
@@ -69,7 +73,43 @@ public class DeletionProtocolConnector {
     }
 
     /**
-     * Private method meant to delete users from
+     * THIS IS A SUB-MAIN function to deleteUser()
+     * This will call the event controller to delete the user ID from any lists in the events in a given firebase
+     * Then, the entrant gets deleted
+     * @param entrantID is the string of the entrant ID being the device ID given
+     */
+    private void deleteEntrant(String entrantID) {
+        // remove entrant from any related events
+        removeUserRelatedEvents(entrantID);
+
+        // SAFE TO DELETE USER
+        userController.removeUser(entrantID);
+    }
+
+
+    /**
+     * THIS IS A SUB-MAIN function to deleteUser()
+     * Removes an organizer by protocol
+     * 1. First is the removeEvent protocol
+     * 2. Then organizer is also treated as an entrant so organizer must be removed from all event logs
+     * This method will remove organizer, as it can also be an entrant, from  any related events it has participated / interacted with
+     * @param organizerID is the string of the organizer ID being the device ID given
+     */
+    private void deleteOrganizer(String organizerID) {
+
+        // removes ALL EVENTS of the organizer by protocol
+        deleteOrganizerEvents(organizerID);
+
+        // removes organizer (as organizers can be ENTRANTS too) from all events
+        removeUserRelatedEvents(organizerID);
+
+        // Then organizer can safely be removed
+        userController.removeUser(organizerID);
+    }
+
+    /**
+     * Private method is meant to be called BEFORE a user gets deleted
+     * The user must be removed from event BEFORE the user gets deleted
      * This is to be used in conjuction with deleteEntrant and deleteOrganizer protocols
      * @param userID is the string of the user id from which we want to delete from any events
      */
@@ -82,6 +122,7 @@ public class DeletionProtocolConnector {
                 // remove user from any event list
                 for (Event event: events) {
                     // remove user from Waiting list, registered list, cancelled list and invite list
+                    Log.e("EVENT ID EXISTS?", "EVENT ID IS" + event.getId());
                     eventController.removeUserRegisteredList(event.getId(), userID);
                     eventController.removeUserCancelledList(event.getId(), userID);
                     eventController.removeUserInviteList(event.getId(), userID);
@@ -91,44 +132,11 @@ public class DeletionProtocolConnector {
         });
     }
 
-    /**
-     * This will call the event controller to delete the user ID from any lists in the events in a given firebase
-     * Then, the entrant gets deleted
-     * @param entrantID is the string of the entrant ID being the device ID given
-     */
-    public void deleteEntrant(String entrantID) {
-        // remove entrant from any related events
-        removeUserRelatedEvents(entrantID);
-
-        // SAFE TO DELETE USER
-        userController.removeUser(entrantID);
-    }
-
-
-    /**
-     * Removes an organizer by protocol
-     * 1.
-     * This method will remove organizer, as it can also be an entrant, from  any related events it has participated / interacted with
-     * @param organizerID is the string of the organizer ID being the device ID given
-     */
-    public void deleteOrganizer(String organizerID) {
-
-        // remove all users in joinlists of events of Organizers if any
-        deleteOrganizerEvents(organizerID);
-
-        // loop through ALL EVENTS of  delete event
-        removeUserRelatedEvents(organizerID);
-
-        // an organizer can ALSO BE AN ENTRANT therefore remove user from any events
-        userController.removeUser(organizerID);
-    }
-
     /** Iterates through all events to match all events created by organizer.
-     * Event will then get deleted
+     * Event will then get deleted according to protocol
      * @param organizerID
      */
     private void deleteOrganizerEvents(String organizerID) {
-        //
         // get all events
         eventController.generateAllEvents(new EventController.OnEventsGeneration() {
             @Override
@@ -136,13 +144,33 @@ public class DeletionProtocolConnector {
 
                 for (Event event: events) {
                     // if organizer-to-delete's event
-                    if (organizerID == event.getOrganizerId()) {
+                    if (organizerID.equals( event.getOrganizerId())) {
                         // delete the event
                         deleteEvent(event.getId());
                     }
                 }
             }
         });
+
+    }
+
+    /**
+     * EVENT REMOVAL PROTOCOL FROM DATABASE
+     * removes the event of an organizer by protocol as follows
+     *  1. Remove event from the joinList for any entrant
+     *  2. Remove event IMAGE from different collection
+     *  3. Then event is safe to remove
+     * @param eventID is the String of the ID of an event that will be deleted
+     */
+    public void deleteEvent(String eventID) {
+
+        // delete event for any entrants
+        deleteEventForEntrants(eventID);
+
+        // TODO DELETE IMAGE FROM DIFFERENT COLLECTION
+        // delete event
+        eventController.removeEvent(eventID);
+        Log.w("Event deletion", "EVENT WAS SUPPOSED TO BE DELETED");
 
     }
 
@@ -163,22 +191,5 @@ public class DeletionProtocolConnector {
                 }
             }
         });
-    }
-
-    /**
-     * removes the event of an organizer by protocol
-     *  1. Remove event from the log for any entrant
-     *  2. Remove event IMAGE from different collection
-     *  3. Then event is safe to remove
-     * @param eventID is the String of the ID of an event that will be deleted
-     */
-    public void deleteEvent(String eventID) {
-
-
-        // delete event for any entrants
-        deleteEventForEntrants(eventID);
-
-        // delete
-        eventController.removeEvent(eventID);
     }
 }

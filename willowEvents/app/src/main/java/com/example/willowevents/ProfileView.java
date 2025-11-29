@@ -21,13 +21,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.willowevents.controller.UserController;
 import com.example.willowevents.entrant.EntrantHomeView;
 import com.example.willowevents.entrant.ViewNotifications;
+import com.example.willowevents.initialPages.InitialView;
 import com.example.willowevents.model.User;
 import com.example.willowevents.organizer.MainOrganizerView;
 /**
  * The ProfileView class is used for the User's profile view. It displays
  * their information, allows them to edit it, and to return to the event view.
  */
-public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.EditInfoDialogueListener {
+public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.EditInfoDialogueListener, ConfirmProfileDeleteDialog.ConfirmationListener{
     // 1. get the current user
     String deviceID ;
 
@@ -86,6 +87,10 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
             public void onClick(View view) {
                 //User wants to delete their profile
                 //TODO: FIREBASE delete the user's profile
+
+                new ConfirmProfileDeleteDialog().show(getSupportFragmentManager(), "deleteProfile");
+
+
 
             }
         });
@@ -231,5 +236,40 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
 
         Toast toast = Toast.makeText(this, "Notifications are muted", duration);
         toast.show();
+    }
+
+
+    // FOR PROFILE DELETIONS
+
+
+    /**
+     * This function defines the protocol for when user confirms deletion
+     *
+     */
+    @Override
+    public void onConfirmDeletion() {
+       DeletionProtocolConnector connector = new DeletionProtocolConnector(false);
+
+        // REMOVE USER
+        connector.deleteUser(deviceID);
+
+
+        // finish activity to avoid crash
+        finish();
+
+        // go back to initial view
+        Intent myIntent = new Intent(ProfileView.this, InitialView.class);
+        startActivity(myIntent);
+
+    }
+
+
+    /**
+     * This function defines the protocol for when user CANCELS deletion
+     * This is an empty function as nothing will happen and the pop up will simply close
+     */
+    @Override
+    public void onCancelDeletion() {
+
     }
 }
