@@ -1,4 +1,4 @@
-package com.example.willowevents;
+package com.example.willowevents.controller;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,7 +25,6 @@ public class NotificationController {
     public void useTestDatabase() {
         notificationRef = notificationDB.collection("notifications_test");
     }
-
 
 
 }

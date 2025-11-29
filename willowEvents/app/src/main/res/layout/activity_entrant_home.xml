@@ -59,17 +59,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/account4" />
 
-    <ImageView
-        android:id="@+id/notificationIcon"
-        android:layout_width="53dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/notification_icon"
-        app:layout_constraintEnd_toStartOf="@+id/accountIcon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notifications" />
-
     <!--    SECOND BAR ELEMENTS-->
 
     <androidx.appcompat.widget.Toolbar
