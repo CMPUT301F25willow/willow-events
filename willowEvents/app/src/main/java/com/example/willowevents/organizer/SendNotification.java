@@ -9,8 +9,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
+import com.example.willowevents.controller.EventController;
+import com.example.willowevents.controller.NotificationController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Notification;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,6 +31,11 @@ public class SendNotification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_notification);
+
+        // Event Controller
+        EventController eventController = new EventController();
+        NotificationController notificationController = new NotificationController();
+
 
         //check for data sent along side activity change
         Bundle extras = getIntent().getExtras();
@@ -65,27 +75,54 @@ public class SendNotification extends AppCompatActivity {
         sendButton.setOnClickListener(view -> {
             EditText notificationMessageTextbox = findViewById(R.id.notification_message);
 
-            Event event; //find event with eventId to create notification with
+            // QUERY EVENT
+            eventController.generateOneEvent(eventId, new EventController.OnEventGeneration() {
+                @Override
+                public void onEventGenerated(Event event) {
+                    //create notification and success popup
+                    // HERE ARE THE LIST TYPES:
+                    // - cancelledList
+                    // - enrolledList
+                    // - invitedList
+                    // - waitList
 
-            //TODO: use eventId to grab event from database (replace next line)
-            event = new Event();
 
-            //create notification and success popup
-            // TODO: grab list from database with eventId and listType to iterate through entrants in list
-            // HERE ARE THE LIST TYPES:
-            // - cancelledList
-            // - enrolledList
-            // - invitedList
-            // - waitList
+                    // GET THE LIST FOR THE EVENT
+                    // arraylist of the user IDs for notification sending
+                    List<String> userIDs = new ArrayList<>();
+                    if (listType.equals("cancelledList")) {
+                        userIDs = event.getCancelledList();
+                    } else if (listType.equals("enrolledList")) {
+                        userIDs = event.getApprovedList();
+                    }  else if (listType.equals("invitedList")) {
+                        userIDs = event.getInviteList();
+                    }  else if (listType.equals("waitList")) {
+                        userIDs = event.getWaitlist();
+                    }
+
+                    // ITERATE THROUGH USER IDS THEN CREATE NOTIFICATIONS TO DATABASE
+                    for (String userID: userIDs) {
+                        Notification notification = new Notification(event, notificationMessageTextbox.getText().toString(), userID);
+                        // PLACE NOTIFICATION IN DATABASE
+                        notificationController.addNotification(notification);
+                    }
+
+
+                    // NOTIFICATIONS HAVE BEEN SEND AND TRANSITION WILL HAPPEN
+                    android.widget.Toast.makeText(SendNotification.this, "Notification sent!", Toast.LENGTH_SHORT).show();
+                    //Switch views
+                    Intent myIntent = new Intent(SendNotification.this, EventOrganizerEntrantView.class);
+                    myIntent.putExtra("Event ID", eventId);
+                    startActivity(myIntent);
+                }
+            });
+
+
 
             // for (entrant in list) new Notification(event, notificationMessageTextbox.getText().toString(), entrantId);
 
-            android.widget.Toast.makeText(this, "Notification sent!", Toast.LENGTH_SHORT).show();
 
-            //Switch views
-            Intent myIntent = new Intent(SendNotification.this, EventOrganizerEntrantView.class);
-            myIntent.putExtra("Event ID", eventId);
-            startActivity(myIntent);
+
         });
 
     }
