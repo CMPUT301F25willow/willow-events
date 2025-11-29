@@ -1,13 +1,19 @@
 package com.example.willowevents.controller;
 
+import android.util.Log;
+
 import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Organizer;
 import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -100,6 +106,25 @@ public class UserController {
             // for debugging in case
         }).addOnFailureListener(error -> {
             error.printStackTrace();
+        });
+    }
+
+    public void generateAllUsers(OnUsersLoaded callback) {
+        usersRef.addSnapshotListener((value, error) -> {
+
+
+            ArrayList<User> fetchedUsers = new ArrayList<>();
+            if (error != null) {
+                Log.e("Firestore", error.toString());
+            }
+            else {
+                ArrayList<User> users = new ArrayList<>();
+                for (QueryDocumentSnapshot snapshot: value){
+                    User user = snapshot.toObject(User.class);
+                    fetchedUsers.add(user);
+                }
+                callback.onUsersLoaded(fetchedUsers);
+            }
         });
     }
 
@@ -197,6 +222,18 @@ public class UserController {
         docRef.delete();
     }
 
+
+    /**
+     * Removes the EVENT ID from JOIN LIST attribute of the corresponding User
+     * @param userID  is the specific USER ID as a string
+     * @param eventID is the specific event ID as a string
+     */
+    public void removeEventJoinList(String userID, String eventID) {
+
+        // remove the event from the user joinLiset
+        usersRef.document(userID).update("joinList", FieldValue.arrayRemove(eventID));
+    }
+
     /**
      * Removes the entrant from the database. What also needs to be deleted is the entrantID from
      * all events in which the entrant is entrolled in AND all waitlists the entrant is enroled in
@@ -214,6 +251,16 @@ public class UserController {
 
     }
 
+    /**
+     * This is a callback interface for when generateAllUsers() is called
+     */
+    public interface OnUsersLoaded {
+        void onUsersLoaded(ArrayList<User> allUsers);
+    }
+
+    /**
+     * This is a callback function to be implemented when getUser() is called
+     */
     public interface OnUserLoaded {
 
         // any function that calls
