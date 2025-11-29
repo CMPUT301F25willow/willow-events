@@ -1,8 +1,14 @@
 package com.example.willowevents.organizer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +37,8 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.back_button);
         Button seeEntrants = findViewById(R.id.entrants_button);
+        Button uploadImage = findViewById(R.id.upload_image_button);
+        Button editEvent = findViewById(R.id.edit_button);
 
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         //check for any data sent along side activity change
@@ -64,5 +72,68 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, MainOrganizerView.class);
             startActivity(myIntent);
         });
+
+
+
+        editEvent.setOnClickListener(view -> {
+            Intent myIntent = new Intent(EventOrganizerInfoView.this, EventModifyView.class);
+            startActivity(myIntent);
+        });
+
+
+        // For updating Poster for Event
+        Dialog dialog = new Dialog(this);
+
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            // open up fragment to update Poster
+            @Override
+            public void onClick(View view) {
+                dialog.setContentView(R.layout.update_poster);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                Button cancelButton = dialog.findViewById(R.id.cancel_button);
+                Button uploadButton = dialog.findViewById(R.id.upload_image_button);
+                Button updateButton = dialog.findViewById(R.id.update_button);
+                ImageView newPoster = dialog.findViewById(R.id.uploaded_image);
+
+                // click on cancel button to leave fragment
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // remove all uploaded changes
+
+                        dialog.dismiss();
+                    }
+                });
+
+                // replace old poster with new one, refer to uploadButton
+                updateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        // poster <- new poster
+                        dialog.dismiss();
+                    }
+                });
+
+                // Upload a poster image into firebase idk how that works srry
+                // poster has to be temporarily uploaded somewhere
+                // when update button is clicked, then replace current poster with new one
+                // otherwise discard the new poster and keep the old one
+                uploadButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        // temp poster <- new poster
+                        // set newPoster to the new image
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+
+        });
+
     }
 }
