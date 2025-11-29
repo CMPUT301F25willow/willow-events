@@ -50,24 +50,16 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         TextView nameText = findViewById(R.id.nameTextView);
         TextView emailText = findViewById(R.id.emailTextView);
         TextView phoneText = findViewById(R.id.phoneTextView);
+        Switch notifToggle = findViewById(R.id.mute_notifs);
+
 
         // INIT user controller
         userController = new UserController();
         // GET DEVICE ID
         deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        // GET CURRENT USER FROM DATABASE
-        userController.getUser(deviceID, new UserController.OnUserLoaded() {
-            @Override
-            public void onUserLoaded(User user) {
-                currentUser = user;
-
-                //and display the correct information
-                nameText.setText(getCurrName());
-                emailText.setText(getCurrEmail());
-                phoneText.setText(getCurrPhone());
-            }
-        });
+        // SHOW VIEW
+        displayUpdatedInfo();
 
         //Make the edit button clickable
         Button editButton = findViewById(R.id.edit_button);
@@ -85,32 +77,27 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //User wants to delete their profile
-                //TODO: FIREBASE delete the user's profile
-
                 new ConfirmProfileDeleteDialog().show(getSupportFragmentManager(), "deleteProfile");
-
-
-
             }
         });
 
 
-        //Make the toggle to mute notifications
-        Switch notifToggle = findViewById(R.id.mute_notifs);
 
         //set the default value to their preference:
-        //TODO: FIREBASE use the hasNotifsMuted field in the user class
-        notifToggle.setChecked(false); //TODO: FIREBASE change this boolean to the user's current actual preference
 
         //Check to see if they change the toggle:
         notifToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
-                //TODO: FIREBASE change the actual user's preference
-                //essentially:
-                //user.hasNotifsMuted = isChecked;
-                //tell firebase dataset changed
+                // Use current view to check whether or not notifcations are muted
+                // notify firebase of change
+
+                // set the user that notifications are muted
+                currentUser.setHasNotifsMuted(isChecked);
+
+                // update user on the FIREBASE
+                userController.updateUserInfo(currentUser);
+
             }
         });
 
@@ -122,7 +109,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
                 //Go to the notification page
                 Log.println(Log.VERBOSE, "LILY", "clicked view notifs");
 
-                if(false) //TODO: FIREBASE replace false with the user's actual preference
+                if(!currentUser.isHasNotifsMuted())
                 {
                     Intent myIntent = new Intent(ProfileView.this, ViewNotifications.class);
                     startActivity(myIntent);
@@ -236,6 +223,30 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
 
         Toast toast = Toast.makeText(this, "Notifications are muted", duration);
         toast.show();
+    }
+
+    /* View method that shows the updated user information from the database
+     * and then displays the fields
+     */
+    private void displayUpdatedInfo() {
+        userController.getUser(deviceID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                TextView nameText = findViewById(R.id.nameTextView);
+                TextView emailText = findViewById(R.id.emailTextView);
+                TextView phoneText = findViewById(R.id.phoneTextView);
+                Switch notifToggle = findViewById(R.id.mute_notifs);
+
+                // display the correct information
+                nameText.setText(getCurrName());
+                emailText.setText(getCurrEmail());
+                phoneText.setText(getCurrPhone());
+                notifToggle.setChecked(currentUser.isHasNotifsMuted());
+
+            }
+        });
     }
 
 
