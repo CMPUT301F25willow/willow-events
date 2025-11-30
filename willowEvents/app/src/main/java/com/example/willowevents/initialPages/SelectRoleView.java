@@ -67,9 +67,8 @@ public class SelectRoleView extends AppCompatActivity {
         });
         // IF USER SELECTS ADMIN
         chooseAdmin.setOnClickListener(view -> {
-            // TODO: ADD NEW ADMIN
-            // userController.addNewOrganizerUser(deviceID);
-            // GO TO ORGANIZER HOME
+            userController.addNewAdminUser(deviceID);
+            // GO TO ADMIN HOME
             Intent myIntent = new Intent(SelectRoleView.this, AdminHomeView.class);
             startActivity(myIntent);
         });

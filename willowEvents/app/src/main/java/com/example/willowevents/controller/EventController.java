@@ -57,7 +57,7 @@ public class EventController {
 
             Event event = null;
 
-            // if user exists
+            // if event exists
             if (document.exists()) {
                 event = document.toObject(Event.class);
             }
