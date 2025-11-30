@@ -17,14 +17,14 @@ public abstract class User {
 
     private boolean hasNotifsMuted; //TODO: FIREBASE add this field
 
-    // MUST be a string because we must query from live DB model
 
+    // MUST be a string because we must query from live DB model
     private ArrayList<String> joinList;
+
     // private ArrayList<Notifications> notificationsList;
     // implement based on how notification will be implemented
 
     // Names can be the same but IDs should be unique to each User
-
     /**
      * This creates a User object
      */
@@ -52,7 +52,6 @@ public abstract class User {
         this.email = Email;
         this.phoneNumber = phoneNumber;
         this.userType=userType;
-//        this.joinList = joinList;
         this.hasNotifsMuted = false;
     }
 
@@ -71,6 +70,7 @@ public abstract class User {
     public void setID(String ID) {
         this.userID = ID;
     }
+
     /**
      * This sets String email
      * @param email    - String
@@ -92,7 +92,6 @@ public abstract class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
     /**
      * This returns String name
      * @return  name
@@ -149,4 +148,15 @@ public abstract class User {
         this.userType = userType;
     }
 
+    public boolean isHasNotifsMuted() {
+        return hasNotifsMuted;
+    }
+
+    public void setHasNotifsMuted(boolean hasNotifsMuted) {
+        this.hasNotifsMuted = hasNotifsMuted;
+    }
+
+    public void setJoinList(ArrayList<String> joinList) {
+        this.joinList = joinList;
+    }
 }
