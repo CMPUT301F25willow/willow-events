@@ -3,6 +3,7 @@ package com.example.willowevents.organizer;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Notification;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Lottery;
+import com.example.willowevents.model.User;
 import com.google.android.gms.maps.MapView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -32,19 +35,21 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private String eventId;
     private Event event;
-
     private Button seeWaitlist;
     private Button seeInvited;
     private Button seeEnrolled;
     private Button seeCancelled;
+    private Button notifyWaitlist;
+    private Button notifyInvited;
+    private Button notifyEnrolled;
+    private Button notifyCancelled;
     private Button seeInfo;
-    private Button sendInvite;
     private Button backButton;
-
-    // If you actually have an "update event" button in the layout, uncomment this and set it up.
-    // private Button updateEvent;
-
+    private Button sendInvite;
+    private Button updateEvent;
+    private TextView userNameText;
     private boolean redraw = false;
+
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -61,6 +66,12 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         seeEnrolled  = findViewById(R.id.enrolled_see_entrants_button);
         seeCancelled = findViewById(R.id.cancelled_see_entrants_button);
         sendInvite   = findViewById(R.id.waitlist_send_invitation_button);
+        notifyWaitlist = findViewById(R.id.waitlist_send_notification_button);
+        notifyInvited = findViewById(R.id.invited_send_notification_button);
+        notifyEnrolled = findViewById(R.id.enrolled_send_notification_button);
+        notifyCancelled = findViewById(R.id.cancelled_send_notification_button);
+        userNameText = findViewById(R.id.username);
+
         // updateEvent  = findViewById(R.id.update_event_button); // <- only if this exists in XML
 
         sendInvite.setEnabled(false); // we only enable once event is loaded
@@ -111,6 +122,18 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                     finish();
                 });
 
+        String userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        UserController userController = new UserController();
+        userController.getUser(userID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                User currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                userNameText.setText(currentUser.getName());
+            }
+        });
+
+
         // --- Button: back ---
         backButton.setOnClickListener(v -> finish());
 
@@ -152,6 +175,41 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
+        notifyWaitlist.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "waitList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+
+        notifyInvited.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "invitedList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+
+        notifyEnrolled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "enrolledList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
+
+        notifyCancelled.setOnClickListener(view -> {
+            //Switch views
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
+            myIntent.putExtra("List type", "cancelledList");
+            myIntent.putExtra("Event ID", eventId);
+            startActivity(myIntent);
+        });
+
 
         /*
          * For inviting entrants and redrawing

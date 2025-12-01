@@ -47,7 +47,7 @@ public class EventEntrantView extends AppCompatActivity {
     TextView eventInfo;
     TextView selectionInfo;
     TextView waitlistLength;
-
+    TextView userNameText;
     ImageView posterImage;
 
 
@@ -78,6 +78,7 @@ public class EventEntrantView extends AppCompatActivity {
         eventInfo     = findViewById(R.id.event_info);
         selectionInfo = findViewById(R.id.selection_info);
         waitlistLength = findViewById(R.id.waitlist_length_textview);
+        userNameText   = findViewById(R.id.username);
 
         // Get current user ID
         userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -94,6 +95,7 @@ public class EventEntrantView extends AppCompatActivity {
             @Override
             public void onUserLoaded(User user) {
                 currentUser = user;
+                userNameText.setText(currentUser.getName());
             }
         });
 

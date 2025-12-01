@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.arrayAdapters.EventArrayAdapter;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.User;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -131,6 +134,18 @@ public class MainOrganizerView extends AppCompatActivity {
         // set + link array adapter
         eventAdapter = new EventArrayAdapter(this, events);
         eventView.setAdapter(eventAdapter);
+
+        TextView userNameText = findViewById(R.id.main_organizer_username);
+        String userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        UserController userController = new UserController();
+        userController.getUser(userID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                User currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                userNameText.setText(currentUser.getName());
+            }
+        });
         
 
         newEventButton.setOnClickListener(view -> {

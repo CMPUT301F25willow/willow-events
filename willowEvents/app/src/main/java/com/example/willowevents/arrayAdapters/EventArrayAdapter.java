@@ -41,7 +41,7 @@ public class EventArrayAdapter extends ArrayAdapter {
         Event event = (Event) getItem(position);
 
         //get event name and display it in the view
-        TextView eventName = view.findViewById(R.id.eventName);
+        TextView eventName = view.findViewById(R.id.username);
         ImageView posterImage = view.findViewById(R.id.posterImage);
         eventName.setText(event.getTitle());
 

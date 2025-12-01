@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -18,15 +19,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.willowevents.R;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,6 +52,18 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         setContentView(R.layout.activity_event_organizer_info_view);
         db = FirebaseFirestore.getInstance();
 
+
+        TextView userNameText = findViewById(R.id.username);
+        String userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        UserController userController = new UserController();
+        userController.getUser(userID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                User currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                userNameText.setText(currentUser.getName());
+            }
+        });
 
         //check for any data sent along side activity change
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
@@ -127,9 +139,9 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                     }
 
                     // Fill in UI with event data
-                    if (eventName != null) {
-                        eventName.setText(event.getTitle());
-                    }
+//                    if (eventName != null) {
+//                        eventName.setText(event.getTitle());
+//                    }
 
                     //set up QR button
                     qrButton.setOnClickListener(v -> {
@@ -160,7 +172,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
-        //TextView eventName = findViewById(R.id.eventName);
+        TextView eventName = findViewById(R.id.username);
         //Other initializations
 
 //        eventName.setText(event.getTitle());
@@ -338,7 +350,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         uploadImage = findViewById(R.id.upload_image_button);
         posterImage  = findViewById(R.id.uploaded_image);
         qrButton = findViewById(R.id.qr_code_button);
-        eventName = findViewById(R.id.eventName);
+        eventName = findViewById(R.id.username);
         details = findViewById(R.id.event_details);
 
         details.setMovementMethod(new ScrollingMovementMethod());

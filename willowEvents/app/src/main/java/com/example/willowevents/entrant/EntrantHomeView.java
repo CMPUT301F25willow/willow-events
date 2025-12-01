@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +53,7 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
     EditText FilterOne;
     EditText FilterTwo;
     EditText FilterThree;
+    TextView userNameText;
     androidx.appcompat.widget.Toolbar FilterBase;
     androidx.appcompat.widget.Toolbar InviteBase;
     Boolean isFilterVisible;
@@ -72,6 +75,7 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
         AllEventsButton = findViewById(R.id.all_events_button);
         ClearFilterButton = findViewById(R.id.clear_filter_button);
         filterIcon = findViewById(R.id.filterIcon);
+        userNameText = findViewById(R.id.UserNameText);
 
         //invite elements
         InviteButton = findViewById(R.id.notification_button);
@@ -96,7 +100,15 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
 
 
         userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-
+        UserController userController = new UserController();
+        userController.getUser(userID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                User currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                userNameText.setText(currentUser.getName());
+            }
+        });
         //uuhhhhh I did the logic based on if the inviteList exceeds the capacity
 
 
@@ -105,7 +117,6 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
             Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
 
             // get user
-            UserController userController = new UserController();
             userController.getUser(userID, new UserController.OnUserLoaded() {
                 @Override
                 public void onUserLoaded(User user) {

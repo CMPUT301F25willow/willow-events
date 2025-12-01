@@ -81,11 +81,11 @@
         app:layout_constraintTop_toBottomOf="@+id/info_button" />
 
     <TextView
-        android:id="@+id/eventName"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Event"
+        android:text="Organizer"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_bar"
         app:layout_constraintStart_toEndOf="@+id/back_button"
@@ -171,20 +171,6 @@
         android:textSize="14sp"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
-
-    <Button
-        android:id="@+id/location_req_button"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/green_base"
-        android:text="Location req"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:cornerRadius="@dimen/corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_info_banner" />
 
     <Button
