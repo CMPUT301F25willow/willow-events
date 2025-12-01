@@ -26,8 +26,8 @@ import java.util.Objects;
 public class InitialView extends AppCompatActivity {
     String currentEntrantID;
     User currentEntrant ;
-    Button deviceLoginButton;
-    Button deviceSignupButton;
+    Button loginButton;
+    Button signUpButton;
 
     UserController userController ;
 
@@ -45,15 +45,15 @@ public class InitialView extends AppCompatActivity {
             return insets;
         });
 
-        deviceLoginButton = findViewById(R.id.device_login_button);
-        deviceSignupButton = findViewById(R.id.device_signup_button);
+        loginButton = findViewById(R.id.login_button);
+        signUpButton = findViewById(R.id.signup_button);
 
         // GET DEVICE ID:
         String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
 
         // LOG IN FUNCTIONALITY
-        deviceLoginButton.setOnClickListener(view -> {
+        loginButton.setOnClickListener(view -> {
 
             // First check if user exists
             userController.userExists(deviceID, new UserController.OnExistsUser() {
@@ -86,7 +86,7 @@ public class InitialView extends AppCompatActivity {
             });
         });
 
-        deviceSignupButton.setOnClickListener(view -> {
+        signUpButton.setOnClickListener(view -> {
             // First check if user exists
             userController.userExists(deviceID, new UserController.OnExistsUser() {
                 @Override
