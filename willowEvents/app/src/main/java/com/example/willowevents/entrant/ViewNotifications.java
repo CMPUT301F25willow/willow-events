@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.willowevents.NotificationArrayAdapter;
+import com.example.willowevents.arrayAdapters.NotificationArrayAdapter;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.controller.NotificationController;
 import com.example.willowevents.model.Event;

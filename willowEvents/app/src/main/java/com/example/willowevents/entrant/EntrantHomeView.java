@@ -3,6 +3,7 @@ package com.example.willowevents.entrant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.willowevents.FilterEventsDialog;
 import com.example.willowevents.arrayAdapters.EventArrayAdapter;
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.ProfileView;
@@ -19,13 +21,15 @@ import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This View allows interactivity for an Entrant object
  * - View event lists       - check event details   - check notifications
  * - filter event lists     - check profile information     - view invitations
  */
-public class EntrantHomeView extends AppCompatActivity {
+public class EntrantHomeView extends AppCompatActivity implements FilterEventsDialog.FilterListener {
     //Stole from taylor's MainOrganizerView
     ListView eventView;
     EventArrayAdapter eventAdapter;
@@ -38,6 +42,7 @@ public class EntrantHomeView extends AppCompatActivity {
     Button ClearFilterButton;
     Button InviteButton;
     ImageView profileIcon;
+    ImageView filterIcon;
     EditText FilterOne;
     EditText FilterTwo;
     EditText FilterThree;
@@ -45,6 +50,8 @@ public class EntrantHomeView extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar InviteBase;
     Boolean isFilterVisible;
     EventController eventController;
+
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,8 @@ public class EntrantHomeView extends AppCompatActivity {
         AvailableEventsButton = findViewById(R.id.available_events_button);
         AllEventsButton = findViewById(R.id.all_events_button);
         ClearFilterButton = findViewById(R.id.clear_filter_button);
+        filterIcon = findViewById(R.id.filterIcon);
+
         //invite elements
         InviteButton = findViewById(R.id.notification_button);
         InviteBase = findViewById(R.id.invite_bar);
@@ -78,12 +87,11 @@ public class EntrantHomeView extends AppCompatActivity {
         isFilterVisible = false;
 
         eventView = findViewById(R.id.eventList);
-        // TODO: add user ID checking here along with events to get the events the user is signed up in
         myEvents = new ArrayList<Event>();
 
 
+        userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        // TODO: add in Event controller logic to handle dates
         //uuhhhhh I did the logic based on if the inviteList exceeds the capacity
 
 
@@ -115,8 +123,29 @@ public class EntrantHomeView extends AppCompatActivity {
         MyEventsButton.setOnClickListener(view -> {
             //TODO: I don't think my events is actually interfacing with firebase
             eventView = findViewById(R.id.eventList);
-            eventAdapter = new EventArrayAdapter(this, myEvents);
-            eventView.setAdapter(eventAdapter);
+
+            myEvents = new ArrayList<>();
+            eventController.generateAllEvents(new EventController.OnEventsGeneration() {
+                @Override
+                public void onEventsGenerated(ArrayList<Event> events) {
+                    for (Event event: events) {
+
+                        // check if user is approved or on waitlist for the event
+                        List<String> waitlist = event.getWaitlist();
+                        List<String> registered = event.getApprovedList();
+
+
+                        // show event if user is on waitlist or already approved
+                        if (waitlist.contains(userID) || registered.contains(userID) ) {
+                            myEvents.add(event);
+                        }
+                    }
+                    // now set the event adapter
+                    eventAdapter = new EventArrayAdapter(EntrantHomeView.this, myEvents);
+                    eventView.setAdapter(eventAdapter);
+
+                }
+            });
             //Make invite bar appear
             InviteButton.setVisibility(View.VISIBLE);
             InviteBase.setVisibility(View.VISIBLE);
@@ -177,6 +206,11 @@ public class EntrantHomeView extends AppCompatActivity {
             InviteBase.setVisibility(View.GONE);
         });
 
+        // FILTER ICON FOR USER AVAILABILITY + PREFERENCES
+        filterIcon.setOnClickListener(view -> {
+                new FilterEventsDialog().show(getSupportFragmentManager(), "filter");
+        });
+
         //detect if a user clicks an event in the event list and go to
         //
         eventView.setOnItemClickListener((parent, view, position, id) -> {
@@ -195,5 +229,10 @@ public class EntrantHomeView extends AppCompatActivity {
 
 
         );
+    }
+
+    @Override
+    public void onFilterConfirmation(List<String> preferences, Date from, Date to) {
+        //
     }
 }
