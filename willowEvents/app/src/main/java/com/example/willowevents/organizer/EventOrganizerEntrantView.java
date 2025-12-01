@@ -31,308 +31,234 @@ import java.util.Random;
 public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private String eventId;
+    private Event event;
+
     private Button seeWaitlist;
     private Button seeInvited;
     private Button seeEnrolled;
     private Button seeCancelled;
-    private Button notifyWaitlist;
-    private Button notifyInvited;
-    private Button notifyEnrolled;
-    private Button notifyCancelled;
     private Button seeInfo;
-    private Button backButton;
     private Button sendInvite;
-    private Button updateEvent;
-    private Button geolocation;
+    private Button backButton;
+
+    // If you actually have an "update event" button in the layout, uncomment this and set it up.
+    // private Button updateEvent;
+
     private boolean redraw = false;
 
-    private String eventID;
-    private final Lottery lottery = new Lottery();    // refer to Lottery.java in model folder
-
-    private final com.google.firebase.firestore.FirebaseFirestore db =
-            com.google.firebase.firestore.FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_entrants_view);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-//        int invitedNum = event.getInviteList().size() + event.getApprovedList().size();
-//        int limitNum = event.getInvitelistlimit();
-//
-//        if(redraw){
-//            if (invitedNum < limitNum) {
-//                sendInvite.setText("Draw replacements");
-//            } else {
-//                sendInvite.setText("Invite Limit Reached");
-//                sendInvite.setEnabled(false);
-//            }
-//        }
+        // --- View bindings ---
+        backButton   = findViewById(R.id.back_button);
+        seeInfo      = findViewById(R.id.info_button);
+        seeWaitlist  = findViewById(R.id.waitlist_see_entrants_button);
+        seeInvited   = findViewById(R.id.invited_see_entrants_button);
+        seeEnrolled  = findViewById(R.id.enrolled_see_entrants_button);
+        seeCancelled = findViewById(R.id.cancelled_see_entrants_button);
+        sendInvite   = findViewById(R.id.waitlist_send_invitation_button);
+        // updateEvent  = findViewById(R.id.update_event_button); // <- only if this exists in XML
 
-        //check for any data sent along side activity change
+        sendInvite.setEnabled(false); // we only enable once event is loaded
+
+        // --- Get Event ID from extras ---
+        Intent origIntent = new Intent(this, MainOrganizerView.class);
         Bundle extras = getIntent().getExtras();
-        eventId = extras.getString("Event ID");
+
+        if (extras != null) {
+            eventId = extras.getString("Event ID");
+        } else {
+            // fallback if coming from somewhere unexpected
+            origIntent = new Intent(this, EventOrganizerInfoView.class);
+            extras = getIntent().getExtras();
+            if (extras != null) {
+                eventId = extras.getString("Event ID");
+            }
+        }
+
         if (eventId == null || eventId.trim().isEmpty()) {
-            android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Missing event ID", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
+
+        // --- Load Event from Firestore ---
         db.collection("events").document(eventId).get()
                 .addOnSuccessListener(snap -> {
                     if (!snap.exists()) {
-                        android.widget.Toast.makeText(this, "Event not found", android.widget.Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Event not found", Toast.LENGTH_LONG).show();
                         finish();
                         return;
                     }
 
+                    event = snap.toObject(Event.class);
+                    if (event == null) {
+                        Toast.makeText(this, "Failed to load event data", Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
+
+                    // Now it's safe to enable sendInvite
+                    sendInvite.setEnabled(true);
                 })
                 .addOnFailureListener(e -> {
                     android.util.Log.e("EventOrganizerEntrantView", "Failed to load event", e);
-                    android.widget.Toast.makeText(this, "Failed to load event. See Logcat.", android.widget.Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Failed to load event. See Logcat.", Toast.LENGTH_LONG).show();
                     finish();
                 });
 
-        backButton = findViewById(R.id.back_button);
-        seeInfo = findViewById(R.id.info_button);
-        seeWaitlist = findViewById(R.id.waitlist_see_entrants_button);
-        seeInvited = findViewById(R.id.invited_see_entrants_button);
-        seeEnrolled = findViewById(R.id.enrolled_see_entrants_button);
-        seeCancelled = findViewById(R.id.cancelled_see_entrants_button);
+        // --- Button: back ---
+        backButton.setOnClickListener(v -> finish());
 
-        notifyWaitlist = findViewById(R.id.waitlist_send_notification_button);
-        notifyInvited = findViewById(R.id.invited_send_notification_button);
-        notifyEnrolled = findViewById(R.id.enrolled_send_notification_button);
-        notifyCancelled = findViewById(R.id.cancelled_send_notification_button);
-        backButton = findViewById(R.id.back_button);
-
-        sendInvite = findViewById(R.id.waitlist_send_invitation_button);
-        updateEvent = findViewById(R.id.info_button);
-
-        geolocation = findViewById(R.id.see_entrant_location_button);
-
-        //Event event = addMockEvent();
-
-
-        updateEvent.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventModifyView.class);
-            myIntent.putExtra("event ID", eventId);
-            startActivity(myIntent);
-        });
-
-        backButton.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
-            startActivity(myIntent);
-        });
-
+        // --- Button: event info ---
         seeInfo.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, EventOrganizerInfoView.class);
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
+        // --- Button: see waitlist ---
         seeWaitlist.setOnClickListener(view -> {
-            //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "waitlist");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
+        // --- Button: see invited ---
         seeInvited.setOnClickListener(view -> {
-            //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "invited");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
+        // --- Button: see enrolled ---
         seeEnrolled.setOnClickListener(view -> {
-            //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "enrolled");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
+        // --- Button: see cancelled ---
         seeCancelled.setOnClickListener(view -> {
-            //Switch views
             Intent myIntent = new Intent(EventOrganizerEntrantView.this, UserListView.class);
             myIntent.putExtra("Type", "cancelled");
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
 
-        notifyWaitlist.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
-            myIntent.putExtra("List type", "waitList");
-            myIntent.putExtra("Event ID", eventId);
-            startActivity(myIntent);
-        });
-
-        notifyInvited.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
-            myIntent.putExtra("List type", "invitedList");
-            myIntent.putExtra("Event ID", eventId);
-            startActivity(myIntent);
-        });
-
-        notifyEnrolled.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
-            myIntent.putExtra("List type", "enrolledList");
-            myIntent.putExtra("Event ID", eventId);
-            startActivity(myIntent);
-        });
-
-        notifyCancelled.setOnClickListener(view -> {
-            //Switch views
-            Intent myIntent = new Intent(EventOrganizerEntrantView.this, SendNotification.class);
-            myIntent.putExtra("List type", "cancelledList");
-            myIntent.putExtra("Event ID", eventId);
-            startActivity(myIntent);
-        });
-
-        
-        // open up map of location of people to dox 'em
-        Dialog geoDialog = new Dialog(this);
-        geolocation.setOnClickListener(new View.OnClickListener() {
-            // open up fragment to send invite
-            @Override
-            public void onClick(View view) {
-                geoDialog.setContentView(R.layout.join_map);
-                geoDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                geoDialog.setCancelable(false);
-                Button closeButton = geoDialog.findViewById(R.id.close_button);
-                MapView map = geoDialog.findViewById(R.id.mapView);
-
-                // Get geolocation of entrants on wait list for event, display on event
-                //  HOW TO??!
-
-
-
-                // click on cancel button to leave fragment
-                closeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        geoDialog.dismiss();
-                    }
-                });
-                geoDialog.show();
-            }
-        });
-
-
-        /** For inviting entrants and redrawing
-        // I believe for redrawing, we need to change the button depending on whether entrants have been redrawn or not
-        // I've created the redraw boolean for that case.
-        // The button for redrawing could be enabled depending on the following:
-           The size of invitelist + acceptedlist DOES NOT equal the invitelistlimit
-           In this case, that would mean some people have cancelled and the invitelistlimit is not reached.
-           I've already set up doLottery for this case. - Michelle
-        **/
+        /*
+         * For inviting entrants and redrawing
+         * I believe for redrawing, we need to change the button depending on whether entrants have been redrawn or not
+         * I've created the redraw boolean for that case.
+         * The button for redrawing could be enabled depending on the following:
+         *   The size of invitelist + acceptedlist DOES NOT equal the invitelistlimit
+         *   In this case, that would mean some people have cancelled and the invitelistlimit is not reached.
+         * I've already set up doLottery for this case. - Michelle
+         */
 
         Dialog dialog = new Dialog(this);
 
-        // click on invite button
+        // --- Button: send invites from waitlist ---
         sendInvite.setOnClickListener(new View.OnClickListener() {
             // open up fragment to send invite
             @Override
             public void onClick(View view) {
+
+                if (event == null) {
+                    Toast.makeText(EventOrganizerEntrantView.this,
+                            "Event data not loaded yet", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 dialog.setContentView(R.layout.select_batch_from_waitlist);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.setCancelable(false);
+
                 Button cancelInvite = dialog.findViewById(R.id.cancel_button);
                 Button invite = dialog.findViewById(R.id.invite_button);
                 EditText amount = dialog.findViewById(R.id.editTextNumber);
 
                 // click on cancel button to leave fragment
-                cancelInvite.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-
-                    }
-                });
+                cancelInvite.setOnClickListener(v -> dialog.dismiss());
 
                 // invite entrants as long as there is an int
-                invite.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                invite.setOnClickListener(v -> {
 
-                        if (TextUtils.isEmpty(amount.getText().toString())) {
-                            amount.setError("Number required");
-                            amount.requestFocus();
-                            return;
-                        }
-                        // get invitelistlimit, set and use
-                        int value = Integer.parseInt(amount.getText().toString());
-
-                        if ( value > event.getWaitlist().size()){
-                            amount.setError("Not enough entrants to invite");
-                            amount.requestFocus();
-                            return;
-                        }
-
-                        //Load the event from firestore using the eventID
-                        db.collection("events").document(eventId).get().addOnSuccessListener(snapshot -> {
-                            if (!snapshot.exists()){
-                                return;
-                            }
-                            Event event = snapshot.toObject(Event.class);
-                            if (event == null){
-                                return;
-                            }
-                            //set the invite list limit
-                            event.setInvitelistlimit(value);
-                            lottery.doLottery(event);           // refer to Lottery.java in model folder
-                            //update the event back into firestore
-                            db.collection("events")
-                                    .document(eventId)
-                                    .update(
-                                            "waitlist", event.getWaitlist(),
-                                            "inviteList", event.getInviteList(),
-                                            "approvedList", event.getApprovedList(),
-                                            "invitelistlimit", event.getInvitelistlimit()
-                                    );
-                        });
-
-                        dialog.dismiss();
+                    if (TextUtils.isEmpty(amount.getText().toString())) {
+                        amount.setError("Number required");
+                        amount.requestFocus();
+                        return;
                     }
+
+                    int value = Integer.parseInt(amount.getText().toString());
+
+                    //do we even have this many on the waitlist?
+                    if (event.getWaitlist() == null || value > event.getWaitlist().size()) {
+                        amount.setError("Not enough entrants to invite");
+                        amount.requestFocus();
+                        return;
+                    }
+
+                    // set invite list limit and run lottery
+                    event.setInvitelistlimit(value);
+                    doLottery(event);
+
+                    // save updated lists back to Firestore
+                    db.collection("events").document(eventId)
+                            .update(
+                                    "waitlist", event.getWaitlist(),
+                                    "inviteList", event.getInviteList(),
+                                    "approvedList", event.getApprovedList(),
+                                    "invitelistlimit", event.getInvitelistlimit()
+                            )
+                            .addOnSuccessListener(unused ->
+                                    Toast.makeText(EventOrganizerEntrantView.this,
+                                            "Invites sent", Toast.LENGTH_SHORT).show()
+                            )
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(EventOrganizerEntrantView.this,
+                                            "Failed to update event", Toast.LENGTH_LONG).show()
+                            );
+
+                    dialog.dismiss();
                 });
+
                 redraw = true;
                 dialog.show();
-
             }
-
         });
-
     }
-
 
     /**
      * For a max value, a max number of random entrants will be chosen from an event's
-     * WaitList and be moved to the event's ApprovedList.
+     * WaitList and be moved to the event's InviteList.
      * max refers to the value of inviteListLimit - size of InviteList - size of ApprovedList
-     * @param event - Event
+     *
+     * @param event Event whose lists are to be updated
      */
-    public void doLottery(Event event){
+    public void doLottery(Event event) {
 
-        int max = event.getInvitelistlimit() - event.getInviteList().size() - event.getApprovedList().size();
+        int max = event.getInvitelistlimit()
+                - event.getInviteList().size()
+                - event.getApprovedList().size();
 
-        while ( max > 0){
-            max-=1;
+        while (max > 0 && event.getWaitlist() != null && !event.getWaitlist().isEmpty()) {
+            max -= 1;
+
             int size = event.getWaitlist().size();
             int random = new Random().nextInt(size);
+
+            // move entrant from waitlist → inviteList
             event.getInviteList().add(event.getWaitlist().get(random));
-            new Notification(event, event.getWaitlist().get(random), true);
-            event.getWaitlist().remove(random);
+            event.getWaitlist().remove(random); // remove from waitlist, not inviteList
         }
     }
-
- }
-
+}
