@@ -47,6 +47,7 @@ public class UserListView extends AppCompatActivity {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String eventId;
     private String listType;
+    private ArrayList entrantList;
 
     // Single list of users for this screen. This is used for all list types (waitlist, enrolled etc...)
     // The type comes from an intent extra
@@ -83,11 +84,21 @@ public class UserListView extends AppCompatActivity {
             return;
         }
 
+        if (listType.equals("waitlist")){
+            removeEntrant();
+        }
+
         //show loading text
         numberOfEntrants.setText("Loading " + listType + " ...");
 
         //Kick off loading
         loadUsersForEventList(eventId, listType);
+
+
+
+    }
+
+    public void removeEntrant(){
 
         Dialog dialog = new Dialog(this);
 
@@ -102,9 +113,9 @@ public class UserListView extends AppCompatActivity {
             TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
             TextView email = dialog.findViewById(R.id.user_email);
 
-            //userName.setText(invitedUsers.get(position).getName());
-           // phoneNumber.setText(invitedUsers.get(position).getPhoneNumber());
-           // email.setText(invitedUsers.get(position).getEmail());
+            //userName.setText(waitlist.get(position).getName());
+            //phoneNumber.setText(waitlist.get(position).getPhoneNumber());
+            //email.setText(waitlist.get(position).getEmail());
 
             Button cancelButton = dialog.findViewById(R.id.cancel_button);
             Button removalButton = dialog.findViewById(R.id.remove_button);
@@ -122,19 +133,8 @@ public class UserListView extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    // remove entrant from list via firestore stuff idk how it works I only know front end stuffs
-                    if (Objects.equals(listType, "waitlist")) {
-
-
-                    } else if (Objects.equals(listType, "invited")) {
-
-
-                    } else if (Objects.equals(listType, "enrolled")) {
-
-
-                    } else if (Objects.equals(listType, "cancelled")) {
-
-                    }
+                    // Get this entrant, remove them from waitlist of event
+                    // IDK HOW TO FIREBASE THIS I TRIED
 
                     dialog.dismiss();
                 }
@@ -150,19 +150,6 @@ public class UserListView extends AppCompatActivity {
     private void loadUsersForEventList(String eventId, String listType) {
         //convert the list type into the firestore field name
         String field = mapTypeToField(listType);
-
-
-        userView = findViewById(R.id.user_list);
-       
-        //String numberEntrantsMessage = "Number of users on waitlist : " + size;
-        //numberOfEntrants.setText(numberEntrantsMessage);
-
-        userView.setAdapter(userAdapter);     //link array adapter to ListView
-
-    }
-
-    /**
-    private void loadAllEntrantLists(String eventId) {
 
         if (field == null) {
             // We don't recognize this list type, return
@@ -199,7 +186,6 @@ public class UserListView extends AppCompatActivity {
                     finish();
                 });
     }
-    */
 
     /**
      * fetch the User docs in batches (because whereIn max is 10, we need a way to handle more).
@@ -341,5 +327,9 @@ public class UserListView extends AppCompatActivity {
         if (id == null) id = intent.getStringExtra("eventId");
         if (id == null) id = intent.getStringExtra("EXTRA_EVENT_ID");
         return id;
+    }
+
+    private void downloadUserList(){
+
     }
 }
