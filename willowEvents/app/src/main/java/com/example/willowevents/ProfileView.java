@@ -6,24 +6,29 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.entrant.EntrantHomeView;
-import com.example.willowevents.model.Organizer;
+import com.example.willowevents.entrant.ViewNotifications;
+import com.example.willowevents.initialPages.InitialView;
 import com.example.willowevents.model.User;
 import com.example.willowevents.organizer.MainOrganizerView;
 /**
  * The ProfileView class is used for the User's profile view. It displays
  * their information, allows them to edit it, and to return to the event view.
  */
-public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.EditInfoDialogueListener {
+public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.EditInfoDialogueListener, ConfirmProfileDeleteDialog.ConfirmationListener{
     // 1. get the current user
     String deviceID ;
 
@@ -45,24 +50,16 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         TextView nameText = findViewById(R.id.nameTextView);
         TextView emailText = findViewById(R.id.emailTextView);
         TextView phoneText = findViewById(R.id.phoneTextView);
+        Switch notifToggle = findViewById(R.id.mute_notifs);
+
 
         // INIT user controller
         userController = new UserController();
         // GET DEVICE ID
         deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        // GET CURRENT USER FROM DATABASE
-        userController.getUser(deviceID, new UserController.OnUserLoaded() {
-            @Override
-            public void onUserLoaded(User user) {
-                currentUser = user;
-
-                //and display the correct information
-                nameText.setText(getCurrName());
-                emailText.setText(getCurrEmail());
-                phoneText.setText(getCurrPhone());
-            }
-        });
+        // SHOW VIEW
+        displayUpdatedInfo();
 
         //Make the edit button clickable
         Button editButton = findViewById(R.id.edit_button);
@@ -74,6 +71,61 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
 
             }
         });
+
+        //Make the delete profile button
+        Button deleteButton = findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ConfirmProfileDeleteDialog().show(getSupportFragmentManager(), "deleteProfile");
+            }
+        });
+
+
+
+        //set the default value to their preference:
+
+        //Check to see if they change the toggle:
+        notifToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
+                // Use current view to check whether or not notifcations are muted
+                // notify firebase of change
+
+                // set the user that notifications are muted
+                currentUser.setHasNotifsMuted(isChecked);
+
+                // update user on the FIREBASE
+                userController.updateUserInfo(currentUser);
+
+            }
+        });
+
+        //Make the view notifications button
+        Button notifButton = findViewById(R.id.view_notif_button);
+        notifButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Go to the notification page
+                Log.println(Log.VERBOSE, "LILY", "clicked view notifs");
+
+                if(!currentUser.isHasNotifsMuted())
+                {
+                    Intent myIntent = new Intent(ProfileView.this, ViewNotifications.class);
+                    startActivity(myIntent);
+                }
+                else
+                {
+                    //when notifications are muted just don't let them access the page \(ovo)/
+                    displayNotifsMutedToast();
+                }
+
+
+            }
+        });
+
+
+
 
         //Buttons that allow the user to go back to the main views
         Button entrantViewButton = findViewById(R.id.entrant_view_button);
@@ -90,7 +142,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         organizerViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentUser.getUserType().equals( "organizer") || currentUser.getUserType().equals( "admin") ) {
+                if (currentUser.getUserType().equals("organizer") || currentUser.getUserType().equals("admin")) {
                     Intent myIntent = new Intent(ProfileView.this, MainOrganizerView.class);
                     startActivity(myIntent);
                 }
@@ -163,5 +215,72 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
     public String getCurrPhone()
     {
         return currentUser.getPhoneNumber();
+    }
+
+    public void displayNotifsMutedToast()
+    {
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(this, "Notifications are muted", duration);
+        toast.show();
+    }
+
+    /* View method that shows the updated user information from the database
+     * and then displays the fields
+     */
+    private void displayUpdatedInfo() {
+        userController.getUser(deviceID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                TextView nameText = findViewById(R.id.nameTextView);
+                TextView emailText = findViewById(R.id.emailTextView);
+                TextView phoneText = findViewById(R.id.phoneTextView);
+                Switch notifToggle = findViewById(R.id.mute_notifs);
+
+                // display the correct information
+                nameText.setText(getCurrName());
+                emailText.setText(getCurrEmail());
+                phoneText.setText(getCurrPhone());
+                notifToggle.setChecked(currentUser.isHasNotifsMuted());
+
+            }
+        });
+    }
+
+
+    // FOR PROFILE DELETIONS
+
+
+    /**
+     * This function defines the protocol for when user confirms deletion
+     *
+     */
+    @Override
+    public void onConfirmDeletion() {
+       DeletionProtocolConnector connector = new DeletionProtocolConnector(false);
+
+        // REMOVE USER
+        connector.deleteUser(deviceID);
+
+
+        // finish activity to avoid crash
+        finish();
+
+        // go back to initial view
+        Intent myIntent = new Intent(ProfileView.this, InitialView.class);
+        startActivity(myIntent);
+
+    }
+
+
+    /**
+     * This function defines the protocol for when user CANCELS deletion
+     * This is an empty function as nothing will happen and the pop up will simply close
+     */
+    @Override
+    public void onCancelDeletion() {
+
     }
 }

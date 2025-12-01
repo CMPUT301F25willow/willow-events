@@ -1,9 +1,8 @@
-package com.example.willowevents;
+package com.example.willowevents.controller;
 
 import android.util.Log;
 
 import com.example.willowevents.model.Event;
-import com.example.willowevents.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;

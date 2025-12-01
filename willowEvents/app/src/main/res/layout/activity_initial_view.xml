@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="40dp"
     android:background="@color/blue_base"
-    tools:context=".InitialView">
+    tools:context=".initialPages.InitialView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/square_background"
