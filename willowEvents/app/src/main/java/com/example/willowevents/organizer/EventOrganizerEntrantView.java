@@ -16,8 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
+import com.google.android.gms.maps.MapView;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.example.willowevents.model.Lottery;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,9 +42,11 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button backButton;
     private Button sendInvite;
     private Button updateEvent;
+    private Button geolocation;
     private boolean redraw = false;
 
     private String eventID;
+    private final Lottery lottery = new Lottery();    // refer to Lottery.java in model folder
 
     private final com.google.firebase.firestore.FirebaseFirestore db =
             com.google.firebase.firestore.FirebaseFirestore.getInstance();
@@ -100,10 +103,11 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         notifyInvited = findViewById(R.id.invited_send_notification_button);
         notifyEnrolled = findViewById(R.id.enrolled_send_notification_button);
         notifyCancelled = findViewById(R.id.cancelled_send_notification_button);
-        backButton = findViewById(R.id.back_button);
+
 
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
+        geolocation = findViewById(R.id.see_entrant_location_button);
 
 
         //Event event = addMockEvent();
@@ -193,6 +197,39 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         });
 
 
+        // open up map of location of people to dox 'em
+        Dialog geoDialog = new Dialog(this);
+        geolocation.setOnClickListener(new View.OnClickListener() {
+            // open up fragment to send invite
+            @Override
+            public void onClick(View view) {
+                geoDialog.setContentView(R.layout.join_map);
+                geoDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                geoDialog.setCancelable(false);
+                Button closeButton = geoDialog.findViewById(R.id.close_button);
+                //MapView map = geoDialog.findViewById(R.id.mapView);
+
+                // Get geolocation of entrants on wait list for event, display on event
+                //  HOW TO??!
+
+
+
+                // click on cancel button to leave fragment
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        geoDialog.dismiss();
+                    }
+                });
+                geoDialog.show();
+            }
+        });
+
+
+
+
+
+
 
         /** For inviting entrants and redrawing
         // I believe for redrawing, we need to change the button depending on whether entrants have been redrawn or not
@@ -239,6 +276,15 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
                         // get invitelistlimit, set and use
                         int value = Integer.parseInt(amount.getText().toString());
+
+                        if ( value > event.getWaitlist().size()){
+                            amount.setError("Not enough entrants to invite");
+                            amount.requestFocus();
+                            return;
+                        }
+
+
+
                         //Load the event from firestore using the eventID
                         db.collection("events").document(eventId).get().addOnSuccessListener(snapshot -> {
                             if (!snapshot.exists()){
@@ -250,7 +296,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                             }
                             //set the invite list limit
                             event.setInvitelistlimit(value);
-                            doLottery(event);
+                            lottery.doLottery(event);
                             //update the event back into firestore
                             db.collection("events")
                                     .document(eventId)
@@ -274,25 +320,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     }
 
-
-    /**
-     * For a max value, a max number of random entrants will be chosen from an event's
-     * WaitList and be moved to the event's ApprovedList.
-     * max refers to the value of inviteListLimit - size of InviteList - size of ApprovedList
-     * @param event - Event
-     */
-    public void doLottery(Event event){
-
-        int max = event.getInvitelistlimit() - event.getInviteList().size() - event.getApprovedList().size();
-
-        while ( max > 0){
-            max-=1;
-            int size = event.getWaitlist().size();
-            int random = new Random().nextInt(size);
-            event.getInviteList().add(event.getWaitlist().get(random));
-            event.getWaitlist().remove(random);
-        }
-    }
 
  }
 

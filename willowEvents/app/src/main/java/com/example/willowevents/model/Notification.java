@@ -23,8 +23,7 @@ public class Notification {
     }
 
 
-<<<<<<< HEAD
-=======
+
     public void setNotificationMessage(String notificationMessage) {
         this.notificationMessage = notificationMessage;
     }
@@ -32,7 +31,7 @@ public class Notification {
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
->>>>>>> 09b8d8205d1aa1098c93cd33691d961ae0d9b46f
+
 
     /**
      * Instatiator method for firestore
