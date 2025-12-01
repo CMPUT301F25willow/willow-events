@@ -22,18 +22,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EventOrganizerInfoView extends AppCompatActivity {
     private String eventId;
     private Event event;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_info_view);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Button backButton = findViewById(R.id.back_button);
         Button seeEntrants = findViewById(R.id.entrants_button);
+        Button qrButton = findViewById(R.id.qr_code_button);
+        TextView eventName = findViewById(R.id.eventName);
+
 
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
-        //check for any data sent along side activity change
+//check for any data sent along side activity change
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             eventId = extras.getString("Event ID");
@@ -45,6 +48,48 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
             startActivity(origIntent);
         }
+        if (eventId == null) {
+            return;
+        }
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("events")
+                .document(eventId)
+                .get()
+                .addOnSuccessListener(doc -> {
+                    event = doc.toObject(Event.class);
+
+                    if (event == null) {
+                        android.widget.Toast.makeText(
+                                EventOrganizerInfoView.this,
+                                "Could not find event data",
+                                android.widget.Toast.LENGTH_LONG
+                        ).show();
+                        return;
+                    }
+
+                    // Fill in UI with event data
+                    if (eventName != null) {
+                        eventName.setText(event.getTitle());
+                    }
+
+                    //set up QR button
+                    qrButton.setOnClickListener(v -> {
+                        Intent intent = new Intent(EventOrganizerInfoView.this, QrCodeActivity.class);
+                        intent.putExtra(QrCodeActivity.EXTRA_EVENT_NAME, event.getTitle());
+                        intent.putExtra(QrCodeActivity.EXTRA_EVENT_DESCRIPTION, event.getDescription());
+                        intent.putExtra(QrCodeActivity.EXTRA_EVENT_POSTER_URL, event.getPosterUrl());  // 👈 NEW
+                        startActivity(intent);
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    android.widget.Toast.makeText(
+                            EventOrganizerInfoView.this,
+                            "Failed to load event: " + e.getMessage(),
+                            android.widget.Toast.LENGTH_LONG
+                    ).show();
+                });
+
 
         //TODO: event = get event from database with eventId
 
@@ -54,11 +99,6 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
-        TextView eventName = findViewById(R.id.eventName);
-        //Other initializations
-
-//        eventName.setText(event.getTitle());
-        //Other sets
 
         backButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, MainOrganizerView.class);
