@@ -2,8 +2,9 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="InitialView">
+      <SelectionState runConfigName="EventCreationView">
         <option name="selectionMode" value="DROPDOWN" />
+<<<<<<< HEAD
         <DropdownSelection timestamp="2025-12-01T08:24:09.845232900Z">
           <Target type="DEFAULT_BOOT">
             <handle>
@@ -12,6 +13,8 @@
           </Target>
         </DropdownSelection>
         <DialogSelection />
+=======
+>>>>>>> c3c9c6ce390dc5c20043f8ce5485f3a130d8c04a
       </SelectionState>
       <SelectionState runConfigName="UserListView">
         <option name="selectionMode" value="DROPDOWN" />
@@ -41,6 +44,7 @@
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Miche\.android\avd\Medium_Phone.avd" />
+<<<<<<< HEAD
             </handle>
           </Target>
         </DropdownSelection>
@@ -74,6 +78,8 @@
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Miche\.android\avd\Pixel_7_Pro.avd" />
+=======
+>>>>>>> c3c9c6ce390dc5c20043f8ce5485f3a130d8c04a
             </handle>
           </Target>
         </DropdownSelection>
