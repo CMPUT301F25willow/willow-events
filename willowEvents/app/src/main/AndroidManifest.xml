@@ -16,6 +16,7 @@
         <activity
             android:name=".ProfileView"
             android:exported="false" />
+        <activity android:name=".organizer.QrCodeActivity" />
         <activity
             android:name=".initialPages.InitialView"
             android:exported="false" />
