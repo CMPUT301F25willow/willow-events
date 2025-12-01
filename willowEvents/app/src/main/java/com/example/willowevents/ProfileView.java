@@ -34,6 +34,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
 
     User currentUser;
     UserController userController;
+    TextView userNameText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         TextView nameText = findViewById(R.id.nameTextView);
         TextView emailText = findViewById(R.id.emailTextView);
         TextView phoneText = findViewById(R.id.phoneTextView);
+        userNameText = findViewById(R.id.UserNameText);
         Switch notifToggle = findViewById(R.id.mute_notifs);
 
 
@@ -177,6 +179,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
         nameText.setText(newName);
         emailText.setText(newEmail);
         phoneText.setText(newPhone);
+        userNameText.setText(newName);
 
         //Update the user's actual information
         currentUser.setName(newName);
@@ -243,6 +246,7 @@ public class ProfileView extends AppCompatActivity implements ChangeProfileInfo.
                 nameText.setText(getCurrName());
                 emailText.setText(getCurrEmail());
                 phoneText.setText(getCurrPhone());
+                userNameText.setText(getCurrName());
                 notifToggle.setChecked(currentUser.isHasNotifsMuted());
 
             }
