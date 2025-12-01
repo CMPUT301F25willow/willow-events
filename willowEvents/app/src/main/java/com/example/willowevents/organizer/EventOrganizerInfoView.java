@@ -51,8 +51,6 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-
-
         //check for any data sent along side activity change
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         Bundle extras = getIntent().getExtras();
@@ -214,8 +212,6 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                 cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // remove all uploaded changes
-
                         dialog.dismiss();
                     }
                 });

@@ -101,5 +101,15 @@
         app:layout_constraintStart_toStartOf="@+id/eventTag"
         app:layout_constraintTop_toTopOf="@+id/eventTag" />
 
+    <ImageView
+        android:id="@+id/posterImage"
+        android:layout_width="175dp"
+        android:layout_height="129dp"
+        app:layout_constraintBottom_toBottomOf="@+id/eventBase"
+        app:layout_constraintEnd_toEndOf="@+id/eventBase"
+        app:layout_constraintStart_toStartOf="@+id/eventBase"
+        app:layout_constraintTop_toBottomOf="@+id/eventTextBase"
+        tools:srcCompat="@tools:sample/avatars" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

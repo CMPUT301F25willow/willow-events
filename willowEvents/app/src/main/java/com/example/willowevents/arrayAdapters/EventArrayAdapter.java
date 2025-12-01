@@ -2,6 +2,7 @@ package com.example.willowevents.arrayAdapters;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,22 @@ public class EventArrayAdapter extends ArrayAdapter {
 
         //get event name and display it in the view
         TextView eventName = view.findViewById(R.id.eventName);
+        ImageView posterImage = view.findViewById(R.id.posterImage);
         eventName.setText(event.getTitle());
+
+        Uri posterUrl = Uri.parse(event.getPosterUrl());
+
+        // PLEASE ADD PICTURE TO EVENT LIST CONTENT PLS IDK HOW TO DO IT
+        if (posterUrl != null) {
+
+           // posterImage.setImageURI(posterUrl);
+            //posterImage.setVisibility(View.VISIBLE);
+
+        } else {
+            //posterImage.setVisibility(View.GONE);
+        }
+
+        posterImage.setVisibility(View.GONE);
 
         return view;
     }
