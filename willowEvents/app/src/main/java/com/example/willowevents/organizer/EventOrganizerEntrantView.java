@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.Notification;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Lottery;
 import com.google.android.gms.maps.MapView;
@@ -30,7 +31,6 @@ import java.util.Random;
 public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private String eventId;
-    private Event event;
     private Button seeWaitlist;
     private Button seeInvited;
     private Button seeEnrolled;
@@ -272,11 +272,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                         // get invitelistlimit, set and use
                         int value = Integer.parseInt(amount.getText().toString());
 
-                        if ( value > event.getWaitlist().size()){
-                            amount.setError("Not enough entrants to invite");
-                            amount.requestFocus();
-                            return;
-                        }
 
                         //Load the event from firestore using the eventID
                         db.collection("events").document(eventId).get().addOnSuccessListener(snapshot -> {
@@ -313,6 +308,26 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
     }
 
+
+    /**
+     * For a max value, a max number of random entrants will be chosen from an event's
+     * WaitList and be moved to the event's ApprovedList.
+     * max refers to the value of inviteListLimit - size of InviteList - size of ApprovedList
+     * @param event - Event
+     */
+    public void doLottery(Event event){
+
+        int max = event.getInvitelistlimit() - event.getInviteList().size() - event.getApprovedList().size();
+
+        while ( max > 0){
+            max-=1;
+            int size = event.getWaitlist().size();
+            int random = new Random().nextInt(size);
+            event.getInviteList().add(event.getWaitlist().get(random));
+            new Notification(event, event.getWaitlist().get(random), true);
+            event.getWaitlist().remove(random);
+        }
+    }
 
  }
 
