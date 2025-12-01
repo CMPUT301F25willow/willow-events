@@ -17,6 +17,7 @@ import com.example.willowevents.arrayAdapters.InviteArrayAdapter;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
+import com.example.willowevents.controller.NotificationController;
 import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Image;
@@ -48,7 +49,7 @@ public class AdminHomeView extends AppCompatActivity {
     User selectedProfile;
     Image selectedImage;
     Notification selectedNotif;
-
+    NotificationController notificationController;
     enum IsDisplaying {
         EVENT,
         PROFILE,
@@ -78,6 +79,9 @@ public class AdminHomeView extends AppCompatActivity {
         profileList = new ArrayList<>();
         imageList = new ArrayList<>();
         notifList = new ArrayList<>();
+
+        // CONTROLLER
+        notificationController = new NotificationController();
 
         //Display all system events
         BrowseEvents.setOnClickListener(view -> {
@@ -110,12 +114,19 @@ public class AdminHomeView extends AppCompatActivity {
         });
 
         //Display all system notifications
-        BrowseImages.setOnClickListener(view -> {
+        BrowseNotifs.setOnClickListener(view -> {
             //TODO: display all invites/notifs in the database
             eventView = findViewById(R.id.eventList);
-            notifAdapter = new NotificationArrayAdapter(this, notifList);
-            eventView.setAdapter(notifAdapter);
 
+            notificationController.generateAllNotifications(new NotificationController.OnNotificationsGenerated() {
+                    @Override
+                    public void onNotificationsLoaded(ArrayList<Notification> notifications) {
+                        notifList = notifications;
+                        notifAdapter = new NotificationArrayAdapter(AdminHomeView.this, notifList);
+                        eventView.setAdapter(notifAdapter);
+                        notifAdapter.notifyDataSetChanged();
+                    }
+                });
             isDisplaying = IsDisplaying.NOTIF;
         });
 
@@ -156,7 +167,6 @@ public class AdminHomeView extends AppCompatActivity {
                     deleteButton.setVisibility(View.GONE);
                     break;
                 case NOTIF:
-                     // TODO remove selectedNotif from events
                     deleteButton.setVisibility(View.GONE);
                     break;
             }

@@ -116,7 +116,14 @@ public class NotificationController {
         });
     }
 
-    public void deleteNotification() {
+    /**
+     * Deletes a notification given a Notification in the database
+     * @param notification MUST HAVE AN ID
+     *
+     */
+    public void deleteNotification(Notification notification) {
+        DocumentReference docRef = notificationsRef.document(notification.getID());
+        docRef.delete();
 
     }
 
