@@ -5,11 +5,15 @@ import android.util.Log;
 import com.example.willowevents.model.Event;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EventController {
@@ -57,7 +61,7 @@ public class EventController {
 
             Event event = null;
 
-            // if user exists
+            // if event exists
             if (document.exists()) {
                 event = document.toObject(Event.class);
             }
@@ -77,10 +81,64 @@ public class EventController {
             callback.getCapacity(waitlistLimit);
         });
     }
+
+
+    /**
+     * This filters events based on the provided tags and dates
+     * Tags and dates can be null. In that case, all events will be included
+     * @param preferences a list of tags to be compared with the event description and title
+     * @param from The earliest date INCLUSIVE to search for an event end. ASSUME FROM DATE IS NOT AFTER TO DATE
+     * @param to The latest date INCLUSIVE to search for event start ASSUME TO DATE IS NOT BEFORE FROM DATE
+     * @param callback is the callback function for the Activity to implement once event has been generated
+     */
+    public void filterEvents(List<String> preferences, Date from, Date to, OnEventsGeneration callback) {
+        Query q = eventsRef;
+
+        if (from != null) {
+            q = q.whereGreaterThanOrEqualTo("eventDate", from);
+        }
+
+
+        if (to != null) {
+
+            q = q.whereLessThanOrEqualTo("eventDate", to);
+        }
+
+        // AFTER DATE FILTERING, TAG FILTER NEXT
+        q.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            ArrayList<Event> events = new ArrayList<>();
+
+            for (DocumentSnapshot eventDoc : queryDocumentSnapshots) {
+                // get event
+                Event event = eventDoc.toObject(Event.class);
+
+                if (!preferences.isEmpty()) {    // CASE 1: TAGS ARE SELECTED THEN NARROW DOWN
+                    String title = event.getTitle().toLowerCase();
+                    String description = event.getDescription().toLowerCase();
+
+                    for (String preference: preferences) {
+                        String preferenceLower = preference.toLowerCase();
+
+                        // IF TAG MATCHES THEN SHOW EVENT
+                        if (description.contains(preferenceLower) || title.contains(preferenceLower)) {
+
+                            events.add(event);
+
+                            // break inner for loop for preferences already matching
+                            break;
+                        }
+                    }
+                } else {             // CASE 2: NO TAGS SELECTED THEN INCLUDE EVERYTHING
+                    events.add(event);
+                }
+            }
+            // AFTER TAG FILTERING, CALLBACK
+            callback.onEventsGenerated(events);
+        });
+    }
     // ------------- UPDATING EVENT
     public void updateEventInfo(Event event ) {
-        tempDeleteEvent(event);
-        reAddEvent(event);
+        eventsRef.document(eventsRef.getId()).set(event);
     }
 
     /**

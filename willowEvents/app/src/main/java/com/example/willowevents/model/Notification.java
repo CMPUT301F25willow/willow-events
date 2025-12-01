@@ -8,13 +8,15 @@ import java.time.LocalDateTime;
  * This class defines the Notification object
  */
 public class Notification {
+
+    String ID;
+
     String eventId;
     String senderID;
     String recipientID;
     String eventName;
     String notificationMessage;
     LocalDateTime dateTime;
-
     public void setEventId(String eventId) {
         this.eventId = eventId;
     }
@@ -48,6 +50,7 @@ public class Notification {
     }
 
     //Invite makes notification with event
+
     public Notification(Event event, String recipientID, boolean chosen){
         eventId = event.getId();
         eventName = event.getTitle();
@@ -62,12 +65,11 @@ public class Notification {
 
         //TODO: add to database?
     }
-
     // getters
+
     public String getNotificationMessage(){
         return notificationMessage;
     }
-
     public String getEventName(){
         return eventName;
     }
@@ -87,12 +89,20 @@ public class Notification {
     public void setSenderID(String senderID) {
         this.senderID = senderID;
     }
-    
+
     public String getRecipientID() {
         return recipientID;
     }
 
     public void setRecipientID(String recipientID) {
         this.recipientID = recipientID;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }

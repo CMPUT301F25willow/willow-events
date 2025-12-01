@@ -28,7 +28,7 @@ public class Entrant extends User {
     /**
      * This creates an Entrant object with no parameters
      */
-    public Entrant(){}
+    public Entrant(){ super() ; }
 
     /**
      * This create an Entrant object with only a name parameter
