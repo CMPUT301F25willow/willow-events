@@ -44,8 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/blue_base"
-        android:text="LOG IN"
+        android:backgroundTint="@color/blue_dark"
+        android:text="Log In"
         android:textColor="@color/black"
         app:flow_verticalBias="200"
         app:layout_constraintEnd_toStartOf="@+id/signup_button"
@@ -56,38 +56,12 @@
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue_base"
         android:layout_margin="10dp"
-        android:text="SIGN UP"
+        android:backgroundTint="@color/grey_dark"
+        android:text="Sign Up"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/square_background"
         app:layout_constraintStart_toEndOf="@+id/login_button"
         app:layout_constraintTop_toBottomOf="@+id/appName" />
 
-    <Button
-        android:id="@+id/device_login_button"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/blue_dark"
-        android:text="Sign In (Device ID)"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/square_background"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/square_background"
-        app:layout_constraintTop_toBottomOf="@+id/appName" />
-
-    <Button
-        android:id="@+id/device_signup_button"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/grey_dark"
-        android:text="Register (Device ID)"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/square_background"
-        app:layout_constraintEnd_toEndOf="@+id/square_background"
-        app:layout_constraintStart_toStartOf="@+id/square_background"
-        app:layout_constraintTop_toBottomOf="@+id/device_login_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
