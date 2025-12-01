@@ -278,8 +278,6 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                             return;
                         }
 
-                        event.setInvitelistlimit(value);
-                        lottery.doLottery(event);           // refer to Lottery.java in model folder
                         //Load the event from firestore using the eventID
                         db.collection("events").document(eventId).get().addOnSuccessListener(snapshot -> {
                             if (!snapshot.exists()){
@@ -291,7 +289,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                             }
                             //set the invite list limit
                             event.setInvitelistlimit(value);
-                            doLottery(event);
+                            lottery.doLottery(event);           // refer to Lottery.java in model folder
                             //update the event back into firestore
                             db.collection("events")
                                     .document(eventId)

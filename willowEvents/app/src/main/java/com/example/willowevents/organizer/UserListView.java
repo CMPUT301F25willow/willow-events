@@ -98,29 +98,9 @@ public class UserListView extends AppCompatActivity {
         String field = mapTypeToField(listType);
 
         userView = findViewById(R.id.user_list);
-        int size;
-        if (Objects.equals(listType, "waitlist")) {
-            size = waitlistUsers.size();
-            userAdapter = new UserArrayAdapter(this, waitlistUsers);
-            userList = waitlistUsers;
-        } else if (Objects.equals(listType, "invited")) {
-            size = invitedUsers.size();
-            userAdapter = new UserArrayAdapter(this, invitedUsers);
-            userList = invitedUsers;
-        } else if (Objects.equals(listType, "enrolled")) {
-            size = enrolledUsers.size();
-            userAdapter = new UserArrayAdapter(this, enrolledUsers);
-            userList = enrolledUsers;
-        } else if (Objects.equals(listType, "cancelled")) {
-            size = cancelledUsers.size();
-            userAdapter = new UserArrayAdapter(this, cancelledUsers);
-            userList = cancelledUsers;
-        } else {
-            //smth bad happened
-            size = 0;
-        }
-        String numberEntrantsMessage = "Number of users on waitlist : " + size;
-        numberOfEntrants.setText(numberEntrantsMessage);
+       
+        //String numberEntrantsMessage = "Number of users on waitlist : " + size;
+        //numberOfEntrants.setText(numberEntrantsMessage);
 
         userView.setAdapter(userAdapter);     //link array adapter to ListView
 
@@ -141,9 +121,9 @@ public class UserListView extends AppCompatActivity {
 
 
 
-                userName.setText(userList.get(position).getName());
-                phoneNumber.setText(userList.get(position).getPhoneNumber());
-                email.setText(userList.get(position).getEmail());
+                userName.setText(users.get(position).getName());
+                phoneNumber.setText(users.get(position).getPhoneNumber());
+                email.setText(users.get(position).getEmail());
 
                 Button cancelButton = dialog.findViewById(R.id.cancel_button);
                 Button removalButton = dialog.findViewById(R.id.remove_button);
