@@ -33,6 +33,7 @@ public class UserListView extends AppCompatActivity {
     private UserArrayAdapter userAdapter;
     private static final int WHERE_IN_MAX = 10;
     private Button close;
+    private Button download;
     private TextView numberOfEntrants;
     private ArrayList<User> waitlistUsers;
     private ArrayList<User> invitedUsers;
@@ -99,6 +100,7 @@ public class UserListView extends AppCompatActivity {
 
         //Get elements
         close = findViewById(R.id.close_button);
+        download = findViewById(R.id.download_button);
         numberOfEntrants = findViewById(R.id.number_people_on_waitlist);
 
         //Go back on close
@@ -106,6 +108,10 @@ public class UserListView extends AppCompatActivity {
             Intent myIntent = new Intent(UserListView.this, EventOrganizerEntrantView.class);
             myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
+        });
+
+        download.setOnClickListener(view -> {
+            downloadUserList();
         });
 
         userView = findViewById(R.id.user_list);
@@ -119,6 +125,7 @@ public class UserListView extends AppCompatActivity {
         } else if (Objects.equals(listType, "enrolled")) {
             size = enrolledUsers.size();
             userAdapter = new UserArrayAdapter(this, enrolledUsers);
+            download.setVisibility(Button.VISIBLE);
         } else if (Objects.equals(listType, "cancelled")) {
             size = cancelledUsers.size();
             userAdapter = new UserArrayAdapter(this, cancelledUsers);
@@ -255,5 +262,9 @@ public class UserListView extends AppCompatActivity {
         if (id == null) id = intent.getStringExtra("eventId");
         if (id == null) id = intent.getStringExtra("EXTRA_EVENT_ID");
         return id;
+    }
+
+    private void downloadUserList(){
+
     }
 }

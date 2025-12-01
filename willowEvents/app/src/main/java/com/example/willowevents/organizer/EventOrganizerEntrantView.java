@@ -271,6 +271,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             int random = new Random().nextInt(size);
             event.getInviteList().add(event.getWaitlist().get(random));
             event.getInviteList().remove(random);
+            // TODO: send invite notification
         }
     }
 
