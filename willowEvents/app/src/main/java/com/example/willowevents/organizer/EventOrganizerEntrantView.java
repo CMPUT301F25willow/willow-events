@@ -250,7 +250,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
                             }
                             //set the invite list limit
                             event.setInvitelistlimit(value);
-                            lottery.doLottery(event);
+                            doLottery(event);
                             //update the event back into firestore
                             db.collection("events")
                                     .document(eventId)

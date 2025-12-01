@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-             android:layout_height="match_parent">
+     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -19,6 +19,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_art"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -29,6 +30,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_music"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -39,6 +42,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_sport"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -49,6 +54,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_movie"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -59,6 +66,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_food"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -69,6 +78,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_gaming"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -79,16 +90,20 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_party"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:fontFamily="cursive"
-                android:text="Parties"
+                android:text="Party"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textSize="16sp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_fitness"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -99,6 +114,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_social"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -107,30 +124,108 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textSize="16sp" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filter_bday"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:fontFamily="cursive"
+                android:text="Birthday"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filter_bday2"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:fontFamily="cursive"
+                android:text="Theatre"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filter_bday4"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:fontFamily="cursive"
+                android:text="Entertainment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filter_bday3"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:fontFamily="cursive"
+                android:text="Tech"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="16sp" />
+
         </com.google.android.material.chip.ChipGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/filter_start_date"
+                android:layout_marginStart="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue_dark"
                 android:text="Select Earliest Date"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 app:cornerRadius="@dimen/corner_radius" />
+
+            <TextView
+                android:id="@+id/earliest_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="85dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="No date selected"
+                android:textAlignment="textEnd" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/filter_end_date"
+                android:layout_marginStart="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue_dark"
                 android:text="Select Latest Date"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 app:cornerRadius="@dimen/corner_radius" />
+
+            <TextView
+                android:id="@+id/latest_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="85dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="No date selected"
+                android:textAlignment="textEnd" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,7 @@ import com.example.willowevents.arrayAdapters.EventArrayAdapter;
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
+import com.example.willowevents.initialPages.InitialView;
 import com.example.willowevents.model.Event;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
     ArrayList<Event> myEvents;
     ArrayList<Event> availableEvents;
     ArrayList<Event> allEvents;
+    ArrayList<Event> filteredEvents;
     Button MyEventsButton;
     Button AvailableEventsButton;
     Button AllEventsButton;
@@ -216,8 +219,17 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
         eventView.setOnItemClickListener((parent, view, position, id) -> {
                     Event selectedEvent = (Event )parent.getItemAtPosition(position);
                     Intent myIntent = new Intent(EntrantHomeView.this, EventEntrantView.class);
-                    myIntent.putExtra("eventID", selectedEvent.getId());
-                    startActivity(myIntent);
+
+                    if (selectedEvent.getId() == null) {
+                        String notifyText = "ERROR: Cannot open event. Event has no ID.";
+                        Toast toast = Toast.makeText(EntrantHomeView.this, notifyText, Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else {
+
+                        myIntent.putExtra("eventID", selectedEvent.getId());
+                        startActivity(myIntent);
+                    }
                 });
 
 
@@ -233,6 +245,34 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
 
     @Override
     public void onFilterConfirmation(List<String> preferences, Date from, Date to) {
-        //
+
+        // check if dates are consistent
+        boolean datesConsistent = true;
+        if (to != null && from != null) {
+
+            // FLAG IF DATES ARE NOT CONSISTENT
+            if (to.before(from)) {
+                String notifyText = "FROM date must NOT be after TO date.";
+                Toast toast = Toast.makeText(EntrantHomeView.this, notifyText, Toast.LENGTH_SHORT);
+                toast.show();
+                datesConsistent = false;
+            }
+        }
+
+        if (datesConsistent) {
+            eventController.filterEvents(preferences, from, to, new EventController.OnEventsGeneration() {
+                @Override
+                public void onEventsGenerated(ArrayList<Event> events) {
+                    // now that events have been generated show them in adapter
+                    filteredEvents = events;
+                    eventAdapter = new EventArrayAdapter(EntrantHomeView.this, filteredEvents);
+                    eventView.setAdapter(eventAdapter);
+                    eventAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
     }
+
+
 }
