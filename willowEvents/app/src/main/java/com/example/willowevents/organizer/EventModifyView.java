@@ -42,28 +42,40 @@ public class EventModifyView extends AppCompatActivity {
     private TextView eventDateTv, regOpenTv, regCloseTv;
     private Button eventDateBtn, regOpenBtn, regCloseBtn, finishEditBtn, cancelBtn;
     private CheckBox limitWaitlistCb;
+    private String eventId;
     private final SimpleDateFormat displayFmt = new SimpleDateFormat("M/d/yy|HH:mm", Locale.US);
 
 
-    @Nullable private Date eventDate;
-    @Nullable private Date regOpenDate;
-    @Nullable private Date regCloseDate;
+    //@Nullable private Date eventDate;
+    //@Nullable private Date regOpenDate;
+   // @Nullable private Date regCloseDate;
 
     // Use Case handles the actual event Creation
     private CreateEventUseCase useCase;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit_view);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Intent origIntent = new Intent(this, EventOrganizerInfoView.class);
+        //check for any data sent along side activity change
         Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            eventId = extras.getString("Event ID");
+            if (eventId == null) {
+                android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+                startActivity(origIntent);
+            }
+        } else {
+            android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+            startActivity(origIntent);
+        }
 
-        bindViews();
+
+        //bindViews();
 
         cancelBtn.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventModifyView.this, EventOrganizerInfoView.class);
@@ -72,9 +84,10 @@ public class EventModifyView extends AppCompatActivity {
 
 
 
+
     }
 
-
+    /**
     private void bindViews() {
         nameEt = findViewById(R.id.event_name_entry);
         descEt = findViewById(R.id.additional_details_entry);
@@ -93,6 +106,8 @@ public class EventModifyView extends AppCompatActivity {
 
         limitWaitlistCb = findViewById(R.id.limit_waitlist_checkbox);
     }
+
+     */
 
 }
 

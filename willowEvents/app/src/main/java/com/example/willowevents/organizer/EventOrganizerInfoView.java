@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EventOrganizerInfoView extends AppCompatActivity {
     private String eventId;
     private Event event;
+    private Button backButton, seeEntrants, uploadImage, editEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,10 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         setContentView(R.layout.activity_event_organizer_info_view);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Button backButton = findViewById(R.id.back_button);
-        Button seeEntrants = findViewById(R.id.entrants_button);
-        Button uploadImage = findViewById(R.id.upload_image_button);
-        Button editEvent = findViewById(R.id.edit_button);
+        backButton = findViewById(R.id.back_button);
+        seeEntrants = findViewById(R.id.entrants_button);
+        uploadImage = findViewById(R.id.upload_image_button);
+        editEvent = findViewById(R.id.edit_button);
 
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         //check for any data sent along side activity change
@@ -78,8 +79,10 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
         editEvent.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, EventModifyView.class);
+            myIntent.putExtra("Event ID", eventId);
             startActivity(myIntent);
         });
+
 
 
         // For updating Poster for Event
