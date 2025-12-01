@@ -49,8 +49,10 @@ public class UserListView extends AppCompatActivity {
         userView = findViewById(R.id.user_list);
         close = findViewById(R.id.close_button);
         numberOfEntrants = findViewById(R.id.number_people_on_waitlist);
+        download = findViewById(R.id.download_button);
 
         close.setOnClickListener(v -> finish());
+        download.setOnClickListener(v -> downloadUserList());
 
         // Read extras
         Bundle extras = getIntent().getExtras();
@@ -60,9 +62,10 @@ public class UserListView extends AppCompatActivity {
             return;
         }
 
-
         listType = extras.getString("Type");
         eventId = resolveEventId(getIntent());
+
+        if (Objects.equals(listType, "approvedList")) download.setVisibility(Button.VISIBLE);
 
         if (eventId == null || listType == null) {
             //Without an eventID or list type, we cant do anything. So return
