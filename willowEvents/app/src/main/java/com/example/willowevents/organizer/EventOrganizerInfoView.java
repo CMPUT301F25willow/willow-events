@@ -2,17 +2,16 @@ package com.example.willowevents.organizer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.willowevents.R;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -31,6 +30,18 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.back_button);
         Button seeEntrants = findViewById(R.id.entrants_button);
+
+        TextView userNameText = findViewById(R.id.username);
+        String userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        UserController userController = new UserController();
+        userController.getUser(userID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                User currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                userNameText.setText(currentUser.getName());
+            }
+        });
 
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         //check for any data sent along side activity change
@@ -54,7 +65,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
-        TextView eventName = findViewById(R.id.eventName);
+        TextView eventName = findViewById(R.id.username);
         //Other initializations
 
 //        eventName.setText(event.getTitle());

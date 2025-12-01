@@ -3,6 +3,7 @@ package com.example.willowevents.organizer;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
+import com.example.willowevents.controller.UserController;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Notification;
 import com.example.willowevents.model.Event;
+import com.example.willowevents.model.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -41,9 +44,9 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
     private Button backButton;
     private Button sendInvite;
     private Button updateEvent;
+    private TextView userNameText;
     private boolean redraw = false;
 
-    private String eventID;
 
     private final com.google.firebase.firestore.FirebaseFirestore db =
             com.google.firebase.firestore.FirebaseFirestore.getInstance();
@@ -101,6 +104,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         notifyEnrolled = findViewById(R.id.enrolled_send_notification_button);
         notifyCancelled = findViewById(R.id.cancelled_send_notification_button);
         backButton = findViewById(R.id.back_button);
+        userNameText = findViewById(R.id.username);
 
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
@@ -108,6 +112,16 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
         //Event event = addMockEvent();
 
+        String userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        UserController userController = new UserController();
+        userController.getUser(userID, new UserController.OnUserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                User currentUser = user;
+                // VIEWS AND INTERACTIBLES
+                userNameText.setText(currentUser.getName());
+            }
+        });
 
         updateEvent.setOnClickListener(view -> {
             //Switch views
