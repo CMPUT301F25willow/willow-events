@@ -31,14 +31,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
-        android:text="APP NAME"
+        android:text="Willow Events"
         android:textAlignment="center"
         android:textSize="70sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/square_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="50"/>
+        app:layout_constraintTop_toTopOf="@+id/square_background" />
 
     <Button
         android:id="@+id/login_button"
