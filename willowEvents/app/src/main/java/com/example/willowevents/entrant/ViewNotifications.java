@@ -2,15 +2,19 @@ package com.example.willowevents.entrant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.arrayAdapters.NotificationArrayAdapter;
 import com.example.willowevents.ProfileView;
+import com.example.willowevents.controller.EventController;
+import com.example.willowevents.controller.NotificationController;
 import com.example.willowevents.model.Event;
 
 import com.example.willowevents.R;
@@ -28,8 +32,7 @@ public class ViewNotifications extends AppCompatActivity {
     NotificationArrayAdapter notiAdapter;
     Button backButton;
 
-    //GOING TO NEED FIRESTORE HELP WITH THIS
-
+    String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,23 +41,26 @@ public class ViewNotifications extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
         notiListView = findViewById(R.id.invite_list);
 
-        // TODO: FIRESTORE implement based on the actual notifications the user ha
+        // get userID
+        userID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        //TODO: FIRESTORE delete this temporary code
-        notis = new ArrayList<Notification>();
-        Event event = new Event();
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        notis.add(new Notification(event, "myNotificationMessage", null));
-        //=======
+        // NOTIFICATION CONTROLLER
+        NotificationController notificationController = new NotificationController();
 
-        notiAdapter = new NotificationArrayAdapter(this, notis);
-        notiListView.setAdapter(notiAdapter);
+        // RETRIEVE NOTIFICATIONS
+        notis = new ArrayList<>();
+        notiListView.setEnabled(false);
+        notificationController.generateUserNotifications(userID, new NotificationController.OnNotificationsGenerated() {
+            @Override
+            public void onNotificationsLoaded(ArrayList<Notification> notifications) {
+                notis = notifications;
+                notiAdapter = new NotificationArrayAdapter(ViewNotifications.this, notis);
+                notiListView.setAdapter(notiAdapter);
+                notiAdapter.notifyDataSetChanged();
+                notiListView.setEnabled(true);
+
+            }
+        });
 
         backButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(ViewNotifications.this, ProfileView.class);
@@ -67,8 +73,25 @@ public class ViewNotifications extends AppCompatActivity {
                 Intent myIntent = new Intent(ViewNotifications.this, EventEntrantView.class);
                 //need to pass event to be shown
                 myIntent.putExtra("eventID", eventId);
-                startActivity(myIntent);
+
+                EventController eventController = new EventController();
+
+                eventController.generateOneEvent(eventId, new EventController.OnEventGeneration() {
+                    @Override
+                    public void onEventGenerated(Event event) {
+                        if (event == null) {
+                            String notifyText = "Cannot find event. Event likely no longer exists";
+                            Toast toast = Toast.makeText(ViewNotifications.this, notifyText, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }                 else {
+                            startActivity(myIntent);
+                        }
+                    }
+                });
             }
-        });
+
+
+
+            });
     }
 }

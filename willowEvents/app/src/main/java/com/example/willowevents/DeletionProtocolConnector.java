@@ -123,10 +123,13 @@ public class DeletionProtocolConnector {
                 for (Event event: events) {
                     // remove user from Waiting list, registered list, cancelled list and invite list
                     Log.e("EVENT ID EXISTS?", "EVENT ID IS" + event.getId());
-                    eventController.removeUserRegisteredList(event.getId(), userID);
-                    eventController.removeUserCancelledList(event.getId(), userID);
-                    eventController.removeUserInviteList(event.getId(), userID);
-                    eventController.removeUserWaitlist(event.getId(), userID);
+
+                    if (event.getId() != null) {
+                        eventController.removeUserRegisteredList(event.getId(), userID);
+                        eventController.removeUserCancelledList(event.getId(), userID);
+                        eventController.removeUserInviteList(event.getId(), userID);
+                        eventController.removeUserWaitlist(event.getId(), userID);
+                    }
                 }
             }
         });

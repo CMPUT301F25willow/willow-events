@@ -3,18 +3,21 @@ package com.example.willowevents.model;
 import static java.time.LocalDateTime.now;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * This class defines the Notification object
  */
 public class Notification {
+
+    String ID;
+
     String eventId;
     String senderID;
     String recipientID;
     String eventName;
     String notificationMessage;
-    LocalDateTime dateTime;
-
+    Date dateTime;
     public void setEventId(String eventId) {
         this.eventId = eventId;
     }
@@ -27,7 +30,7 @@ public class Notification {
         this.notificationMessage = notificationMessage;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -44,10 +47,11 @@ public class Notification {
         this.notificationMessage = notificationText;
         this.senderID = event.getOrganizerId();
         this.recipientID = recipientID;
-        dateTime = now();
+        dateTime = new Date();
     }
 
     //Invite makes notification with event
+
     public Notification(Event event, String recipientID, boolean chosen){
         eventId = event.getId();
         eventName = event.getTitle();
@@ -56,18 +60,16 @@ public class Notification {
         } else {
             notificationMessage = "Unfortunately, you were not selected to participate in the " + eventName + " event.";
         }
-        dateTime = now();
+        dateTime = new Date();
         senderID = event.getOrganizerId();
         this.recipientID = recipientID;
 
-        //TODO: add to database?
     }
-
     // getters
+
     public String getNotificationMessage(){
         return notificationMessage;
     }
-
     public String getEventName(){
         return eventName;
     }
@@ -76,7 +78,7 @@ public class Notification {
         return eventId;
     }
 
-    public LocalDateTime getDateTime(){
+    public Date getDateTime(){
         return dateTime;
     }
 
@@ -87,12 +89,20 @@ public class Notification {
     public void setSenderID(String senderID) {
         this.senderID = senderID;
     }
-    
+
     public String getRecipientID() {
         return recipientID;
     }
 
     public void setRecipientID(String recipientID) {
         this.recipientID = recipientID;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }
