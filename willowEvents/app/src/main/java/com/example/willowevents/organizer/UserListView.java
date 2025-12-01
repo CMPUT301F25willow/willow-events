@@ -16,6 +16,7 @@ import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
 
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -102,50 +103,98 @@ public class UserListView extends AppCompatActivity {
 
     }
 
-    public void removeEntrant(){
+    public void removeEntrant() {
 
         Dialog dialog = new Dialog(this);
 
-        // Upon clicking an item in list, get popup to remove entrant from list
-        // Pop up should work in theory, cannot confirm
+        // When an item in the list is clicked, show popup to remove that entrant
         userView.setOnItemClickListener((parent, view, position, id) -> {
 
+            // Get the selected user from the list backing this screen
+            User selectedUser = users.get(position);
+
             dialog.setContentView(R.layout.activity_remove_entrant);
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
             dialog.setCancelable(false);
+
             TextView userName = dialog.findViewById(R.id.user_name);
             TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
             TextView email = dialog.findViewById(R.id.user_email);
 
-            //userName.setText(waitlist.get(position).getName());
-            //phoneNumber.setText(waitlist.get(position).getPhoneNumber());
-            //email.setText(waitlist.get(position).getEmail());
+            // Fill in the dialog fields from the selected user
+            userName.setText(selectedUser.getName());
+            phoneNumber.setText(selectedUser.getPhoneNumber());
+            email.setText(selectedUser.getEmail());
 
             Button cancelButton = dialog.findViewById(R.id.cancel_button);
             Button removalButton = dialog.findViewById(R.id.remove_button);
 
-            // click on cancel button to leave fragment
-            cancelButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            // Cancel just closes the dialog
+            cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+            // Remove entrant from Firestore and from the local list
+            removalButton.setOnClickListener(v -> {
+
+                // Map current listType ("waitlist", "invited", etc.) to Firestore field
+                String field = mapTypeToField(listType);
+
+                if (eventId == null || field == null) {
+                    Toast.makeText(
+                            UserListView.this,
+                            "Missing event ID or list type",
+                            Toast.LENGTH_SHORT
+                    ).show();
                     dialog.dismiss();
+                    return;
                 }
+
+                // Assuming your User / Entrant model has getId()
+                String userId = selectedUser.getID();
+                if (userId == null || userId.isEmpty()) {
+                    Toast.makeText(
+                            UserListView.this,
+                            "User has no ID; cannot remove.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    dialog.dismiss();
+                    return;
+                }
+
+                // Remove the userId from the corresponding array field on the event document
+                db.collection("events")
+                        .document(eventId)
+                        .update(field, FieldValue.arrayRemove(userId))
+                        .addOnSuccessListener(aVoid -> {
+                            // Update local list + adapter
+                            users.remove(position);
+                            userAdapter.notifyDataSetChanged();
+
+                            String label = "Number of users on " + listType + " : " + users.size();
+                            numberOfEntrants.setText(label);
+
+                            Toast.makeText(
+                                    UserListView.this,
+                                    "Removed " + selectedUser.getName() + " from " + listType,
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            dialog.dismiss();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(
+                                    UserListView.this,
+                                    "Failed to remove entrant: " + e.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                            dialog.dismiss();
+                        });
             });
 
-            // remove entrant from list, then leave fragment
-            removalButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // Get this entrant, remove them from waitlist of event
-                    // IDK HOW TO FIREBASE THIS I TRIED
-
-                    dialog.dismiss();
-                }
-            });
             dialog.show();
         });
-
     }
 
     /**

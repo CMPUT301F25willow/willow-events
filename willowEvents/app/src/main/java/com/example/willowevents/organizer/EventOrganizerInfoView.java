@@ -28,6 +28,8 @@ import com.example.willowevents.controller.EventController;
 import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.model.Event;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * This View shows event information from the organizer's perspective,
@@ -218,21 +220,90 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
                 // HOW DO YOU DELETE THE OLD IMAGE????
                 // replace old poster with new one, refer to uploadButton
+                // Replace old poster with the newly selected image
                 updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        event.setPosterUrl(imageUri.toString());
-                        posterImage.setImageURI(imageUri); // show selected image
+                        //Make sure the user actually picked an image
+                        if (imageUri == null) {
+                            Toast.makeText(EventOrganizerInfoView.this,
+                                    "Please select an image first", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                        //update the event back into firestore
-                        db.collection("events")
-                                .document(eventId)
-                                .update(
-                                        "posterUrl", event.getPosterUrl()
-                                );
+                        // Make sure we have a valid event ID
+                        if (TextUtils.isEmpty(eventId)) {
+                            Toast.makeText(EventOrganizerInfoView.this,
+                                    "Missing event ID", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                        dialog.dismiss();
+                        // Decide on a storage file name for this event's poster
+                        //  All posters go in event_posters in Firebase Storage
+                        String fileName = "poster_" + eventId + ".jpg";
+
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference posterRef = storage
+                                .getReference()
+                                .child("event_posters")
+                                .child(fileName);
+
+                        // Upload the selected image to Firebase Storage
+                        posterRef.putFile(imageUri)
+                                .addOnSuccessListener(taskSnapshot -> {
+                                    // Once upload succeeds, get the download URL
+                                    posterRef.getDownloadUrl()
+                                            .addOnSuccessListener(downloadUri -> {
+                                                String url = downloadUri.toString();
+
+                                                // Update the Event object locally
+                                                if (event != null) {
+                                                    event.setPosterUrl(url);
+                                                }
+
+                                                // Show new image on the main screen immediately
+                                                if (posterImage != null) {
+                                                    Glide.with(EventOrganizerInfoView.this)
+                                                            .load(url)
+                                                            .into(posterImage);
+                                                }
+
+                                                // Save the URL into Firestore
+                                                db.collection("events")
+                                                        .document(eventId)
+                                                        .update("posterUrl", url)
+                                                        .addOnSuccessListener(unused -> {
+                                                            Toast.makeText(
+                                                                    EventOrganizerInfoView.this,
+                                                                    "Poster updated",
+                                                                    Toast.LENGTH_SHORT
+                                                            ).show();
+                                                            dialog.dismiss();
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(
+                                                                    EventOrganizerInfoView.this,
+                                                                    "Poster uploaded but failed to save: " + e.getMessage(),
+                                                                    Toast.LENGTH_SHORT
+                                                            ).show();
+                                                        });
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(
+                                                        EventOrganizerInfoView.this,
+                                                        "Failed to get download URL: " + e.getMessage(),
+                                                        Toast.LENGTH_SHORT
+                                                ).show();
+                                            });
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(
+                                            EventOrganizerInfoView.this,
+                                            "Failed to upload image: " + e.getMessage(),
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                });
                     }
                 });
 
