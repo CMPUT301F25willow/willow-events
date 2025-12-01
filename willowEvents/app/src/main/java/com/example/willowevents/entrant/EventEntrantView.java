@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -124,20 +125,25 @@ public class EventEntrantView extends AppCompatActivity {
 
         // add accept invitaiton functionality
         acceptInvitation.setOnClickListener(view -> {
-            /// update database directly
+            /// REMOVE USER FROM INVITE LIST
             eventController.removeUserInviteList(eventID, userID);
             // REGISTER IN EVENT
             eventController.addUserRegisteredList(eventID, userID);
+            // REMOVE FROM WAITLIST
+            eventController.removeUserWaitlist(eventID, userID);
             // update current event
             updateCurrentEvent(eventID);
 
         });
 
-        // add decline invitaiton functionality
+        // add decline invitation functionality
         declineInvitation.setOnClickListener(view -> {
-            // update database on invitation
+            // REMOVE USER FROM INVITE LIST
             eventController.removeUserInviteList(eventID, userID);
-            // nothing else left to do once user decclined
+            // REMOVE USER FROM WAITLIST
+            eventController.removeUserWaitlist(eventID, userID);
+            // ADD USER TO CANCELLED LIST
+            eventController.addUserCancelledList(eventID, userID);
 
             // update current event
             updateCurrentEvent(eventID);
@@ -240,10 +246,8 @@ public class EventEntrantView extends AppCompatActivity {
      */
     private void editInfo() {
 
-
-
         eventInfo.setText(
-                getEventTitle() + '|' + getEventDate()
+                getEventTitle() + "\n" + getEventDate()
         );
 
         selectionInfo.setText(getSelectionInfo());
@@ -299,8 +303,15 @@ public class EventEntrantView extends AppCompatActivity {
         eventController.generateOneEvent(eventID, new EventController.OnEventGeneration() {
             @Override
             public void onEventGenerated(Event event) {
-                currentEvent = event;
-                editInfo();
+
+                if (event == null) {
+                    String notifyText = "Something went wrong... Cannot show event.";
+                    Toast toast = Toast.makeText(EventEntrantView.this, notifyText, Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    currentEvent = event;
+                    editInfo();
+                }
             }
         });
     }

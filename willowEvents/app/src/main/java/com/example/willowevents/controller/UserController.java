@@ -2,6 +2,7 @@ package com.example.willowevents.controller;
 
 import android.util.Log;
 
+import com.example.willowevents.model.Admin;
 import com.example.willowevents.model.Entrant;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Organizer;
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     /**
-     * Adds a user to the database given an organizer. Gives it a unique tag "Entrant" in the database
+     * Adds a user to the database given an organizer. Gives it a unique tag "Organizer" in the database
      * @param userID is the Device-ID as a STRING of the user
      */
     public void addNewOrganizerUser(String userID) {
@@ -62,6 +63,22 @@ public class UserController {
         DocumentReference docRef = usersRef.document(userID);
         docRef.set(user);
     }
+
+    /**
+     * Adds a user to the database given an admin. Gives it a unique tag "Admin" in the database
+     * @param userID is the Device-ID as a STRING of the user
+     */
+    public void addNewAdminUser(String userID) {
+        Admin user = new Admin(userID,
+                "No name",
+                "No email",
+                "No phone number",
+                new ArrayList<>());
+
+        DocumentReference docRef = usersRef.document(userID);
+        docRef.set(user);
+    }
+
 
     /**
      * Adds a user to the database given an ADMIN
@@ -93,8 +110,10 @@ public class UserController {
                         user = document.toObject(Organizer.class);
                     }
                     // user is an entrant
-                    else {
+                    else if (userType.equals("entrant")){
                         user = document.toObject(Entrant.class);
+                    } else {
+                        user = document.toObject(Admin.class);
                     }
                 callback.onUserLoaded(user);
             }
@@ -128,6 +147,8 @@ public class UserController {
                         user = snapshot.toObject(Organizer.class);
                     } else if (userType.equals("entrant")) {
                         user = snapshot.toObject(Entrant.class);
+                    } else {
+                        user = snapshot.toObject(Admin.class);
                     }
 
                     if (user != null) {
