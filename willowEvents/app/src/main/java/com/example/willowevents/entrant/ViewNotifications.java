@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.arrayAdapters.NotificationArrayAdapter;
 import com.example.willowevents.ProfileView;
+import com.example.willowevents.controller.EventController;
 import com.example.willowevents.controller.NotificationController;
 import com.example.willowevents.model.Event;
 
@@ -46,11 +48,16 @@ public class ViewNotifications extends AppCompatActivity {
         NotificationController notificationController = new NotificationController();
 
         // RETRIEVE NOTIFICATIONS
+        notis = new ArrayList<>();
+        notiListView.setEnabled(false);
         notificationController.generateUserNotifications(userID, new NotificationController.OnNotificationsGenerated() {
             @Override
-            public void onNotificationsLoaded(ArrayList<Notification> notis) {
+            public void onNotificationsLoaded(ArrayList<Notification> notifications) {
+                notis = notifications;
                 notiAdapter = new NotificationArrayAdapter(ViewNotifications.this, notis);
                 notiListView.setAdapter(notiAdapter);
+                notiAdapter.notifyDataSetChanged();
+                notiListView.setEnabled(true);
 
             }
         });
@@ -66,8 +73,25 @@ public class ViewNotifications extends AppCompatActivity {
                 Intent myIntent = new Intent(ViewNotifications.this, EventEntrantView.class);
                 //need to pass event to be shown
                 myIntent.putExtra("eventID", eventId);
-                startActivity(myIntent);
+
+                EventController eventController = new EventController();
+
+                eventController.generateOneEvent(eventId, new EventController.OnEventGeneration() {
+                    @Override
+                    public void onEventGenerated(Event event) {
+                        if (event == null) {
+                            String notifyText = "Cannot find event. Event likely no longer exists";
+                            Toast toast = Toast.makeText(ViewNotifications.this, notifyText, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }                 else {
+                            startActivity(myIntent);
+                        }
+                    }
+                });
             }
-        });
+
+
+
+            });
     }
 }

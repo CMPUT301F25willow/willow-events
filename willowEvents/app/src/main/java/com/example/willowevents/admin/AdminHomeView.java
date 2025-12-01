@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
+import com.example.willowevents.arrayAdapters.UserArrayAdapter;
+import com.example.willowevents.controller.NotificationController;
+import com.example.willowevents.entrant.EventEntrantView;
 import com.example.willowevents.arrayAdapters.InviteArrayAdapter;
 import com.example.willowevents.controller.EventController;
 import com.example.willowevents.model.Event;
@@ -45,6 +48,27 @@ import java.util.ArrayList;
  */
 public class AdminHomeView extends AppCompatActivity {
 
+    ListView eventView;
+    EventArrayAdapter eventAdapter;
+    UserArrayAdapter userAdapter;
+    ImageArrayAdapter imageAdapter;
+    NotificationArrayAdapter notifAdapter;
+    ArrayList<Event> eventList;
+    ArrayList<User> profileList;
+    ArrayList<Image> imageList;
+    ArrayList<Notification> notifList;
+    Button BrowseEvents;
+    Button BrowseProfiles;
+    Button BrowseImages;
+    Button BrowseNotifs;
+    Button deleteButton;
+    ImageView profileIcon;
+    EventController eventController;
+    Event selectedEvent;
+    User selectedProfile;
+    Image selectedImage;
+    Notification selectedNotif;
+    NotificationController notificationController;
     // =========================================================================
     // UI FIELDS
     // =========================================================================
@@ -153,6 +177,20 @@ public class AdminHomeView extends AppCompatActivity {
         browseNotifsButton = findViewById(R.id.browse_notifs_button);
         deleteButton = findViewById(R.id.delete_button);
         eventView = findViewById(R.id.eventList);
+        eventList = new ArrayList<>();
+        profileList = new ArrayList<>();
+        imageList = new ArrayList<>();
+        notifList = new ArrayList<>();
+
+        // CONTROLLER
+        notificationController = new NotificationController();
+
+        //Display all system events
+        BrowseEvents.setOnClickListener(view -> {
+            //TODO: display all events in the database
+            eventView = findViewById(R.id.eventList);
+            eventAdapter = new EventArrayAdapter(this, eventList);
+            eventView.setAdapter(eventAdapter);
 
         // Start with delete button hidden until something is selected.
         deleteButton.setVisibility(View.GONE);
@@ -201,10 +239,20 @@ public class AdminHomeView extends AppCompatActivity {
             loadImages();
         });
 
-        // ---------------------------------------------------------------------
-        // Button: Browse Notifs (Invites)
-        // ---------------------------------------------------------------------
-        browseNotifsButton.setOnClickListener(view -> {
+        //Display all system notifications
+        BrowseNotifs.setOnClickListener(view -> {
+            //TODO: display all invites/notifs in the database
+            eventView = findViewById(R.id.eventList);
+
+            notificationController.generateAllNotifications(new NotificationController.OnNotificationsGenerated() {
+                    @Override
+                    public void onNotificationsLoaded(ArrayList<Notification> notifications) {
+                        notifList = notifications;
+                        notifAdapter = new NotificationArrayAdapter(AdminHomeView.this, notifList);
+                        eventView.setAdapter(notifAdapter);
+                        notifAdapter.notifyDataSetChanged();
+                    }
+                });
             isDisplaying = IsDisplaying.NOTIF;
             selectedNotifPosition = -1;
             deleteButton.setVisibility(View.GONE);

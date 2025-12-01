@@ -37,7 +37,7 @@ public class NotificationArrayAdapter extends ArrayAdapter {
         TextView eventName = view.findViewById((R.id.event_name));
         assert noti != null;
         notiMessage.setText(noti.getNotificationMessage());
-
+        eventName.setText(noti.getEventName());
         return view;
     }
 }
