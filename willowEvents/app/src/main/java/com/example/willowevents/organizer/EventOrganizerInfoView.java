@@ -34,7 +34,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_info_view);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         backButton = findViewById(R.id.back_button);
         seeEntrants = findViewById(R.id.entrants_button);
@@ -64,7 +64,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
-        TextView eventName = findViewById(R.id.eventName);
+        //TextView eventName = findViewById(R.id.eventName);
         //Other initializations
 
 //        eventName.setText(event.getTitle());
@@ -74,7 +74,6 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, MainOrganizerView.class);
             startActivity(myIntent);
         });
-
 
 
         editEvent.setOnClickListener(view -> {

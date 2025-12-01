@@ -15,11 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
-<<<<<<< HEAD
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-=======
+
 import com.example.willowevents.model.Entrant;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +27,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.Collections;
->>>>>>> c3c9c6ce390dc5c20043f8ce5485f3a130d8c04a
+
 import java.util.List;
 import java.util.Objects;
 
@@ -151,8 +151,7 @@ public class UserListView extends AppCompatActivity {
         //convert the list type into the firestore field name
         String field = mapTypeToField(listType);
 
-<<<<<<< HEAD
-=======
+
         userView = findViewById(R.id.user_list);
        
         //String numberEntrantsMessage = "Number of users on waitlist : " + size;
@@ -221,8 +220,9 @@ public class UserListView extends AppCompatActivity {
 
     }
 
+    /**
     private void loadAllEntrantLists(String eventId) {
->>>>>>> c3c9c6ce390dc5c20043f8ce5485f3a130d8c04a
+
         if (field == null) {
             // We don't recognize this list type, return
             Toast.makeText(this, "Unknown list type: " + listType, Toast.LENGTH_LONG).show();
@@ -258,6 +258,7 @@ public class UserListView extends AppCompatActivity {
                     finish();
                 });
     }
+     */
 
     /**
      * fetch the User docs in batches (because whereIn max is 10, we need a way to handle more).

@@ -63,6 +63,7 @@ public class EventModifyView extends AppCompatActivity {
         Intent origIntent = new Intent(this, EventOrganizerInfoView.class);
         //check for any data sent along side activity change
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             eventId = extras.getString("Event ID");
             if (eventId == null) {
@@ -75,7 +76,7 @@ public class EventModifyView extends AppCompatActivity {
         }
 
 
-        //bindViews();
+        bindViews();
 
         cancelBtn.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventModifyView.this, EventOrganizerInfoView.class);
@@ -87,7 +88,7 @@ public class EventModifyView extends AppCompatActivity {
 
     }
 
-    /**
+
     private void bindViews() {
         nameEt = findViewById(R.id.event_name_entry);
         descEt = findViewById(R.id.additional_details_entry);
@@ -107,7 +108,7 @@ public class EventModifyView extends AppCompatActivity {
         limitWaitlistCb = findViewById(R.id.limit_waitlist_checkbox);
     }
 
-     */
+
 
 }
 

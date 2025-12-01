@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="480dp"
+    android:layout_height="match_parent"
     android:padding="12dp"
     tools:context=".organizer.EventModifyView">
 
@@ -162,7 +162,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/additional_details_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.579"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.907" />
 
     <CheckBox
         android:id="@+id/limit_waitlist_checkbox"
@@ -191,8 +194,8 @@
 
     <TextView
         android:id="@+id/additional_details_textview"
-        android:layout_width="match_parent"
-        android:layout_height="92dp"
+        android:layout_width="354dp"
+        android:layout_height="263dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
@@ -203,24 +206,26 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/create_event_create_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/event_creation_background"
+        app:layout_constraintVertical_bias="0.86" />
 
     <EditText
         android:id="@+id/additional_details_entry"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="341dp"
+        android:layout_height="222dp"
         android:background="@drawable/rounded_corner_background"
         android:backgroundTint="@color/white"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/additional_details_textview" />
+        app:layout_constraintBottom_toBottomOf="@+id/additional_details_textview"
+        app:layout_constraintEnd_toEndOf="@+id/additional_details_textview"
+        app:layout_constraintStart_toStartOf="@+id/additional_details_textview"
+        app:layout_constraintTop_toTopOf="@+id/additional_details_textview"
+        app:layout_constraintVertical_bias="0.609" />
 
     <TextView
         android:id="@+id/event_start_date"
