@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="480dp"
     android:padding="12dp"
-    tools:context=".organizer.EventCreationView">
+    tools:context=".organizer.EventModifyView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_creation_background"

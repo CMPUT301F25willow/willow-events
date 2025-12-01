@@ -109,7 +109,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
         sendInvite = findViewById(R.id.waitlist_send_invitation_button);
         updateEvent = findViewById(R.id.info_button);
 
-        geolocation.findViewById(R.id.see_entrant_location_button);
+        geolocation = findViewById(R.id.see_entrant_location_button);
 
         //Event event = addMockEvent();
 
