@@ -2,6 +2,7 @@ package com.example.willowevents.organizer;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -32,49 +35,64 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class EventOrganizerInfoView extends AppCompatActivity {
     private String eventId;
-    private Button backButton, seeEntrants, uploadImage, editEvent;
-    private TextView time, details, heading;
-    private ImageView posterImage;
-    private Event currentEvent;
+    private Button backButton, seeEntrants, uploadImage, editEvent, qrButton;
+    private TextView time, details, eventName;
+    private ImageView posterImage, newImage;
+    private Event event;
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
+    // URI of the image from users device
+    private Uri imageUri;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_organizer_info_view);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
 
 
 
         //check for any data sent along side activity change
-
+        Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         Bundle extras = getIntent().getExtras();
-        eventId = extras.getString("Event ID");
-        if (eventId == null || eventId.trim().isEmpty()) {
+        if (extras != null) {
+            eventId = extras.getString("Event ID");
+            if (eventId == null) {
+                android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
+                startActivity(origIntent);
+            }
+        } else {
             android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
-            finish();
+            startActivity(origIntent);
+        }
+
+        if (eventId == null) {
             return;
         }
+
 
         bindViews();
 
 
+        // Load in event data
+        // Imma be honest IDK how the firebase works I just plugged stuff in and it worked
         db.collection("events").document(eventId).get().addOnSuccessListener(snapshot -> {
-            if (!snapshot.exists()){
+            if (!snapshot.exists()) {
                 return;
             }
-            currentEvent = snapshot.toObject(Event.class);
+            event = snapshot.toObject(Event.class);
 
-            String title = currentEvent.getTitle() + "\n"
-                    + currentEvent.getEventDate();
+            String title = event.getTitle() + "\n"
+                    + event.getEventDate();
             time.setText(title);
 
-            if (currentEvent == null){
+            if (event == null) {
                 return;
             }
 
             // DISPLAY POSTER IMAGE IF EXISTS, COLLAPSE IF DOESNT
-            String posterUrl = currentEvent.getPosterUrl();
+            String posterUrl = event.getPosterUrl();
             if (posterUrl != null && !posterUrl.isEmpty()) {
                 Glide.with(this)
                         .load(posterUrl)
@@ -83,22 +101,52 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                 posterImage.setVisibility(View.GONE);
             }
 
-            details.setText(currentEvent.getDescription());
+            details.setText(event.getDescription());
 
-            /**
-            //update the event back into firestore
-            db.collection("events")
-                    .document(eventId)
-                    .update(
-                            "waitlist", event.getWaitlist(),
-                            "inviteList", event.getInviteList(),
-                            "approvedList", event.getApprovedList(),
-                            "invitelistlimit", event.getInvitelistlimit()
-                    );
-                **/
+
+
+
         });
 
 
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("events")
+                .document(eventId)
+                .get()
+                .addOnSuccessListener(doc -> {
+                    event = doc.toObject(Event.class);
+
+                    if (event == null) {
+                        android.widget.Toast.makeText(
+                                EventOrganizerInfoView.this,
+                                "Could not find event data",
+                                android.widget.Toast.LENGTH_LONG
+                        ).show();
+                        return;
+                    }
+
+                    // Fill in UI with event data
+                    if (eventName != null) {
+                        eventName.setText(event.getTitle());
+                    }
+
+                    //set up QR button
+                    qrButton.setOnClickListener(v -> {
+                        Intent intent = new Intent(EventOrganizerInfoView.this, QrCodeActivity.class);
+                        intent.putExtra(QrCodeActivity.EXTRA_EVENT_NAME, event.getTitle());
+                        intent.putExtra(QrCodeActivity.EXTRA_EVENT_DESCRIPTION, event.getDescription());
+                        intent.putExtra(QrCodeActivity.EXTRA_EVENT_POSTER_URL, event.getPosterUrl());  // 👈 NEW
+                        startActivity(intent);
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    android.widget.Toast.makeText(
+                            EventOrganizerInfoView.this,
+                            "Failed to load event: " + e.getMessage(),
+                            android.widget.Toast.LENGTH_LONG
+                    ).show();
+                });
 
 
 
@@ -123,7 +171,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             startActivity(myIntent);
         });
 
-
+        // will be unused/uneeded
         editEvent.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, EventModifyView.class);
             myIntent.putExtra("Event ID", eventId);
@@ -131,11 +179,24 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         });
 
 
+        // updates image
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    //  Check if we got data
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        //  Get URI of the selected image and show in the imageview
+                        imageUri = result.getData().getData();
+                        newImage.setImageURI(imageUri); // show selected image
+                    }
+                }
+        );
 
 
         // For updating Poster for Event
         Dialog dialog = new Dialog(this);
 
+        // Uploads a new image to the event
         uploadImage.setOnClickListener(new View.OnClickListener() {
             // open up fragment to update Poster
             @Override
@@ -146,7 +207,8 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                 Button cancelButton = dialog.findViewById(R.id.cancel_button);
                 Button uploadButton = dialog.findViewById(R.id.upload_image_button);
                 Button updateButton = dialog.findViewById(R.id.update_button);
-                ImageView newPoster = dialog.findViewById(R.id.uploaded_image);
+                newImage = dialog.findViewById(R.id.uploaded_image);
+
 
                 // click on cancel button to leave fragment
                 cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -158,27 +220,33 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                     }
                 });
 
+                // HOW DO YOU DELETE THE OLD IMAGE????
                 // replace old poster with new one, refer to uploadButton
                 updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        // poster <- new poster
+                        event.setPosterUrl(imageUri.toString());
+                        posterImage.setImageURI(imageUri); // show selected image
+
+                        //update the event back into firestore
+                        db.collection("events")
+                                .document(eventId)
+                                .update(
+                                        "posterUrl", event.getPosterUrl()
+                                );
+
                         dialog.dismiss();
                     }
                 });
 
-                // Upload a poster image into firebase idk how that works srry
-                // poster has to be temporarily uploaded somewhere
-                // when update button is clicked, then replace current poster with new one
-                // otherwise discard the new poster and keep the old one
                 uploadButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        // temp poster <- new poster
-                        // set newPoster to the new image
-                        dialog.dismiss();
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        imagePickerLauncher.launch(Intent.createChooser(intent, "Select Picture"));
                     }
                 });
 
@@ -202,6 +270,8 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         seeEntrants = findViewById(R.id.entrants_button);
         uploadImage = findViewById(R.id.upload_image_button);
         posterImage  = findViewById(R.id.uploaded_image);
+        qrButton = findViewById(R.id.qr_code_button);
+        eventName = findViewById(R.id.eventName);
         details = findViewById(R.id.event_details);
 
         details.setMovementMethod(new ScrollingMovementMethod());

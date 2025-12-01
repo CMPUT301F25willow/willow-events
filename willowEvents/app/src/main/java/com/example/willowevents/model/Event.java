@@ -244,6 +244,12 @@ public class Event {
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
     }
+
+    /**
+     * This sets a String posterUrl
+     * @return
+     */
+    public void setPosterUrl(@Nullable String posterUrl) { this.posterUrl = posterUrl; }
     /**
      * This sets a String registrationOpenDate
      * @param registrationOpenDate - String registrationOpenDate for event
