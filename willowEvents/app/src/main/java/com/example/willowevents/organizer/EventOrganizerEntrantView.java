@@ -135,7 +135,10 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
 
 
         // --- Button: back ---
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> {
+            Intent myIntent = new Intent(EventOrganizerEntrantView.this, MainOrganizerView.class);
+            startActivity(myIntent);
+        });
 
         // --- Button: event info ---
         seeInfo.setOnClickListener(view -> {
