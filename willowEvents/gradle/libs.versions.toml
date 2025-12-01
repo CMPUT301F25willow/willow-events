@@ -14,6 +14,7 @@ espressoContrib = "3.7.0"
 espressoIntents = "3.7.0"
 firebaseStorage = "22.0.1"
 playServicesMaps = "19.2.0"
+googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -33,4 +34,5 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 

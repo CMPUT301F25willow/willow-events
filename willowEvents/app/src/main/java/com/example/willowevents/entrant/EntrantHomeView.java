@@ -115,7 +115,24 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
         // Switch to invitations view so user can see their invitations
         InviteButton.setOnClickListener(view -> {
             Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
-            startActivity(myIntent);
+
+            // get user
+            UserController userController = new UserController();
+            userController.getUser(userID, new UserController.OnUserLoaded() {
+                @Override
+                public void onUserLoaded(User user) {
+
+                    if (user.isHasNotifsMuted()) {
+                        Toast toast = Toast.makeText(EntrantHomeView.this, "Notifications are muted", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else {
+                        startActivity(myIntent);
+                    }
+
+                }
+            });
+
         });
 
         // Toggle visibility of filter elements when filter button is clicked

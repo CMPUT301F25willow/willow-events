@@ -1,7 +1,10 @@
 package com.example.willowevents.organizer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,9 +15,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
+
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+
+import com.example.willowevents.model.Entrant;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -35,6 +49,7 @@ public class UserListView extends AppCompatActivity {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String eventId;
     private String listType;
+    private ArrayList entrantList;
 
     // Single list of users for this screen. This is used for all list types (waitlist, enrolled etc...)
     // The type comes from an intent extra
@@ -74,11 +89,112 @@ public class UserListView extends AppCompatActivity {
             return;
         }
 
+        if (listType.equals("waitlist")){
+            removeEntrant();
+        }
+
         //show loading text
         numberOfEntrants.setText("Loading " + listType + " ...");
 
         //Kick off loading
         loadUsersForEventList(eventId, listType);
+
+
+
+    }
+
+    public void removeEntrant() {
+
+        Dialog dialog = new Dialog(this);
+
+        // When an item in the list is clicked, show popup to remove that entrant
+        userView.setOnItemClickListener((parent, view, position, id) -> {
+
+            // Get the selected user from the list backing this screen
+            User selectedUser = users.get(position);
+
+            dialog.setContentView(R.layout.activity_remove_entrant);
+            dialog.getWindow().setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            dialog.setCancelable(false);
+
+            TextView userName = dialog.findViewById(R.id.user_name);
+            TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
+            TextView email = dialog.findViewById(R.id.user_email);
+
+            // Fill in the dialog fields from the selected user
+            userName.setText(selectedUser.getName());
+            phoneNumber.setText(selectedUser.getPhoneNumber());
+            email.setText(selectedUser.getEmail());
+
+            Button cancelButton = dialog.findViewById(R.id.cancel_button);
+            Button removalButton = dialog.findViewById(R.id.remove_button);
+
+            // Cancel just closes the dialog
+            cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+            // Remove entrant from Firestore and from the local list
+            removalButton.setOnClickListener(v -> {
+
+                // Map current listType ("waitlist", "invited", etc.) to Firestore field
+                String field = mapTypeToField(listType);
+
+                if (eventId == null || field == null) {
+                    Toast.makeText(
+                            UserListView.this,
+                            "Missing event ID or list type",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    dialog.dismiss();
+                    return;
+                }
+
+                // Assuming your User / Entrant model has getId()
+                String userId = selectedUser.getID();
+                if (userId == null || userId.isEmpty()) {
+                    Toast.makeText(
+                            UserListView.this,
+                            "User has no ID; cannot remove.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    dialog.dismiss();
+                    return;
+                }
+
+                // Remove the userId from the corresponding array field on the event document
+                db.collection("events")
+                        .document(eventId)
+                        .update(field, FieldValue.arrayRemove(userId))
+                        .addOnSuccessListener(aVoid -> {
+                            // Update local list + adapter
+                            users.remove(position);
+                            userAdapter.notifyDataSetChanged();
+
+                            String label = "Number of users on " + listType + " : " + users.size();
+                            numberOfEntrants.setText(label);
+
+                            Toast.makeText(
+                                    UserListView.this,
+                                    "Removed " + selectedUser.getName() + " from " + listType,
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            dialog.dismiss();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(
+                                    UserListView.this,
+                                    "Failed to remove entrant: " + e.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                            dialog.dismiss();
+                        });
+            });
+
+            dialog.show();
+        });
     }
 
     /**
