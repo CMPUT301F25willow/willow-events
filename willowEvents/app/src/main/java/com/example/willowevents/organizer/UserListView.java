@@ -159,65 +159,6 @@ public class UserListView extends AppCompatActivity {
 
         userView.setAdapter(userAdapter);     //link array adapter to ListView
 
-
-        Dialog dialog = new Dialog(this);
-
-        // Upon clicking an item in list, get popup to remove entrant from list
-        // applies to all list types
-        // Pop up should work in theory, cannot confirm
-        userView.setOnItemClickListener((parent, view, position, id) -> {
-
-                dialog.setContentView(R.layout.activity_remove_entrant);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.setCancelable(false);
-                TextView userName = dialog.findViewById(R.id.user_name);
-                TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
-                TextView email = dialog.findViewById(R.id.user_email);
-
-
-
-                userName.setText(users.get(position).getName());
-                phoneNumber.setText(users.get(position).getPhoneNumber());
-                email.setText(users.get(position).getEmail());
-
-                Button cancelButton = dialog.findViewById(R.id.cancel_button);
-                Button removalButton = dialog.findViewById(R.id.remove_button);
-
-                // click on cancel button to leave fragment
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                // remove entrant from list, then leave fragment
-                removalButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                       // remove entrant from list via firestore stuff idk how it works I only know front end stuffs
-                        if (Objects.equals(listType, "waitlist")) {
-
-
-                        } else if (Objects.equals(listType, "invited")) {
-
-
-                        } else if (Objects.equals(listType, "enrolled")) {
-
-
-                        } else if (Objects.equals(listType, "cancelled")) {
-
-                        }
-
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-        });
-
-
-
     }
 
     /**
@@ -258,7 +199,7 @@ public class UserListView extends AppCompatActivity {
                     finish();
                 });
     }
-     */
+    */
 
     /**
      * fetch the User docs in batches (because whereIn max is 10, we need a way to handle more).

@@ -45,17 +45,6 @@ public class EventArrayAdapter extends ArrayAdapter {
         ImageView posterImage = view.findViewById(R.id.posterImage);
         eventName.setText(event.getTitle());
 
-        Uri posterUrl = Uri.parse(event.getPosterUrl());
-
-        // PLEASE ADD PICTURE TO EVENT LIST CONTENT PLS IDK HOW TO DO IT
-        if (posterUrl != null) {
-
-           // posterImage.setImageURI(posterUrl);
-            //posterImage.setVisibility(View.VISIBLE);
-
-        } else {
-            //posterImage.setVisibility(View.GONE);
-        }
 
         posterImage.setVisibility(View.GONE);
 
