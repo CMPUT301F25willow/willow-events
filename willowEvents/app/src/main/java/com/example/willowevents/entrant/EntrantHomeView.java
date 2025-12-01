@@ -117,7 +117,6 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
             Intent myIntent = new Intent(EntrantHomeView.this, ViewNotifications.class);
 
             // get user
-            UserController userController = new UserController();
             userController.getUser(userID, new UserController.OnUserLoaded() {
                 @Override
                 public void onUserLoaded(User user) {

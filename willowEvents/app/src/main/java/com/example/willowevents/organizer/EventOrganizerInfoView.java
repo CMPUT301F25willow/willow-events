@@ -65,7 +65,6 @@ public class EventOrganizerInfoView extends AppCompatActivity {
             }
         });
 
-        Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         //check for any data sent along side activity change
         Intent origIntent = new Intent(this, EventOrganizerEntrantView.class);
         Bundle extras = getIntent().getExtras();
@@ -140,9 +139,9 @@ public class EventOrganizerInfoView extends AppCompatActivity {
                     }
 
                     // Fill in UI with event data
-                    if (eventName != null) {
-                        eventName.setText(event.getTitle());
-                    }
+//                    if (eventName != null) {
+//                        eventName.setText(event.getTitle());
+//                    }
 
                     //set up QR button
                     qrButton.setOnClickListener(v -> {
@@ -351,7 +350,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
         uploadImage = findViewById(R.id.upload_image_button);
         posterImage  = findViewById(R.id.uploaded_image);
         qrButton = findViewById(R.id.qr_code_button);
-        eventName = findViewById(R.id.eventName);
+        eventName = findViewById(R.id.username);
         details = findViewById(R.id.event_details);
 
         details.setMovementMethod(new ScrollingMovementMethod());
