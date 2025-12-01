@@ -7,6 +7,8 @@ import com.example.willowevents.model.Notification;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.MemoryCacheSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class NotificationController {
     // get all users
     private CollectionReference notificationsRef;
     public NotificationController() {
+
         // get pointer to database
         notificationDB = FirebaseFirestore.getInstance();
         // get collection of notifications

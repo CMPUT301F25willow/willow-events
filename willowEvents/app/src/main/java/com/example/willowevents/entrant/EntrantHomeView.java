@@ -136,10 +136,10 @@ public class EntrantHomeView extends AppCompatActivity implements FilterEventsDi
                         // check if user is approved or on waitlist for the event
                         List<String> waitlist = event.getWaitlist();
                         List<String> registered = event.getApprovedList();
-
+                        List<String> inviteList = event.getInviteList();
 
                         // show event if user is on waitlist or already approved
-                        if (waitlist.contains(userID) || registered.contains(userID) ) {
+                        if (waitlist.contains(userID) || registered.contains(userID) || inviteList.contains(userID)) {
                             myEvents.add(event);
                         }
                     }

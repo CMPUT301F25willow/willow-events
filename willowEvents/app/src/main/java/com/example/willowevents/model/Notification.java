@@ -3,6 +3,7 @@ package com.example.willowevents.model;
 import static java.time.LocalDateTime.now;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * This class defines the Notification object
@@ -16,7 +17,7 @@ public class Notification {
     String recipientID;
     String eventName;
     String notificationMessage;
-    LocalDateTime dateTime;
+    Date dateTime;
     public void setEventId(String eventId) {
         this.eventId = eventId;
     }
@@ -29,7 +30,7 @@ public class Notification {
         this.notificationMessage = notificationMessage;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -46,7 +47,7 @@ public class Notification {
         this.notificationMessage = notificationText;
         this.senderID = event.getOrganizerId();
         this.recipientID = recipientID;
-        dateTime = now();
+        dateTime = new Date();
     }
 
     //Invite makes notification with event
@@ -59,11 +60,10 @@ public class Notification {
         } else {
             notificationMessage = "Unfortunately, you were not selected to participate in the " + eventName + " event.";
         }
-        dateTime = now();
+        dateTime = new Date();
         senderID = event.getOrganizerId();
         this.recipientID = recipientID;
 
-        //TODO: add to database?
     }
     // getters
 
@@ -78,7 +78,7 @@ public class Notification {
         return eventId;
     }
 
-    public LocalDateTime getDateTime(){
+    public Date getDateTime(){
         return dateTime;
     }
 

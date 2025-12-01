@@ -46,11 +46,16 @@ public class ViewNotifications extends AppCompatActivity {
         NotificationController notificationController = new NotificationController();
 
         // RETRIEVE NOTIFICATIONS
+        notis = new ArrayList<>();
+        notiListView.setEnabled(false);
         notificationController.generateUserNotifications(userID, new NotificationController.OnNotificationsGenerated() {
             @Override
-            public void onNotificationsLoaded(ArrayList<Notification> notis) {
+            public void onNotificationsLoaded(ArrayList<Notification> notifications) {
+                notis = notifications;
                 notiAdapter = new NotificationArrayAdapter(ViewNotifications.this, notis);
                 notiListView.setAdapter(notiAdapter);
+                notiAdapter.notifyDataSetChanged();
+                notiListView.setEnabled(true);
 
             }
         });

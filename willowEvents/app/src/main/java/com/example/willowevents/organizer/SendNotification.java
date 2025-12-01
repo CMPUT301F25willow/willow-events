@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class SendNotification extends AppCompatActivity {
     private String listType;
     private Button cancelButton;
     private Button sendButton;
-
+    private TextView titleText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class SendNotification extends AppCompatActivity {
             finish();
             return;
         }
+
         // make sure that we have listType to make notifications with
         else if (listType == null || listType.trim().isEmpty()) {
             android.widget.Toast.makeText(this, "Missing event ID", android.widget.Toast.LENGTH_LONG).show();
@@ -62,6 +64,9 @@ public class SendNotification extends AppCompatActivity {
 
         cancelButton = findViewById(R.id.cancel_button);
         sendButton = findViewById(R.id.send_button);
+
+        titleText = findViewById(R.id.title_text);
+        titleText.setText("To: " + listType);
 
         // goes back to EventOrganizerEntrantView
         cancelButton.setOnClickListener(view -> {
