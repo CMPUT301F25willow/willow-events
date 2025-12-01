@@ -15,9 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+
+import com.example.willowevents.model.Entrant;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -141,6 +151,78 @@ public class UserListView extends AppCompatActivity {
         //convert the list type into the firestore field name
         String field = mapTypeToField(listType);
 
+
+        userView = findViewById(R.id.user_list);
+       
+        //String numberEntrantsMessage = "Number of users on waitlist : " + size;
+        //numberOfEntrants.setText(numberEntrantsMessage);
+
+        userView.setAdapter(userAdapter);     //link array adapter to ListView
+
+
+        Dialog dialog = new Dialog(this);
+
+        // Upon clicking an item in list, get popup to remove entrant from list
+        // applies to all list types
+        // Pop up should work in theory, cannot confirm
+        userView.setOnItemClickListener((parent, view, position, id) -> {
+
+                dialog.setContentView(R.layout.activity_remove_entrant);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                TextView userName = dialog.findViewById(R.id.user_name);
+                TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
+                TextView email = dialog.findViewById(R.id.user_email);
+
+
+
+                userName.setText(users.get(position).getName());
+                phoneNumber.setText(users.get(position).getPhoneNumber());
+                email.setText(users.get(position).getEmail());
+
+                Button cancelButton = dialog.findViewById(R.id.cancel_button);
+                Button removalButton = dialog.findViewById(R.id.remove_button);
+
+                // click on cancel button to leave fragment
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                // remove entrant from list, then leave fragment
+                removalButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                       // remove entrant from list via firestore stuff idk how it works I only know front end stuffs
+                        if (Objects.equals(listType, "waitlist")) {
+
+
+                        } else if (Objects.equals(listType, "invited")) {
+
+
+                        } else if (Objects.equals(listType, "enrolled")) {
+
+
+                        } else if (Objects.equals(listType, "cancelled")) {
+
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+        });
+
+
+
+    }
+
+    /**
+    private void loadAllEntrantLists(String eventId) {
+
         if (field == null) {
             // We don't recognize this list type, return
             Toast.makeText(this, "Unknown list type: " + listType, Toast.LENGTH_LONG).show();
@@ -176,6 +258,7 @@ public class UserListView extends AppCompatActivity {
                     finish();
                 });
     }
+     */
 
     /**
      * fetch the User docs in batches (because whereIn max is 10, we need a way to handle more).
