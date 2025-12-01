@@ -1,7 +1,10 @@
 package com.example.willowevents.organizer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,9 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+
+import com.example.willowevents.model.Entrant;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -35,6 +48,7 @@ public class UserListView extends AppCompatActivity {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String eventId;
     private String listType;
+    private ArrayList entrantList;
 
     // Single list of users for this screen. This is used for all list types (waitlist, enrolled etc...)
     // The type comes from an intent extra
@@ -74,11 +88,64 @@ public class UserListView extends AppCompatActivity {
             return;
         }
 
+        if (listType.equals("waitlist")){
+            removeEntrant();
+        }
+
         //show loading text
         numberOfEntrants.setText("Loading " + listType + " ...");
 
         //Kick off loading
         loadUsersForEventList(eventId, listType);
+
+
+
+    }
+
+    public void removeEntrant(){
+
+        Dialog dialog = new Dialog(this);
+
+        // Upon clicking an item in list, get popup to remove entrant from list
+        // Pop up should work in theory, cannot confirm
+        userView.setOnItemClickListener((parent, view, position, id) -> {
+
+            dialog.setContentView(R.layout.activity_remove_entrant);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false);
+            TextView userName = dialog.findViewById(R.id.user_name);
+            TextView phoneNumber = dialog.findViewById(R.id.user_phone_number);
+            TextView email = dialog.findViewById(R.id.user_email);
+
+            //userName.setText(waitlist.get(position).getName());
+            //phoneNumber.setText(waitlist.get(position).getPhoneNumber());
+            //email.setText(waitlist.get(position).getEmail());
+
+            Button cancelButton = dialog.findViewById(R.id.cancel_button);
+            Button removalButton = dialog.findViewById(R.id.remove_button);
+
+            // click on cancel button to leave fragment
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            // remove entrant from list, then leave fragment
+            removalButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // Get this entrant, remove them from waitlist of event
+                    // IDK HOW TO FIREBASE THIS I TRIED
+
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        });
+
     }
 
     /**

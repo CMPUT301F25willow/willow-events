@@ -2,15 +2,18 @@ package com.example.willowevents.arrayAdapters;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.willowevents.R;
 import com.example.willowevents.model.Event;
 
@@ -39,7 +42,11 @@ public class EventArrayAdapter extends ArrayAdapter {
 
         //get event name and display it in the view
         TextView eventName = view.findViewById(R.id.eventName);
+        ImageView posterImage = view.findViewById(R.id.posterImage);
         eventName.setText(event.getTitle());
+
+
+        posterImage.setVisibility(View.GONE);
 
         return view;
     }

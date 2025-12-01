@@ -92,11 +92,7 @@ public class Event {
 
         Event e = new Event();
         e.title = title;
-        e.description = description + "\n\nLottery System:" +
-                "\nAfter the deadline has ended a specified number of entrants will be randomly selected from the waiting list." +
-                "\nIf you have been invited to an event, you will be notified immediately."+
-                "\nIf you have not been invited, it is possible to be invited again if an entrant declines their invitation, " +
-                "in which case a new entrant will be randomly selected again from the waiting list.";
+        e.description = description;
         e.lotteryDetails = lotteryDetails;
         e.eventDate = eventDate;
         e.registrationOpenDate = regOpen;
@@ -248,6 +244,12 @@ public class Event {
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
     }
+
+    /**
+     * This sets a String posterUrl
+     * @return
+     */
+    public void setPosterUrl(@Nullable String posterUrl) { this.posterUrl = posterUrl; }
     /**
      * This sets a String registrationOpenDate
      * @param registrationOpenDate - String registrationOpenDate for event

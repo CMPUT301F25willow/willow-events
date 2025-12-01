@@ -1,3 +1,4 @@
+
 package com.example.willowevents.model;
 
 import static java.time.LocalDateTime.now;
