@@ -17,7 +17,7 @@ public class ConfirmProfileDeleteDialog extends DialogFragment {
 
 
     /**
-     * Functions Main must implement when a user confirms or cancels profile deletion
+     * Functions activity must implement when a user confirms or cancels profile deletion
      */
     public interface ConfirmationListener {
         void onConfirmDeletion();
@@ -45,7 +45,7 @@ public class ConfirmProfileDeleteDialog extends DialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
