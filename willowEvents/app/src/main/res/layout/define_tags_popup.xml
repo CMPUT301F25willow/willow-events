@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -181,9 +181,9 @@
 
             <Button
                 android:id="@+id/filter_start_date"
-                android:layout_marginStart="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
                 android:backgroundTint="@color/blue_dark"
                 android:text="Select Earliest Date"
                 android:textSize="12sp"
@@ -208,9 +208,9 @@
 
             <Button
                 android:id="@+id/filter_end_date"
-                android:layout_marginStart="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
                 android:backgroundTint="@color/blue_dark"
                 android:text="Select Latest Date"
                 android:textSize="12sp"

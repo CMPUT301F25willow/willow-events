@@ -20,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.willowevents.ProfileView;
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.InviteArrayAdapter;
+import com.example.willowevents.arrayAdapters.NotificationArrayAdapter;
 import com.example.willowevents.controller.EventController;
+import com.example.willowevents.controller.NotificationController;
 import com.example.willowevents.model.Event;
 import com.example.willowevents.model.Image;
 import com.example.willowevents.model.Invite;
@@ -71,7 +73,7 @@ public class AdminHomeView extends AppCompatActivity {
 
     private ArrayAdapter<String> eventAdapter;
 
-    private InviteArrayAdapter notifAdapter;
+    private NotificationArrayAdapter notifAdapter;
 
     // For events: the actual Event objects in Firestore "events"
     private final ArrayList<Event> eventList = new ArrayList<>();
@@ -92,7 +94,7 @@ public class AdminHomeView extends AppCompatActivity {
     private final ArrayList<String> userDocIds = new ArrayList<>();
 
     // For notifications: backing list for Invite objects (could be loaded later).
-    private final ArrayList<Invite> notifList = new ArrayList<>();
+    private ArrayList<Notification> notifList = new ArrayList<>() ;
 
     // For images: file names in Firebase Storage folder "event_posters/".
     private final ArrayList<String> imageFileNames = new ArrayList<>();
@@ -144,6 +146,8 @@ public class AdminHomeView extends AppCompatActivity {
         // Set up Firestore and controller.
         eventController = new EventController();
         db = FirebaseFirestore.getInstance();
+
+        NotificationController notificationController= new NotificationController();
 
         // Find views.
         profileIcon = findViewById(R.id.accountIcon);
@@ -204,18 +208,21 @@ public class AdminHomeView extends AppCompatActivity {
         // ---------------------------------------------------------------------
         // Button: Browse Notifs (Invites)
         // ---------------------------------------------------------------------
+        //Display all system notifications
         browseNotifsButton.setOnClickListener(view -> {
-            isDisplaying = IsDisplaying.NOTIF;
-            selectedNotifPosition = -1;
-            deleteButton.setVisibility(View.GONE);
+            eventView = findViewById(R.id.eventList);
+            notifList = new ArrayList<>();
 
-            // Use our InviteArrayAdapter for notifications.
-            // Actual loading of notifList from Firestore is left for later.
-            if (notifAdapter == null) {
-                notifAdapter = new InviteArrayAdapter(this, notifList);
-            }
-            eventView.setAdapter(notifAdapter);
-            eventView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            notificationController.generateAllNotifications(new NotificationController.OnNotificationsGenerated() {
+                @Override
+                public void onNotificationsLoaded(ArrayList<Notification> notifications) {
+                    notifList = notifications;
+                    notifAdapter = new NotificationArrayAdapter(AdminHomeView.this, notifList);
+                    eventView.setAdapter(notifAdapter);
+                    notifAdapter.notifyDataSetChanged();
+                }
+            });
+            isDisplaying = IsDisplaying.NOTIF;
         });
 
         // ---------------------------------------------------------------------
@@ -784,5 +791,3 @@ public class AdminHomeView extends AppCompatActivity {
                 );
     }
 }
-
-
