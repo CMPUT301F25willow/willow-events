@@ -93,6 +93,7 @@ public class EventOrganizerInfoView extends AppCompatActivity {
 
         //TODO: event = get event from database with eventId
 
+
         seeEntrants.setOnClickListener(view -> {
             Intent myIntent = new Intent(EventOrganizerInfoView.this, EventOrganizerEntrantView.class);
             myIntent.putExtra("Event ID", eventId);
