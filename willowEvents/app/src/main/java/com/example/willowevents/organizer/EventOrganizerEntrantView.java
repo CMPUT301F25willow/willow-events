@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.willowevents.R;
 import com.example.willowevents.model.Entrant;
+import com.example.willowevents.model.Notification;
 import com.example.willowevents.model.Event;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,7 +29,6 @@ import java.util.Random;
 public class EventOrganizerEntrantView extends AppCompatActivity {
 
     private String eventId;
-    private Event event;
     private Button seeWaitlist;
     private Button seeInvited;
     private Button seeEnrolled;
@@ -290,6 +290,7 @@ public class EventOrganizerEntrantView extends AppCompatActivity {
             int size = event.getWaitlist().size();
             int random = new Random().nextInt(size);
             event.getInviteList().add(event.getWaitlist().get(random));
+            new Notification(event, event.getWaitlist().get(random), true);
             event.getWaitlist().remove(random);
         }
     }

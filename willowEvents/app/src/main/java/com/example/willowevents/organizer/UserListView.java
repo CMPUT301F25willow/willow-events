@@ -65,7 +65,7 @@ public class UserListView extends AppCompatActivity {
         listType = extras.getString("Type");
         eventId = resolveEventId(getIntent());
 
-        if (Objects.equals(listType, "approvedList")) download.setVisibility(Button.VISIBLE);
+        if (!Objects.equals(listType, "enrolled")) download.setVisibility(Button.GONE);
 
         if (eventId == null || listType == null) {
             //Without an eventID or list type, we cant do anything. So return

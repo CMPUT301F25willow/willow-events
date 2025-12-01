@@ -50,7 +50,6 @@
         android:backgroundTint="@color/blue_active"
         android:text="Download"
         android:textColor="@color/white"
-        android:visibility="gone"
         app:cornerRadius="@dimen/corner_radius"
         app:layout_constraintEnd_toEndOf="@+id/send_notification_background"
         app:layout_constraintTop_toTopOf="@+id/send_notification_background" />
