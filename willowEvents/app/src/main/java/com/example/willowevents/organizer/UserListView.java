@@ -1,8 +1,18 @@
 package com.example.willowevents.organizer;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.icu.util.Output;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,14 +21,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.example.willowevents.R;
 import com.example.willowevents.arrayAdapters.UserArrayAdapter;
 import com.example.willowevents.model.User;
 
+import com.google.api.Context;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import com.example.willowevents.model.Entrant;
@@ -67,7 +83,7 @@ public class UserListView extends AppCompatActivity {
         download = findViewById(R.id.download_button);
 
         close.setOnClickListener(v -> finish());
-        download.setOnClickListener(v -> downloadUserList());
+        download.setOnClickListener(v -> downloadUserList(users));
 
         // Read extras
         Bundle extras = getIntent().getExtras();
@@ -89,7 +105,9 @@ public class UserListView extends AppCompatActivity {
             return;
         }
 
-        if (listType.equals("waitlist")){
+        if (listType.equals("waitlist")) {
+            removeEntrant();
+        } else if (listType.equals("invited")) {
             removeEntrant();
         }
 
@@ -98,7 +116,6 @@ public class UserListView extends AppCompatActivity {
 
         //Kick off loading
         loadUsersForEventList(eventId, listType);
-
 
 
     }
@@ -307,7 +324,7 @@ public class UserListView extends AppCompatActivity {
      * to the corresponding field name on the Firestore event document.
      */
     static String mapTypeToField(String type) {
-        if (type == null){
+        if (type == null) {
             return null;
         }
         switch (type) {
@@ -323,14 +340,15 @@ public class UserListView extends AppCompatActivity {
                 return null;
         }
     }
+
     /**
      * Convert a Firestore DocumentSnapshot into our Entrant model.
-     *
+     * <p>
      * This method:
-     *  - Reads basic fields
-     *  - Uses 'safe()' to protect against nulls.
-     *  - Creates an Entrant instance (which implements User).
-     *
+     * - Reads basic fields
+     * - Uses 'safe()' to protect against nulls.
+     * - Creates an Entrant instance (which implements User).
+     * <p>
      * If the document doesn't exist, we return null to signal "no user".
      */
     private User docToUser(com.google.firebase.firestore.DocumentSnapshot doc) {
@@ -349,6 +367,7 @@ public class UserListView extends AppCompatActivity {
                 new ArrayList<>()
         );
     }
+
     /**
      * Small helper to convert null Strings into empty strings.
      * This avoids having to constantly do null checks in UI code
@@ -356,11 +375,12 @@ public class UserListView extends AppCompatActivity {
     static String safe(String s) {
         return s == null ? "" : s;
     }
+
     /**
      * Split a list into smaller lists of at most 'size' elements.
      * Example:
-     *  src = [a, b, c, d, e], size = 2
-     *  -> [[a, b], [c, d], [e]]
+     * src = [a, b, c, d, e], size = 2
+     * -> [[a, b], [c, d], [e]]
      * Useful because firestore whereIn() takes in at most 10 values
      */
 
@@ -382,7 +402,44 @@ public class UserListView extends AppCompatActivity {
         return id;
     }
 
-    private void downloadUserList(){
+
+    private void downloadUserList(ArrayList<User> userList) {
+//        https://stackoverflow.com/questions/27772011/how-to-export-data-to-csv-file-in-android
+//        https://stackoverflow.com/questions/64966826/android-storing-files-in-downloads
+        String filename = "users_in_" + listType + ".csv";
+
+        ContentValues contentValues = new ContentValues();
+        ContentResolver contentResolver = UserListView.this.getContentResolver();
+        contentValues.put(MediaStore.Downloads.DISPLAY_NAME, filename);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "text/csv");
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(downloadsDir, filename);
+
+        Uri uri = contentResolver.insert(MediaStore.Files.getContentUri("external"), contentValues);
+
+                // MUST CATCH EXCEPTIONS FOR DEPRECATED API
+        if (uri != null) {
+            try (OutputStream out = contentResolver.openOutputStream(uri)) {
+                if (out != null) {
+                    // Write header
+                    out.write("name,email,phoneNumber\n".getBytes());
+
+                    // Example rows
+                    for (User user : userList) {
+                        String row = user.getName() + "," + user.getEmail() + "," + user.getPhoneNumber() + "\n";
+                        out.write(row.getBytes());
+                    }
+
+                    out.flush();
+                    Toast.makeText(this, "CSV saved to Downloads", Toast.LENGTH_SHORT).show();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }
